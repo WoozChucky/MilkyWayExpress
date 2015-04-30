@@ -128,10 +128,7 @@ public class Game implements Serializable {
         }
         
         Console.endGame();
-        
-        
-        
-        //galaxy.print();
+
     }
     
     /**
