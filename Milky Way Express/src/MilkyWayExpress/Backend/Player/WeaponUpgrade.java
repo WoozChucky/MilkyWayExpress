@@ -42,9 +42,13 @@ public class WeaponUpgrade implements Serializable {
         this.upgraded = false;
     }
     
-    public void Upgrade(Spaceship sp)
+    public void Upgrade(Spaceship spaceship)
     {
-        
+        if(spaceship.Coins().getCount() >= this.cost && (spaceship.Coins().getCount() + this.cost) >= 0 && this.upgraded == false)
+        {
+            spaceship.Weapon().setLevel(this.level);
+            spaceship.Coins().setCount(spaceship.Coins().getCount() - this.cost);
+        }
     }
     
     public int getCost()

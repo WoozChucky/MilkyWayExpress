@@ -23,6 +23,7 @@
  */
 package MilkyWayExpress.Frontend;
 
+import MilkyWayExpress.Backend.Game;
 import java.util.Scanner;
 import java.io.File;
 
@@ -32,7 +33,8 @@ import java.io.File;
  */
 public interface Console {  
     
-    public static void clearConsole(){
+    public static void clearConsole()
+    {
         try
         {
             final String os = System.getProperty("os.name");
@@ -71,7 +73,9 @@ public interface Console {
         clearConsole();
         System.out.print("Insert name of save file.\n");
         System.out.print("\n[ACTION]: ");
-        String fname = scanner.nextLine().concat(".dat");
+        String fname = scanner.nextLine().concat(".mwe");
+        
+        
         
         f = new File(fname);
         if(f.exists() && !f.isDirectory()) 
@@ -81,6 +85,17 @@ public interface Console {
         else
             loadMenu();
         return "";
+    }
+    
+    public static String saveMenu()
+    {
+        Scanner scanner = new Scanner(System.in);
+        File f;
+        
+        clearConsole();
+        System.out.print("Insert name of save file.\n");
+        System.out.print("\n[ACTION]: ");
+        return scanner.nextLine().concat(".mwe");
     }
     
     public static int mainMenu()
@@ -113,9 +128,35 @@ public interface Console {
         return resp;
     }
     
-    public static void getAction()
+    public static char getAction()
     {
+        Scanner scanner = new Scanner(System.in);
         
+        System.out.print("\n\tChoose an action:\n\n");
+        System.out.print("s - Save Game\n");
+        System.out.print("q - Quit Game\n");
+        System.out.print("t - No Ideia\n");  
+        System.out.print("\n[ACTION]: ");
+
+        return scanner.findInLine(".").charAt(0);
+    }
+    
+    public static void showInfo(Game g)
+    {
+        System.out.print("\n\tPlayer Information\n\n");
+        System.out.print("Name               - " + g.Player().getName() + "\n");
+        System.out.print("Credits            - " + g.Player().Spaceship().Coins().getCount() + "\n"); 
+        System.out.print("Coordinates(X, Y)  - " + g.Player().Spaceship().Coordinates().getX() +", " + g.Player().Spaceship().Coordinates().getY() + "\n");
+        System.out.print("Cargo Level        - " + g.Player().Spaceship().Cargo().getLevel() + "\n");
+        System.out.print("Resource 1         - " + g.Player().Spaceship().Cargo().getResource01().getName() + "\n");
+        System.out.print("Resource 2         - " + g.Player().Spaceship().Cargo().getResource02().getName() + "\n");
+        if(g.Player().Spaceship().Cargo().isUnlocked())
+            System.out.print("Resource 3         - " + g.Player().Spaceship().Cargo().getResource03().getName() + "\n");
+        System.out.print("Weapon Level       - " + g.Player().Spaceship().Weapon().getLevel() + "\n");
+        
+        System.out.print("\n\nWorld Information\n\n");
+        System.out.print("Round              - " + g.getRound() + "\n");
+        System.out.print("Empire's Credit    -" + g.Coins().getCount()+"\n");
     }
     
     public static void endGame()

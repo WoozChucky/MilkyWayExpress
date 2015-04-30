@@ -28,6 +28,7 @@ import MilkyWayExpress.Backend.ResourcesF.Coin;
 import MilkyWayExpress.Backend.ResourcesF.Resources;
 import MilkyWayExpress.Backend.States.IStatus;
 import MilkyWayExpress.Frontend.Console;
+import MilkyWayExpress.Frontend.RenderEngine;
 import java.io.Serializable;
 
 /**
@@ -38,22 +39,65 @@ public class Game implements Serializable {
     
     private IStatus status;
     private Player player;
+    private final RenderEngine renderEngine;
     private final Galaxy galaxy;
     private final Resources coins;
+    private char action;
+    private int round;
     
-    public Game()
+    public Game(RenderEngine re)
     {
         galaxy = new Galaxy();
+        renderEngine = re;
         coins = new Coin();
-        coins.setCount(20);  
+        coins.setCount(20); 
+        round = 0;
     }
     
+    public Player Player()
+    {
+        return player;
+    }
+    public Galaxy Galaxy()
+    {
+        return galaxy;
+    }
+    public Resources Coins()
+    {
+        return coins;
+    }
+    public int getRound()
+    {
+        return round;
+    }
     public void play()
     {
         //Main cycle of game
         while(player.Spaceship().Coins().getCount() > 0)
         {
-            Console.getAction();
+            
+            Console.showInfo(this);
+            
+            action = Console.getAction();
+
+            System.out.println("\n\t- " + Character.getNumericValue(action) + "\n");
+            
+            switch(action)
+            {
+                
+                case 's':
+                    renderEngine.saveGame(Console.saveMenu());
+                    break;
+                case 'q':
+                    System.exit(0);
+                    break;
+                case 't':
+                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() - 1);
+                    break;
+                    
+            }
+            round++;
+            Console.clearConsole();
         }
         
         Console.endGame();

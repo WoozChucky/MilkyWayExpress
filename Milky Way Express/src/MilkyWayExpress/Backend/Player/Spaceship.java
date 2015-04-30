@@ -57,9 +57,6 @@ public class Spaceship implements Serializable {
         cp01 = new CargoUpgrade(3);
         cargo = new Cargo();
         weapon = new Weapon();
-        resource01 = new Empty();
-        resource02 = new Empty();
-        resource03 = new Empty();
         coins = new Coin();
         coins.setCount(10);
         

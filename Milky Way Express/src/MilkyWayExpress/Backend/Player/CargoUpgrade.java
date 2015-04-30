@@ -43,7 +43,7 @@ public class CargoUpgrade implements Serializable {
     
     public void Upgrade(Spaceship spaceship)
     {
-        if(spaceship.Coins().getCount() >= this.cost && (spaceship.Coins().getCount() + this.cost) >= 0)
+        if(spaceship.Coins().getCount() >= this.cost && (spaceship.Coins().getCount() + this.cost) >= 0 && this.upgraded == false)
         {
             spaceship.Cargo().unlockResource03();
             spaceship.Coins().setCount(spaceship.Coins().getCount() - this.cost);

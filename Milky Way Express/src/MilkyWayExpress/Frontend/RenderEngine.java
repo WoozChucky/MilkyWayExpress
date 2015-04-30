@@ -28,18 +28,24 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  *
  * @author woozlinux
  */
-public class RenderEngine {
+public class RenderEngine implements Serializable {
     
     private Game game;
     
     public RenderEngine()
     {
-        game = new Game();
+        game = new Game(this);
+    }
+    
+    public Game Game()
+    {
+        return game;
     }
     
     public void boot()
@@ -62,7 +68,6 @@ public class RenderEngine {
     public Game loadGame()
     {
         String savefile = Console.loadMenu();
-        if(savefile.contains(".dat")){
             try {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(savefile));
                 game = (Game)ois.readObject();
@@ -70,16 +75,14 @@ public class RenderEngine {
             } catch(Exception ex) {
                 ex.printStackTrace();
             }
-        }
         return game;
     }
     
     public void saveGame(String s)
     {
-        String sav = s.concat(".dat");
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(sav));
-            oos.writeObject(this);
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(s));
+            oos.writeObject(game);
             oos.close();
         } catch(Exception ex) {
             ex.printStackTrace();

@@ -30,5 +30,20 @@ import java.io.Serializable;
  * @author woozlinux
  */
 public class Weapon implements Serializable {
+    private int level;
+    
+    public Weapon()
+    {
+        level = 3;
+    }
+    
+    public int getLevel()
+    {
+        return level;
+    }
+    public void setLevel(int level)
+    {
+        this.level = level;
+    }
     
 }

@@ -34,6 +34,8 @@ public class Cargo implements Serializable {
     private Resources resource02;
     private Resources resource03;
     
+    private int level;
+    
     private boolean res03Unlocked;
     
     public Cargo()
@@ -42,7 +44,14 @@ public class Cargo implements Serializable {
         resource02 = new Empty();
         resource03 = null;
         
+        level = 2;
+        
         res03Unlocked = false;
+    }
+    
+    public int getLevel()
+    {
+        return level;
     }
     
     public Resources getResource01()
@@ -70,5 +79,6 @@ public class Cargo implements Serializable {
     {
         res03Unlocked = true;
         resource03 = new Empty();
+        level = 3;
     }
 }
