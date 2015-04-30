@@ -28,5 +28,34 @@ package MilkyWayExpress.Backend.ResourcesF;
  * @author woozlinux
  */
 public enum Resource {
-    FOOD, WATER, COIN, MEDICAL, ILLEGAL, EMPTY
+
+    /**
+     *
+     */
+    FOOD,
+
+    /**
+     *
+     */
+    WATER,
+
+    /**
+     *
+     */
+    COIN,
+
+    /**
+     *
+     */
+    MEDICAL,
+
+    /**
+     *
+     */
+    ILLEGAL,
+
+    /**
+     *
+     */
+    EMPTY
 }

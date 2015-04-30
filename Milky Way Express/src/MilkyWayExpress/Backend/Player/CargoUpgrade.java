@@ -34,6 +34,10 @@ public class CargoUpgrade implements Serializable {
     private int cost;
     private boolean upgraded;
     
+    /**
+     *
+     * @param level
+     */
     public CargoUpgrade(int level)
     {
         this.level = level;
@@ -41,6 +45,10 @@ public class CargoUpgrade implements Serializable {
         this.upgraded = false;
     }
     
+    /**
+     *
+     * @param spaceship
+     */
     public void Upgrade(Spaceship spaceship)
     {
         if(spaceship.Coins().getCount() >= this.cost && (spaceship.Coins().getCount() + this.cost) >= 0 && this.upgraded == false)

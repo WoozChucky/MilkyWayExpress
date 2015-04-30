@@ -49,6 +49,9 @@ public class Spaceship implements Serializable {
     private Resources resource03;
     private final Resources coins;
     
+    /**
+     *
+     */
     public Spaceship()
     {
         coords = new Coordinate(Constants.STARTCOL, Constants.STARTROW);
@@ -62,21 +65,37 @@ public class Spaceship implements Serializable {
         
     }
     
+    /**
+     *
+     * @return
+     */
     public Cargo Cargo()
     {
         return cargo;
     }
     
+    /**
+     *
+     * @return
+     */
     public Weapon Weapon()
     {
         return weapon;
     }
     
+    /**
+     *
+     * @return
+     */
     public Resources Coins()
     {
         return coins;
     }
     
+    /**
+     *
+     * @return
+     */
     public Coordinate Coordinates()
     {
         return coords;

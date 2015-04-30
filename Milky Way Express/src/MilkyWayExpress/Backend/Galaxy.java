@@ -30,11 +30,15 @@ import MilkyWayExpress.Backend.ResourcesF.Water;
 import MilkyWayExpress.Backend.ResourcesF.Food;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
- *
+ * .
+ * The galaxy class contains the grid of {@link Planet}
+ * and the manipulation of the game map, its resources
+ * and pirate spawns.
+ * @version 1.0
  * @author woozlinux
+ * 
  */
 public class Galaxy implements Serializable {
     
@@ -58,6 +62,9 @@ public class Galaxy implements Serializable {
     
     private final Planet[][] grid;
     
+    /**
+     *
+     */
     public Galaxy()
     {
         GETHEN = new Planet("Gethen", PlanetType.NONPIRATE);
@@ -102,6 +109,9 @@ public class Galaxy implements Serializable {
         };
     }
     
+    /**
+     *
+     */
     public void GenerateGalaxy()
     {
         ArrayList<Planet> temp = planets;
@@ -222,6 +232,9 @@ public class Galaxy implements Serializable {
         }  
     }
     
+    /**
+     *
+     */
     public void GenerateResources()
     {
         for(Planet p : planets)
@@ -268,16 +281,27 @@ public class Galaxy implements Serializable {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Planet[][] getGrid()
     {
         return this.grid;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Planet> getPlanets()
     {
         return planets;
     }
     
+    /**
+     *
+     */
     public void print()
     {
         System.out.println();

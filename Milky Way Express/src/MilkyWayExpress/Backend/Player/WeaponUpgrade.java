@@ -35,6 +35,10 @@ public class WeaponUpgrade implements Serializable {
     private int cost;
     private boolean upgraded;
     
+    /**
+     *
+     * @param level
+     */
     public WeaponUpgrade(int level)
     {
         this.level = level;
@@ -42,6 +46,10 @@ public class WeaponUpgrade implements Serializable {
         this.upgraded = false;
     }
     
+    /**
+     *
+     * @param spaceship
+     */
     public void Upgrade(Spaceship spaceship)
     {
         if(spaceship.Coins().getCount() >= this.cost && (spaceship.Coins().getCount() + this.cost) >= 0 && this.upgraded == false)
@@ -51,6 +59,10 @@ public class WeaponUpgrade implements Serializable {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public int getCost()
     {
         return cost;

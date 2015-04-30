@@ -38,16 +38,26 @@ public class RenderEngine implements Serializable {
     
     private Game game;
     
+    /**
+     *
+     */
     public RenderEngine()
     {
         game = new Game(this);
     }
     
+    /**
+     *
+     * @return
+     */
     public Game Game()
     {
         return game;
     }
     
+    /**
+     *
+     */
     public void boot()
     {
         switch(Console.mainMenu())
@@ -65,6 +75,10 @@ public class RenderEngine implements Serializable {
                 }
     }
     
+    /**
+     *
+     * @return
+     */
     public Game loadGame()
     {
         String savefile = Console.loadMenu();
@@ -78,6 +92,10 @@ public class RenderEngine implements Serializable {
         return game;
     }
     
+    /**
+     *
+     * @param s
+     */
     public void saveGame(String s)
     {
         try {

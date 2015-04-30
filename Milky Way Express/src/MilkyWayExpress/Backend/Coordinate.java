@@ -33,30 +33,57 @@ public class Coordinate implements Serializable {
     private int X;
     private int Y;
     
+    /**
+     *
+     * @param X
+     * @param Y
+     */
     public Coordinate(int X, int Y)
     {
         this.X = X;
         this.Y = Y;
     }
     
+    /**
+     *
+     * @return
+     */
     public Coordinate getCoodinates()
     {
         return this;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getX()
     {
         return X;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getY()
     {
         return Y;
     }
     
+    /**
+     *
+     * @param x
+     */
     public void setX(int x)
     {
         X = x;
     }
+
+    /**
+     *
+     * @param y
+     */
     public void setY(int y)
     {
         Y = y;

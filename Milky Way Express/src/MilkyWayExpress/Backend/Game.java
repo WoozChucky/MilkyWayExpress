@@ -45,6 +45,10 @@ public class Game implements Serializable {
     private char action;
     private int round;
     
+    /**
+     *
+     * @param re
+     */
     public Game(RenderEngine re)
     {
         galaxy = new Galaxy();
@@ -54,22 +58,45 @@ public class Game implements Serializable {
         round = 0;
     }
     
+    /**
+     *
+     * @return
+     */
     public Player Player()
     {
         return player;
     }
+
+    /**
+     *
+     * @return
+     */
     public Galaxy Galaxy()
     {
         return galaxy;
     }
+
+    /**
+     *
+     * @return
+     */
     public Resources Coins()
     {
         return coins;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getRound()
     {
         return round;
     }
+
+    /**
+     *
+     */
     public void play()
     {
         //Main cycle of game
@@ -107,6 +134,9 @@ public class Game implements Serializable {
         //galaxy.print();
     }
     
+    /**
+     *
+     */
     public void newGame()
     {
         galaxy.GenerateGalaxy();
@@ -115,6 +145,10 @@ public class Game implements Serializable {
         play();
     }
     
+    /**
+     *
+     * @return
+     */
     public IStatus getSatus() 
     {
         return status;

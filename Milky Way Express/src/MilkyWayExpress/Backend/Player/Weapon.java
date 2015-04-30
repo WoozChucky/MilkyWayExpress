@@ -32,15 +32,27 @@ import java.io.Serializable;
 public class Weapon implements Serializable {
     private int level;
     
+    /**
+     *
+     */
     public Weapon()
     {
         level = 3;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getLevel()
     {
         return level;
     }
+
+    /**
+     *
+     * @param level
+     */
     public void setLevel(int level)
     {
         this.level = level;

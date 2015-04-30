@@ -33,17 +33,29 @@ public class Player implements Serializable {
     private Spaceship spaceship;
     private String name;
     
+    /**
+     *
+     * @param name
+     */
     public Player(String name)
     {
         this.name = name;
         this.spaceship = new Spaceship();
     }
     
+    /**
+     *
+     * @return
+     */
     public Spaceship Spaceship()
     {
         return spaceship;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getName()
     {
         return name;

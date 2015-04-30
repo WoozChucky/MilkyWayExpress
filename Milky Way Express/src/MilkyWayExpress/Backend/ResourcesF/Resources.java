@@ -33,20 +33,71 @@ import java.io.Serializable;
 
 public abstract class Resources implements Serializable {
     
+    /**
+     *
+     */
     protected Resource resource;
+
+    /**
+     *
+     */
     protected int count;
+
+    /**
+     *
+     */
     protected String name;
+
+    /**
+     *
+     */
     protected BufferedImage img;
      
+    /**
+     *
+     * @param x
+     */
     public abstract void setCount(int x);
+
+    /**
+     *
+     * @return
+     */
     public abstract int getCount();
     
+    /**
+     *
+     * @return
+     */
     public abstract String getName();
+
+    /**
+     *
+     * @param x
+     */
     public abstract void setName(String x);
     
+    /**
+     *
+     * @return
+     */
     public abstract Resource getResource();
+
+    /**
+     *
+     * @param x
+     */
     public abstract void setResource(Resource x);
     
+    /**
+     *
+     * @param x
+     */
     public abstract void setImage(BufferedImage x);
+
+    /**
+     *
+     * @return
+     */
     public abstract BufferedImage getImage();
 }

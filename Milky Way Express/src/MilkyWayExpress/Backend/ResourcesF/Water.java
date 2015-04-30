@@ -32,6 +32,9 @@ import java.io.Serializable;
  */
 public class Water extends Resources implements Serializable {
     
+    /**
+     *
+     */
     public Water()
     {
         name = "Water";
@@ -40,44 +43,80 @@ public class Water extends Resources implements Serializable {
         img = null;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getName()
     {
         return name;
     }
+
+    /**
+     *
+     * @param x
+     */
     @Override
     public void setName(String x)
     {
         name = x;
     }
     
+    /**
+     *
+     * @param x
+     */
     @Override
     public void setCount(int x)
     {
         count = x;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public int getCount()
     {
         return count;
     }
     
+    /**
+     *
+     * @param x
+     */
     @Override
     public void setResource(Resource x)
     {
         resource = x;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public Resource getResource()
     {
         return resource;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public BufferedImage getImage()
     {
         return img;
     }
+
+    /**
+     *
+     * @param x
+     */
     @Override
     public void setImage(BufferedImage x)
     {

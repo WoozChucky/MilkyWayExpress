@@ -32,25 +32,50 @@ import MilkyWayExpress.Backend.Game;
 public class StatusAdpater implements IStatus {
     private Game game;
 
+    /**
+     *
+     * @param g
+     */
     public StatusAdpater(Game g) 
     {
         this.game = g;
     }
 
+    /**
+     *
+     * @return
+     */
     public Game getGame() 
     {
         return game;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     @Override
     public IStatus setPlayerName(String name){ return this;}
 
+    /**
+     *
+     * @return
+     */
     @Override
     public IStatus startGame(){ return this;}
 
+    /**
+     *
+     * @return
+     */
     @Override
     public IStatus play(){ return this;}
 
+    /**
+     *
+     * @return
+     */
     @Override
     public IStatus abandon(){ return this;}
 }

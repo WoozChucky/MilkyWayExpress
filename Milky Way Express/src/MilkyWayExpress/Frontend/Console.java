@@ -33,6 +33,9 @@ import java.io.File;
  */
 public interface Console {  
     
+    /**
+     *
+     */
     public static void clearConsole()
     {
         try
@@ -54,6 +57,10 @@ public interface Console {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public static String askPlayerName()
     {
         Scanner scanner = new Scanner(System.in);
@@ -65,6 +72,10 @@ public interface Console {
         return scanner.nextLine();
     }
     
+    /**
+     *
+     * @return
+     */
     public static String loadMenu()
     {
         Scanner scanner = new Scanner(System.in);
@@ -87,6 +98,10 @@ public interface Console {
         return "";
     }
     
+    /**
+     *
+     * @return
+     */
     public static String saveMenu()
     {
         Scanner scanner = new Scanner(System.in);
@@ -98,6 +113,10 @@ public interface Console {
         return scanner.nextLine().concat(".mwe");
     }
     
+    /**
+     *
+     * @return
+     */
     public static int mainMenu()
     {
         Scanner scanner = new Scanner(System.in);
@@ -128,6 +147,10 @@ public interface Console {
         return resp;
     }
     
+    /**
+     *
+     * @return
+     */
     public static char getAction()
     {
         Scanner scanner = new Scanner(System.in);
@@ -141,6 +164,10 @@ public interface Console {
         return scanner.findInLine(".").charAt(0);
     }
     
+    /**
+     *
+     * @param g
+     */
     public static void showInfo(Game g)
     {
         System.out.print("\n\tPlayer Information\n\n");
@@ -159,6 +186,9 @@ public interface Console {
         System.out.print("Empire's Credit    -" + g.Coins().getCount()+"\n");
     }
     
+    /**
+     *
+     */
     public static void endGame()
     {
         clearConsole();

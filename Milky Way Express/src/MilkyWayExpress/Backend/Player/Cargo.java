@@ -38,6 +38,9 @@ public class Cargo implements Serializable {
     
     private boolean res03Unlocked;
     
+    /**
+     *
+     */
     public Cargo()
     {
         resource01 = new Empty();
@@ -49,24 +52,46 @@ public class Cargo implements Serializable {
         res03Unlocked = false;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getLevel()
     {
         return level;
     }
     
+    /**
+     *
+     * @return
+     */
     public Resources getResource01()
     {
         return resource01;
     }
+
+    /**
+     *
+     * @return
+     */
     public Resources getResource02()
     {
         return resource02;
     }
+
+    /**
+     *
+     * @return
+     */
     public Resources getResource03()
     {
         return resource03;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isUnlocked()
     {
         if(resource03 == null)
@@ -75,6 +100,9 @@ public class Cargo implements Serializable {
             return res03Unlocked;
     }
     
+    /**
+     *
+     */
     public void unlockResource03()
     {
         res03Unlocked = true;

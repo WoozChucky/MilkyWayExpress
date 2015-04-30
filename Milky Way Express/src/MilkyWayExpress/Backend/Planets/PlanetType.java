@@ -28,5 +28,19 @@ package MilkyWayExpress.Backend.Planets;
  * @author woozlinux
  */
 public enum PlanetType {
-    NONPIRATE, PIRATE, WORMHOLE
+
+    /**
+     *
+     */
+    NONPIRATE,
+
+    /**
+     *
+     */
+    PIRATE,
+
+    /**
+     *
+     */
+    WORMHOLE
 }

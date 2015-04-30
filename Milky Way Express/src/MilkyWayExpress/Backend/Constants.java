@@ -30,12 +30,33 @@ import java.util.Random;
  * @author woozlinux
  */
 public interface Constants {
+
+    /**
+     *
+     */
     public static final int COLS = 8;
+
+    /**
+     *
+     */
     public static final int ROWS = 6;
     
+    /**
+     *
+     */
     public static final int STARTCOL = 8;
+
+    /**
+     *
+     */
     public static final int STARTROW = 0;
     
+    /**
+     *
+     * @param min
+     * @param max
+     * @return
+     */
     public static int randInt(int min, int max) {
 
     // NOTE: Usually this should be a field rather than a method

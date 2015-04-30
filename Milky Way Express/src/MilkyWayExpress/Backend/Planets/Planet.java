@@ -41,42 +41,91 @@ public class Planet implements Serializable {
     private int CostResource03; //Medical
     private int CostResource04; //Illegal
     
+    /**
+     *
+     * @param r
+     */
     public void setResource01(Resources r)
     {
         resource1 = r;
     }
+
+    /**
+     *
+     * @param r
+     */
     public void setResource02(Resources r)
     {
         resource2 = r;
     }
+
+    /**
+     *
+     * @return
+     */
     public Resources getResource01()
     {
         return resource1;
     }
+
+    /**
+     *
+     * @return
+     */
     public Resources getResource02()
     {
         return resource2;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getPlanetName()
     {
         return name;
     }
+
+    /**
+     *
+     * @return
+     */
     public PlanetType getPlanetType()
     {
         return type;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getResourceCost01()
     {
         return CostResource01;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getResourceCost02()
     {
         return CostResource02;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getResourceCost03()
     {
         return CostResource03;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getResourceCost04()
     {
         return CostResource04;
@@ -105,6 +154,11 @@ public class Planet implements Serializable {
         return hash;
     }
     
+    /**
+     *
+     * @param n
+     * @param t
+     */
     public Planet(String n, PlanetType t)
     {
         this.type = t;

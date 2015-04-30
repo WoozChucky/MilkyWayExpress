@@ -30,9 +30,29 @@ import java.io.Serializable;
  */
 public interface IStatus extends Serializable {
     
-   IStatus setPlayerName(String name);
-   IStatus startGame();
-   IStatus play();
-   IStatus abandon();
+    /**
+     *
+     * @param name
+     * @return
+     */
+    IStatus setPlayerName(String name);
+
+    /**
+     *
+     * @return
+     */
+    IStatus startGame();
+
+    /**
+     *
+     * @return
+     */
+    IStatus play();
+
+    /**
+     *
+     * @return
+     */
+    IStatus abandon();
    
 }
