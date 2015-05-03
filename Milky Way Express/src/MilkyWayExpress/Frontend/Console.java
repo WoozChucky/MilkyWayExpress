@@ -23,7 +23,9 @@
  */
 package MilkyWayExpress.Frontend;
 
+import MilkyWayExpress.Backend.Galaxy;
 import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.States.IState;
 import java.util.Scanner;
 import java.io.File;
 
@@ -36,6 +38,33 @@ public interface Console {
     /**
      *
      */
+    
+    public static void printStateInfo(IState state)
+    {
+        switch(state.getName())
+        {
+            case "MainMenu":
+                clearConsole();
+                System.out.print("\n\n\tMilky Way Express\n\n");
+
+                System.out.print("\tChoose an action:\n\n");
+                System.out.print("N - New Game\n");
+                System.out.print("L - Load Game\n");
+                System.out.print("O - Options\n");
+                System.out.print("E - Exit\n");
+                System.out.print("\n[ACTION]: ");
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    public static void drawGalaxy(Galaxy galaxy)
+    {
+        
+    }
+    
     public static void clearConsole()
     {
         try

@@ -26,10 +26,12 @@ package MilkyWayExpress.Backend;
 import MilkyWayExpress.Backend.Player.Player;
 import MilkyWayExpress.Backend.ResourcesF.Coin;
 import MilkyWayExpress.Backend.ResourcesF.Resources;
-import MilkyWayExpress.Backend.States.IStatus;
+import MilkyWayExpress.Backend.States.IState;
+import MilkyWayExpress.Backend.States.MainMenu;
 import MilkyWayExpress.Frontend.Console;
 import MilkyWayExpress.Frontend.RenderEngine;
 import java.io.Serializable;
+import java.util.Scanner;
 
 /**
  *
@@ -37,7 +39,8 @@ import java.io.Serializable;
  */
 public class Game implements Serializable {
     
-    private IStatus status;
+    protected IState state;
+    
     private Player player;
     private final RenderEngine renderEngine;
     private final Galaxy galaxy;
@@ -56,6 +59,7 @@ public class Game implements Serializable {
         coins = new Coin();
         coins.setCount(20); 
         round = 0;
+        state = new MainMenu(this);
     }
     
     /**
@@ -93,6 +97,45 @@ public class Game implements Serializable {
     {
         return round;
     }
+    
+    public IState askUserStateOption(IState state)
+    {
+        
+        Scanner s = new Scanner(System.in);
+        char c;                
+        String option;
+                
+        while(true){
+            
+            Console.printStateInfo(state);
+            
+            option = s.next().toUpperCase();
+
+            if(option.length() >= 1){
+                c = option.charAt(0);
+            }else{
+                c = ' ';
+            }
+            
+            switch(state.getName())
+            {
+                case "MainMenu":
+                        switch(c){
+                            case 'N':
+                                return state.newGame();
+                            case 'L':
+                                return state.loadGame();
+                            case 'O': 
+                                return state.options();
+                            case 'E': 
+                                System.exit(0);
+                            default: 
+                                break;
+                        } 
+                    break;
+            }
+        }
+    }
 
     /**
      *
@@ -100,11 +143,17 @@ public class Game implements Serializable {
     public void play()
     {
         //Main cycle of game
-        while(player.Spaceship().Coins().getCount() > 0)
+        while(this.getState() != null)
         {
             
-            Console.showInfo(this);
+            // != null && player.Spaceship().Coins().getCount() > 0
             
+            //Console.showInfo(this);
+            
+            this.setState(this.askUserStateOption(this.getState()));
+            
+            
+            /*
             action = Console.getAction();
 
             System.out.println("\n\t- " + Character.getNumericValue(action) + "\n");
@@ -123,7 +172,7 @@ public class Game implements Serializable {
                     break;
                     
             }
-            round++;
+            round++; */
             Console.clearConsole();
         }
         
@@ -142,12 +191,22 @@ public class Game implements Serializable {
         play();
     }
     
+    public void setPlayer(Player player)
+    {
+        this.player = player;
+    }
+    
     /**
      *
      * @return
      */
-    public IStatus getSatus() 
+    public IState getState() 
     {
-        return status;
+        return state;
+    }
+    
+    public void setState(IState state)
+    {
+        this.state = state;
     }
 }

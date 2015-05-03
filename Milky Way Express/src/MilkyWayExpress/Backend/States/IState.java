@@ -23,59 +23,19 @@
  */
 package MilkyWayExpress.Backend.States;
 
-import MilkyWayExpress.Backend.Game;
-
+import java.io.Serializable;
 /**
  *
  * @author woozlinux
  */
-public class StatusAdpater implements IStatus {
-    private Game game;
-
-    /**
-     *
-     * @param g
-     */
-    public StatusAdpater(Game g) 
-    {
-        this.game = g;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Game getGame() 
-    {
-        return game;
-    }
-
-    /**
-     *
-     * @param name
-     * @return
-     */
-    @Override
-    public IStatus setPlayerName(String name){ return this;}
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public IStatus startGame(){ return this;}
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public IStatus play(){ return this;}
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public IStatus abandon(){ return this;}
+public interface IState extends Serializable { 
+    
+    public IState mainMenu();
+    public IState newGame();
+    public IState loadGame();
+    public IState options();
+    public IState movement();
+    
+    public String getName();
+   
 }

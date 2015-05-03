@@ -26,9 +26,15 @@ package MilkyWayExpress.Frontend;
 import MilkyWayExpress.Backend.Game;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
@@ -37,6 +43,22 @@ import java.io.Serializable;
 public class RenderEngine implements Serializable {
     
     private Game game;
+    
+    public synchronized void playSound(final String url) {
+    new Thread(new Runnable() {
+      public void run() {
+        try {
+          Clip clip = AudioSystem.getClip();
+          AudioInputStream inputStream = AudioSystem.getAudioInputStream(Game.class.getResourceAsStream(url));
+          clip.loop(3);
+          clip.open(inputStream);
+          clip.start(); 
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+          System.err.println(e.getMessage());
+        }
+      }
+    }).start();
+    }
     
     /**
      *
@@ -60,6 +82,8 @@ public class RenderEngine implements Serializable {
      */
     public void boot()
     {
+        game.play();
+        
         switch(Console.mainMenu())
                 {
                     case 1:
