@@ -13,7 +13,7 @@ import MilkyWayExpress.Frontend.Console;
  *
  * @author woozlinux
  */
-public class NewGame implements IState {
+public final class NewGame implements IState {
     private final String stateName = "NewGame";
     
     Game game;
@@ -42,6 +42,17 @@ public class NewGame implements IState {
     public IState loadGame()
     {
         return new LoadGame(game);
+    }
+    @Override
+    public IState saveGame()
+    {
+        return new SaveGame(game);
+    }
+    
+    @Override
+    public IState move()
+    {
+        return new Move(game);
     }
     
     @Override

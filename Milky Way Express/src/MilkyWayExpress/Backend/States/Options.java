@@ -24,7 +24,7 @@ public class Options implements IState {
     @Override
     public IState mainMenu()
     {
-        return this;
+        return new MainMenu(game);
     }
     
     @Override
@@ -37,6 +37,18 @@ public class Options implements IState {
     public IState loadGame()
     {
         return new LoadGame(game);
+    }
+    
+    @Override
+    public IState saveGame()
+    {
+        return new SaveGame(game);
+    }
+    
+    @Override
+    public IState move()
+    {
+        return new Move(game);
     }
     
     @Override

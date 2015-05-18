@@ -6,6 +6,9 @@
 package MilkyWayExpress.Backend.States;
 
 import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Frontend.Console;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 /**
  *
@@ -19,6 +22,15 @@ public class LoadGame implements IState {
     public LoadGame(Game g)
     {
         game = g;
+        
+        String savefile = Console.loadMenu();
+            try {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(savefile));
+                game = (Game)ois.readObject();
+                ois.close();
+            } catch(Exception ex) {
+                ex.printStackTrace();
+            }
     }
     
     @Override
@@ -43,6 +55,18 @@ public class LoadGame implements IState {
     public IState options()
     {
         return new Options(game);
+    }
+    
+    @Override
+    public IState saveGame()
+    {
+        return new SaveGame(game);
+    }
+    
+    @Override
+    public IState move()
+    {
+        return new Move(game);
     }
     
     @Override

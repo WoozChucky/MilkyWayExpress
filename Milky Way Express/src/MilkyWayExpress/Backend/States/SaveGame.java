@@ -7,21 +7,28 @@ package MilkyWayExpress.Backend.States;
 
 import MilkyWayExpress.Backend.Game;
 import MilkyWayExpress.Frontend.Console;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 /**
  *
  * @author woozlinux
  */
-public class Movement implements IState {
-    private final String stateName = "Movement";
+public class SaveGame implements IState {
+    private final String stateName = "SaveGame";
     
     Game game;
     
-    public Movement(Game g)
+    public SaveGame(Game g)
     {
         game = g;
-        Console.drawGalaxy(game);
-        Console.showInfo(game);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Console.saveMenu()));
+            oos.writeObject(game);
+            oos.close();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
     @Override
@@ -41,10 +48,11 @@ public class Movement implements IState {
     {
         return new LoadGame(game);
     }
+    
     @Override
     public IState saveGame()
     {
-        return new SaveGame(game);
+        return this;
     }
     
     @Override
@@ -54,15 +62,15 @@ public class Movement implements IState {
     }
     
     @Override
-    public IState movement()
-    {
-        return this;
-    }
-    
-    @Override
     public IState options()
     {
         return new Options(game);
+    }
+    
+    @Override
+    public IState movement()
+    {
+        return new Movement(game);
     }
     
     @Override

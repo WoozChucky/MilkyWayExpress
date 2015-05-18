@@ -35,7 +35,7 @@ import java.io.Serializable;
  * @author woozlinux
  */
 public class Spaceship implements Serializable {
-    private Coordinate coords;
+    private final Coordinate coords;
     
     private final WeaponUpgrade wp01;
     private final WeaponUpgrade wp02;

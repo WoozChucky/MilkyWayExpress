@@ -133,6 +133,21 @@ public class Game implements Serializable {
                                 break;
                         } 
                     break;
+                case "Movement":
+                    System.out.print("no switch do movement\n");
+                    switch(c){
+                            case 'M':
+                                return state.move();
+                            case 'S':
+                                return state.saveGame();
+                            case 'O': 
+                                return state.options();
+                            case 'E': 
+                                System.exit(0);
+                            default: 
+                                break;
+                        } 
+                    break;
             }
         }
     }
@@ -144,15 +159,9 @@ public class Game implements Serializable {
     {
         //Main cycle of game
         while(this.getState() != null)
-        {
-            
-            // != null && player.Spaceship().Coins().getCount() > 0
-            
-            //Console.showInfo(this);
-            
+        {     
             this.setState(this.askUserStateOption(this.getState()));
-            
-            
+
             /*
             action = Console.getAction();
 

@@ -67,36 +67,13 @@ public class RenderEngine implements Serializable {
     {
         game = new Game(this);
     }
-    
-    /**
-     *
-     * @return
-     */
-    public Game Game()
-    {
-        return game;
-    }
-    
+        
     /**
      *
      */
     public void boot()
     {
         game.play();
-        
-        switch(Console.mainMenu())
-                {
-                    case 1:
-                        game.newGame();
-                        break;
-                    case 2:
-                        game = loadGame();
-                        game.play();
-                        break;
-                    case 3:
-                        System.exit(0);
-                        break;
-                }
     }
     
     /**

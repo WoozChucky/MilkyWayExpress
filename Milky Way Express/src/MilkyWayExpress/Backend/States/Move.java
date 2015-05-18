@@ -6,22 +6,19 @@
 package MilkyWayExpress.Backend.States;
 
 import MilkyWayExpress.Backend.Game;
-import MilkyWayExpress.Frontend.Console;
 
 /**
  *
  * @author woozlinux
  */
-public class Movement implements IState {
-    private final String stateName = "Movement";
+public class Move implements IState {
+    private final String stateName = "Move";
     
     Game game;
     
-    public Movement(Game g)
+    public Move(Game g)
     {
         game = g;
-        Console.drawGalaxy(game);
-        Console.showInfo(game);
     }
     
     @Override
@@ -41,6 +38,7 @@ public class Movement implements IState {
     {
         return new LoadGame(game);
     }
+    
     @Override
     public IState saveGame()
     {
@@ -54,15 +52,15 @@ public class Movement implements IState {
     }
     
     @Override
-    public IState movement()
-    {
-        return this;
-    }
-    
-    @Override
     public IState options()
     {
         return new Options(game);
+    }
+    
+    @Override
+    public IState movement()
+    {
+        return new Movement(game);
     }
     
     @Override

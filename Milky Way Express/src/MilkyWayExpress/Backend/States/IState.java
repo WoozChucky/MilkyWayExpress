@@ -33,8 +33,10 @@ public interface IState extends Serializable {
     public IState mainMenu();
     public IState newGame();
     public IState loadGame();
+    public IState saveGame();
     public IState options();
     public IState movement();
+    public IState move();
     
     public String getName();
    

@@ -52,6 +52,18 @@ public class MainMenu implements IState {
     }
     
     @Override
+    public IState saveGame()
+    {
+        return new SaveGame(game);
+    }
+    
+    @Override
+    public IState move()
+    {
+        return new Move(game);
+    }
+    
+    @Override
     public String getName()
     {
         return stateName;

@@ -23,8 +23,10 @@
  */
 package MilkyWayExpress.Frontend;
 
+import MilkyWayExpress.Backend.Constants;
 import MilkyWayExpress.Backend.Galaxy;
 import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.Planets.Planet;
 import MilkyWayExpress.Backend.States.IState;
 import java.util.Scanner;
 import java.io.File;
@@ -37,6 +39,7 @@ public interface Console {
     
     /**
      *
+     * @param state
      */
     
     public static void printStateInfo(IState state)
@@ -55,14 +58,36 @@ public interface Console {
                 System.out.print("\n[ACTION]: ");
                 break;
                 
+            case "Movement":
+                System.out.print("\n\tPossible Actions:\n\n");
+                System.out.print("M - Move\n");
+                System.out.print("S - Save Game\n");
+                System.out.print("O - Options\n");
+                System.out.print("E - Exit\n");
+                System.out.print("\n[ACTION]: ");
+                break;
             default:
                 break;
         }
     }
     
-    public static void drawGalaxy(Galaxy galaxy)
+    public static void drawGalaxy(Game game)
     {
+        Planet[][] temp = game.Galaxy().getGrid();
         
+        for(int r = 0; r <= Constants.ROWS; r++)
+        {
+            for(int c = 0; c <= Constants.COLS; c++)
+            {
+                //Draw spaceship position @ galaxy
+                if(game.Player().Spaceship().Coordinates().getX() == c && game.Player().Spaceship().Coordinates().getY() == r)
+                    System.out.print(" | " + temp[r][c].getPlanetName() + " * ");
+                else
+                    System.out.print(" | " + temp[r][c].getPlanetName());
+            }
+            System.out.println();
+        }
+
     }
     
     public static void clearConsole()

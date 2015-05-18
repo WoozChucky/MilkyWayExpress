@@ -296,7 +296,7 @@ public class Galaxy implements Serializable {
      */
     public ArrayList<Planet> getPlanets()
     {
-        return planets;
+        return this.planets;
     }
     
     /**

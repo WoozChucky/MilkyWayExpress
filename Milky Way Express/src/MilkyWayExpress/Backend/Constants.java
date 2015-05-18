@@ -44,12 +44,12 @@ public interface Constants {
     /**
      *
      */
-    public static final int STARTCOL = 8;
+    public static final int STARTCOL = 0;
 
     /**
      *
      */
-    public static final int STARTROW = 0;
+    public static final int STARTROW = 6;
     
     /**
      *
