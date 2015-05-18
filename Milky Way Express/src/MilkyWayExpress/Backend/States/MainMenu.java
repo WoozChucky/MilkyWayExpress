@@ -11,14 +11,14 @@ import MilkyWayExpress.Backend.Game;
  *
  * @author woozlinux
  */
-public class MainMenu implements IState {
+public final class MainMenu extends IState {
     private final String stateName = "MainMenu";
-    
-    Game game;
+
     
     public MainMenu(Game g)
     {
-        game = g;
+        super(g);
+        System.out.println("@ State - " + this.getName());
     }
     
     @Override
@@ -30,37 +30,37 @@ public class MainMenu implements IState {
     @Override
     public IState newGame()
     {
-        return new NewGame(game);
+        return this;
     }
     
     @Override
     public IState options()
     {
-        return new Options(game);
+        return this;
     }
     
     @Override
     public IState movement()
     {
-        return new Movement(game);
+        return this;
     }
     
     @Override
     public IState loadGame()
     {
-        return new LoadGame(game);
+        return this;
     }
     
     @Override
     public IState saveGame()
     {
-        return new SaveGame(game);
+        return this;
     }
     
     @Override
     public IState move()
     {
-        return new Move(game);
+        return this;
     }
     
     @Override

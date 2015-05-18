@@ -28,16 +28,19 @@ import MilkyWayExpress.Backend.ResourcesF.Coin;
 import MilkyWayExpress.Backend.ResourcesF.Resources;
 import MilkyWayExpress.Backend.States.IState;
 import MilkyWayExpress.Backend.States.MainMenu;
+import MilkyWayExpress.Backend.States.Movement;
+import MilkyWayExpress.Backend.States.NewGame;
 import MilkyWayExpress.Frontend.Console;
 import MilkyWayExpress.Frontend.RenderEngine;
 import java.io.Serializable;
+import java.util.Observable;
 import java.util.Scanner;
 
 /**
  *
  * @author woozlinux
  */
-public class Game implements Serializable {
+public class Game extends Observable implements Serializable {
     
     protected IState state;
     
@@ -59,7 +62,7 @@ public class Game implements Serializable {
         coins = new Coin();
         coins.setCount(20); 
         round = 0;
-        state = new MainMenu(this);
+        setState(new MainMenu(this));
     }
     
     /**
@@ -98,6 +101,13 @@ public class Game implements Serializable {
         return round;
     }
     
+    private void setState(IState state) 
+    {
+        this.state = state;
+        setChanged();
+        notifyObservers();
+    }
+    
     public IState askUserStateOption(IState state)
     {
         
@@ -122,7 +132,7 @@ public class Game implements Serializable {
                 case "MainMenu":
                         switch(c){
                             case 'N':
-                                return state.newGame();
+                                setState(new NewGame(this));
                             case 'L':
                                 return state.loadGame();
                             case 'O': 
@@ -133,6 +143,8 @@ public class Game implements Serializable {
                                 break;
                         } 
                     break;
+                case "NewGame":
+                    setState(new Movement(this));;;;;;
                 case "Movement":
                     System.out.print("no switch do movement\n");
                     switch(c){
@@ -160,6 +172,9 @@ public class Game implements Serializable {
         //Main cycle of game
         while(this.getState() != null)
         {     
+            
+            System.out.println("@ State - " + state.getName());
+            
             this.setState(this.askUserStateOption(this.getState()));
 
             /*
@@ -212,10 +227,5 @@ public class Game implements Serializable {
     public IState getState() 
     {
         return state;
-    }
-    
-    public void setState(IState state)
-    {
-        this.state = state;
     }
 }

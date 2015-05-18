@@ -13,23 +13,23 @@ import MilkyWayExpress.Frontend.Console;
  *
  * @author woozlinux
  */
-public final class NewGame implements IState {
+public final class NewGame extends IState {
     private final String stateName = "NewGame";
-    
-    Game game;
-    
+     
     public NewGame(Game g)
     {
-        game = g;
-        game.Galaxy().GenerateGalaxy();
-        game.setPlayer(new Player(Console.askPlayerName()));
+        super(g);
+        getGame().Galaxy().GenerateGalaxy();
+        getGame().setPlayer(new Player(Console.askPlayerName()));
+        
+        System.out.println("@ State - " + this.getName());
         movement();
     }
     
     @Override
     public IState mainMenu()
     {
-        return new MainMenu(game);
+        return this;
     }
     
     @Override
@@ -41,30 +41,30 @@ public final class NewGame implements IState {
     @Override
     public IState loadGame()
     {
-        return new LoadGame(game);
+        return this;
     }
     @Override
     public IState saveGame()
     {
-        return new SaveGame(game);
+        return this;
     }
     
     @Override
     public IState move()
     {
-        return new Move(game);
+        return this;
     }
     
     @Override
     public IState movement()
     {
-        return new Movement(game);
+        return new Movement(getGame());
     }
     
     @Override
     public IState options()
     {
-        return new Options(game);
+        return this;
     }
     
     @Override

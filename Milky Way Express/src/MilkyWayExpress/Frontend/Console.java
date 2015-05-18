@@ -47,9 +47,7 @@ public interface Console {
         switch(state.getName())
         {
             case "MainMenu":
-                clearConsole();
                 System.out.print("\n\n\tMilky Way Express\n\n");
-
                 System.out.print("\tChoose an action:\n\n");
                 System.out.print("N - New Game\n");
                 System.out.print("L - Load Game\n");
@@ -57,7 +55,9 @@ public interface Console {
                 System.out.print("E - Exit\n");
                 System.out.print("\n[ACTION]: ");
                 break;
-                
+            case "NewGame":
+                System.out.print("\nEntrou no new game");
+                break;
             case "Movement":
                 System.out.print("\n\tPossible Actions:\n\n");
                 System.out.print("M - Move\n");
@@ -66,7 +66,9 @@ public interface Console {
                 System.out.print("E - Exit\n");
                 System.out.print("\n[ACTION]: ");
                 break;
-            default:
+            case "Move":
+                System.out.print("\n\tEnter the Coordinates (X, Y):\n\n");
+                System.out.print("\n[ACTION]: ");
                 break;
         }
     }

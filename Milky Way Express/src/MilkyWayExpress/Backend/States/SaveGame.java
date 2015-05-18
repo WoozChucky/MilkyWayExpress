@@ -14,41 +14,42 @@ import java.io.ObjectOutputStream;
  *
  * @author woozlinux
  */
-public class SaveGame implements IState {
+public final class SaveGame extends IState {
     private final String stateName = "SaveGame";
-    
-    Game game;
+
     
     public SaveGame(Game g)
     {
-        game = g;
+        super(g);
+        
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Console.saveMenu()));
-            oos.writeObject(game);
+            oos.writeObject(getGame());
             oos.close();
         } catch(Exception ex) {
             ex.printStackTrace();
         }
+        
+        movement();
     }
     
     @Override
     public IState mainMenu()
     {
-        return new MainMenu(game);
+        return this;
     }
     
     @Override
     public IState newGame()
     {
-        return new NewGame(game);
+        return this;
     }
     
     @Override
     public IState loadGame()
     {
-        return new LoadGame(game);
+        return this;
     }
-    
     @Override
     public IState saveGame()
     {
@@ -58,19 +59,19 @@ public class SaveGame implements IState {
     @Override
     public IState move()
     {
-        return new Move(game);
-    }
-    
-    @Override
-    public IState options()
-    {
-        return new Options(game);
+        return this;
     }
     
     @Override
     public IState movement()
     {
-        return new Movement(game);
+        return new Movement(getGame());
+    }
+    
+    @Override
+    public IState options()
+    {
+        return this;
     }
     
     @Override

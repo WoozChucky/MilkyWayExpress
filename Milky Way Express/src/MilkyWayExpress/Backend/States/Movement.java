@@ -7,50 +7,81 @@ package MilkyWayExpress.Backend.States;
 
 import MilkyWayExpress.Backend.Game;
 import MilkyWayExpress.Frontend.Console;
+import java.util.Scanner;
 
 /**
  *
  * @author woozlinux
  */
-public class Movement implements IState {
+public final class Movement extends IState {
     private final String stateName = "Movement";
-    
-    Game game;
+
     
     public Movement(Game g)
     {
-        game = g;
-        Console.drawGalaxy(game);
-        Console.showInfo(game);
+        super(g);
+        Console.drawGalaxy(getGame());
+        Console.showInfo(getGame());
+        Console.printStateInfo(this);
+        
+        System.out.println("@ State - " + this.getName());
+        
+        Scanner s = new Scanner(System.in);
+        char c;                
+        String option;
+ 
+        while(true){
+            option = s.next().toUpperCase();
+
+            if(option.length() >= 1){
+                c = option.charAt(0);
+            }else{
+                c = ' ';
+            }
+
+            switch(c){
+                case 'M':
+                    move();
+                case 'S':
+                    saveGame();
+                case 'O': 
+                    options();
+                case 'E': 
+                    System.exit(0);
+                default: 
+                    break;
+            } 
+        }
+       
     }
     
     @Override
     public IState mainMenu()
     {
-        return new MainMenu(game);
+        return this;
     }
     
     @Override
     public IState newGame()
     {
-        return new NewGame(game);
+        return this;
     }
     
     @Override
     public IState loadGame()
     {
-        return new LoadGame(game);
+        return this;
     }
     @Override
     public IState saveGame()
     {
-        return new SaveGame(game);
+        return new SaveGame(getGame());
     }
     
     @Override
     public IState move()
     {
-        return new Move(game);
+        return new Move(getGame());
     }
     
     @Override
@@ -62,7 +93,7 @@ public class Movement implements IState {
     @Override
     public IState options()
     {
-        return new Options(game);
+        return this;
     }
     
     @Override
