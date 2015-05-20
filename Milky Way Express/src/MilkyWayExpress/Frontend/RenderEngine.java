@@ -24,6 +24,8 @@
 package MilkyWayExpress.Frontend;
 
 import MilkyWayExpress.Backend.Game;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,6 +37,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -43,6 +47,51 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class RenderEngine implements Serializable {
     
     private Game game;
+    
+    public static void centerScreen(JFrame f)
+    {
+        // Get the size of the screen
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        // Determine the new location of the window
+        int w = f.getSize().width;
+        int h = f.getSize().height;
+        int x = (dim.width-w)/2;
+        int y = (dim.height-h)/2;
+
+        // Move the window
+        f.setLocation(x, y);
+    }
+    
+    public static void openForm(JFrame current, JFrame next)
+    {
+        current.dispose();
+        next.setVisible(true);
+    }
+    
+    public static void openForm(JFrame current, JFrame next, boolean fullscreen)
+    {
+        current.dispose();
+        next.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        next.setVisible(true);
+    }
+    
+    public static void showGameInfo(Game g, JLabel name, JLabel credits, JLabel coordinates, JLabel cargolevel, JLabel res1, JLabel res2, JLabel res3, JLabel weaponlevel)
+    {
+        name.setText("Name - " + g.Player().getName());
+        credits.setText("Credits - " + g.Player().Spaceship().Coins().getCount()); 
+        coordinates.setText("Coordinates(X, Y) - " + g.Player().Spaceship().Coordinates().getX() +", " + g.Player().Spaceship().Coordinates().getY());
+        cargolevel.setText("Cargo Level - " + g.Player().Spaceship().Cargo().getLevel());
+        res1.setText("Resource 1 - " + g.Player().Spaceship().Cargo().getResource01().getName());
+        res2.setText("Resource 2 - " + g.Player().Spaceship().Cargo().getResource02().getName());
+        if(g.Player().Spaceship().Cargo().isUnlocked())
+            res3.setText("Resource 3 - " + g.Player().Spaceship().Cargo().getResource03().getName());
+        else
+            res3.setText("Resource 3 - Locked");
+        weaponlevel.setText("Weapon Level - " + g.Player().Spaceship().Weapon().getLevel());
+        
+
+    }
     
     public synchronized void playSound(final String url) {
     new Thread(new Runnable() {
@@ -59,15 +108,7 @@ public class RenderEngine implements Serializable {
       }
     }).start();
     }
-    
-    /**
-     *
-     */
-    public RenderEngine()
-    {
-        game = new Game(this);
-    }
-        
+
     /**
      *
      */

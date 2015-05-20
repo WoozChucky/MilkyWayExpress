@@ -23,21 +23,21 @@
  */
 package MilkyWayExpress.Frontend;
 
-import java.io.File;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import MilkyWayExpress.Backend.Game;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author woozlinux
  */
-public class MainMenu extends javax.swing.JFrame {
+public class NewGameMenu extends javax.swing.JFrame {
+
+    Game game;
     
     /**
-     * Creates new form MainMenu
+     * Creates new form NewGameMenu
      */
-    public MainMenu() {
+    public NewGameMenu() {
         initComponents();
     }
 
@@ -52,76 +52,91 @@ public class MainMenu extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Milky Way Express");
-        setPreferredSize(new java.awt.Dimension(751, 750));
-        setResizable(false);
+        setTitle("New Game");
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                NewGameMenu.this.windowOpened(evt);
+            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
-                windowsActivated(evt);
+                formWindowActivated(evt);
             }
         });
-        getContentPane().setLayout(null);
 
-        jButton1.setText("New Game");
+        jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(300, 300, 130, 60);
 
-        jButton2.setText("Load Game");
+        jButton2.setText("Accept");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(300, 370, 130, 60);
 
-        jButton3.setText("Options");
-        getContentPane().add(jButton3);
-        jButton3.setBounds(300, 440, 130, 60);
+        jTextField1.setText("Username..");
 
-        jButton4.setText("Exit");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(300, 510, 130, 60);
+        jLabel1.setText("Insert player name:");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MilkyWayExpress/Frontend/Assets/background.jpg"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        jLabel2.setPreferredSize(new java.awt.Dimension(751, 752));
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, 0, 760, 770);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(123, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(44, 44, 44))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void windowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowOpened
+        jTextField1.requestFocus();
+    }//GEN-LAST:event_windowOpened
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //New Game Button
-        RenderEngine.openForm(this, new NewGameMenu());
+        RenderEngine.openForm(this, new MainMenu());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void windowsActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowsActivated
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         RenderEngine.centerScreen(this);
-    }//GEN-LAST:event_windowsActivated
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_formWindowActivated
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        RenderEngine.openForm(this, new LoadGameMenu());
+        if(!"Username..".equals(jTextField1.getText()) && !"".equals(jTextField1.getText()))
+            RenderEngine.openForm(this, new GameForm(new Game(), jTextField1.getText()), true);
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Please choose a different player name", "Invalid name", JOptionPane.WARNING_MESSAGE);
+            jTextField1.requestFocus();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -141,20 +156,20 @@ public class MainMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewGameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewGameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewGameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewGameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenu().setVisible(true);
+                new NewGameMenu().setVisible(true);
             }
         });
     }
@@ -162,8 +177,7 @@ public class MainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

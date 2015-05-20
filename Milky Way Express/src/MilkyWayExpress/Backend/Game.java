@@ -31,7 +31,6 @@ import MilkyWayExpress.Backend.States.MainMenu;
 import MilkyWayExpress.Backend.States.Movement;
 import MilkyWayExpress.Backend.States.NewGame;
 import MilkyWayExpress.Frontend.Console;
-import MilkyWayExpress.Frontend.RenderEngine;
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Scanner;
@@ -45,7 +44,6 @@ public class Game extends Observable implements Serializable {
     protected IState state;
     
     private Player player;
-    private final RenderEngine renderEngine;
     private final Galaxy galaxy;
     private final Resources coins;
     private char action;
@@ -53,12 +51,10 @@ public class Game extends Observable implements Serializable {
     
     /**
      *
-     * @param re
      */
-    public Game(RenderEngine re)
+    public Game()
     {
         galaxy = new Galaxy();
-        renderEngine = re;
         coins = new Coin();
         coins.setCount(20); 
         round = 0;
