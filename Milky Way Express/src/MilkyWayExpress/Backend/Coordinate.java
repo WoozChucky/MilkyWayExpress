@@ -53,6 +53,12 @@ public class Coordinate implements Serializable {
         return this;
     }
     
+    public void setCoordinates(Coordinate coords)
+    {
+        this.X = coords.X;
+        this.Y = coords.Y;
+    }
+    
     /**
      *
      * @return

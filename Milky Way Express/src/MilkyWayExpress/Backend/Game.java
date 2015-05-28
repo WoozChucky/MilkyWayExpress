@@ -26,14 +26,10 @@ package MilkyWayExpress.Backend;
 import MilkyWayExpress.Backend.Player.Player;
 import MilkyWayExpress.Backend.ResourcesF.Coin;
 import MilkyWayExpress.Backend.ResourcesF.Resources;
+import MilkyWayExpress.Backend.States.AwaitsBegin;
 import MilkyWayExpress.Backend.States.IState;
-import MilkyWayExpress.Backend.States.MainMenu;
-import MilkyWayExpress.Backend.States.Movement;
-import MilkyWayExpress.Backend.States.NewGame;
-import MilkyWayExpress.Frontend.Console;
 import java.io.Serializable;
 import java.util.Observable;
-import java.util.Scanner;
 
 /**
  *
@@ -41,7 +37,7 @@ import java.util.Scanner;
  */
 public class Game extends Observable implements Serializable {
     
-    protected IState state;
+    private IState state;
     
     private Player player;
     private final Galaxy galaxy;
@@ -58,7 +54,17 @@ public class Game extends Observable implements Serializable {
         coins = new Coin();
         coins.setCount(20); 
         round = 0;
-        setState(new MainMenu(this));
+        setState(new AwaitsBegin(this));
+    }
+    
+    public void startGame()
+    {
+        setState(state.start());
+    }
+    
+    public void move(Coordinate coords)
+    {
+        setState(state.move(coords));
     }
     
     /**
@@ -102,113 +108,6 @@ public class Game extends Observable implements Serializable {
         this.state = state;
         setChanged();
         notifyObservers();
-    }
-    
-    public IState askUserStateOption(IState state)
-    {
-        
-        Scanner s = new Scanner(System.in);
-        char c;                
-        String option;
-                
-        while(true){
-            
-            Console.printStateInfo(state);
-            
-            option = s.next().toUpperCase();
-
-            if(option.length() >= 1){
-                c = option.charAt(0);
-            }else{
-                c = ' ';
-            }
-            
-            switch(state.getName())
-            {
-                case "MainMenu":
-                        switch(c){
-                            case 'N':
-                                setState(new NewGame(this));
-                            case 'L':
-                                return state.loadGame();
-                            case 'O': 
-                                return state.options();
-                            case 'E': 
-                                System.exit(0);
-                            default: 
-                                break;
-                        } 
-                    break;
-                case "NewGame":
-                    setState(new Movement(this));;;;;;
-                case "Movement":
-                    System.out.print("no switch do movement\n");
-                    switch(c){
-                            case 'M':
-                                return state.move();
-                            case 'S':
-                                return state.saveGame();
-                            case 'O': 
-                                return state.options();
-                            case 'E': 
-                                System.exit(0);
-                            default: 
-                                break;
-                        } 
-                    break;
-            }
-        }
-    }
-
-    /**
-     *
-     */
-    public void play()
-    {
-        //Main cycle of game
-        while(this.getState() != null)
-        {     
-            
-            System.out.println("@ State - " + state.getName());
-            
-            this.setState(this.askUserStateOption(this.getState()));
-
-            /*
-            action = Console.getAction();
-
-            System.out.println("\n\t- " + Character.getNumericValue(action) + "\n");
-            
-            switch(action)
-            {
-                
-                case 's':
-                    renderEngine.saveGame(Console.saveMenu());
-                    break;
-                case 'q':
-                    System.exit(0);
-                    break;
-                case 't':
-                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() - 1);
-                    break;
-                    
-            }
-            round++; */
-            Console.clearConsole();
-        }
-        
-        Console.endGame();
-
-    }
-    
-    /**
-     *
-     */
-    public void newGame()
-    {
-        galaxy.GenerateGalaxy();
-        player = new Player(Console.askPlayerName());
-        
-        play();
     }
     
     public void setPlayer(Player player)

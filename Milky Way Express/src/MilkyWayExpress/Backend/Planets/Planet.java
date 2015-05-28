@@ -26,7 +26,6 @@ package MilkyWayExpress.Backend.Planets;
 import MilkyWayExpress.Backend.ResourcesF.Resources;
 import java.io.Serializable;
 import java.util.Objects;
-import java.lang.Object;
 
 /**
  *
@@ -40,7 +39,16 @@ public class Planet implements Serializable {
     private int CostResource02; //Food
     private int CostResource03; //Medical
     private int CostResource04; //Illegal
+    private boolean discovered;
     
+    public void setDiscovered(boolean d)
+    {
+        discovered = d;
+    }
+    public boolean getDiscovered()
+    {
+        return discovered;
+    }
     /**
      *
      * @param r
@@ -162,6 +170,7 @@ public class Planet implements Serializable {
     public Planet(String n, PlanetType t)
     {
         this.type = t;
+        discovered = false;
         switch(t)
         {
             case NONPIRATE:
@@ -243,7 +252,26 @@ public class Planet implements Serializable {
                 CostResource03 = 0;
                 CostResource04 = 0;
                 break;
+                
+            case VOID:
+                name = "Void";
+                resource1 = null;
+                resource2 = null;
+                CostResource01 = 0;
+                CostResource02 = 0;
+                CostResource03 = 0;
+                CostResource04 = 0;
+                break;
+            case EMPTY:
+                name = "Empty";
+                resource1 = null;
+                resource2 = null;
+                CostResource01 = 0;
+                CostResource02 = 0;
+                CostResource03 = 0;
+                CostResource04 = 0;
+                break;
         }
-        
+      discovered = false;  
     }
 }

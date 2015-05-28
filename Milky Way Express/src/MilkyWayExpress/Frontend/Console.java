@@ -24,7 +24,6 @@
 package MilkyWayExpress.Frontend;
 
 import MilkyWayExpress.Backend.Constants;
-import MilkyWayExpress.Backend.Galaxy;
 import MilkyWayExpress.Backend.Game;
 import MilkyWayExpress.Backend.Planets.Planet;
 import MilkyWayExpress.Backend.States.IState;
@@ -41,37 +40,7 @@ public interface Console {
      *
      * @param state
      */
-    
-    public static void printStateInfo(IState state)
-    {
-        switch(state.getName())
-        {
-            case "MainMenu":
-                System.out.print("\n\n\tMilky Way Express\n\n");
-                System.out.print("\tChoose an action:\n\n");
-                System.out.print("N - New Game\n");
-                System.out.print("L - Load Game\n");
-                System.out.print("O - Options\n");
-                System.out.print("E - Exit\n");
-                System.out.print("\n[ACTION]: ");
-                break;
-            case "NewGame":
-                System.out.print("\nEntrou no new game");
-                break;
-            case "Movement":
-                System.out.print("\n\tPossible Actions:\n\n");
-                System.out.print("M - Move\n");
-                System.out.print("S - Save Game\n");
-                System.out.print("O - Options\n");
-                System.out.print("E - Exit\n");
-                System.out.print("\n[ACTION]: ");
-                break;
-            case "Move":
-                System.out.print("\n\tEnter the Coordinates (X, Y):\n\n");
-                System.out.print("\n[ACTION]: ");
-                break;
-        }
-    }
+   
     
     public static void drawGalaxy(Game game)
     {

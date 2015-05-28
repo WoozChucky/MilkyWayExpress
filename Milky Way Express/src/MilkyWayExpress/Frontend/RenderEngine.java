@@ -112,10 +112,6 @@ public class RenderEngine implements Serializable {
     /**
      *
      */
-    public void boot()
-    {
-        game.play();
-    }
     
     /**
      *

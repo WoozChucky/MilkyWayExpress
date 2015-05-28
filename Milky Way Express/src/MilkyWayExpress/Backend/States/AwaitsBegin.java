@@ -21,30 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package MilkyWayExpress.Backend.Planets;
+package MilkyWayExpress.Backend.States;
+
+import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.Player.Player;
+import java.io.Serializable;
 
 /**
  *
  * @author woozlinux
  */
-public enum PlanetType {
+public class AwaitsBegin extends IStateAdapter implements Serializable {
 
-    /**
-     *
-     */
-    NONPIRATE,
-
-    /**
-     *
-     */
-    PIRATE,
-
-    /**
-     *
-     */
-    WORMHOLE,
+    public AwaitsBegin(Game g) {
+        super(g);
+    }
     
-    VOID,
     
-    EMPTY
+    @Override
+    public IState start()
+    {
+        getGame().Galaxy().GenerateGalaxy();
+        getGame().setPlayer(new Player("Player"));
+        
+        return new Explore(getGame());
+    }
 }

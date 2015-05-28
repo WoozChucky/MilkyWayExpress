@@ -21,30 +21,56 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package MilkyWayExpress.Backend.Planets;
+package MilkyWayExpress.Backend.States;
+
+import MilkyWayExpress.Backend.Coordinate;
+import MilkyWayExpress.Backend.Game;
+import java.io.Serializable;
 
 /**
  *
  * @author woozlinux
  */
-public enum PlanetType {
-
-    /**
-     *
-     */
-    NONPIRATE,
-
-    /**
-     *
-     */
-    PIRATE,
-
-    /**
-     *
-     */
-    WORMHOLE,
+public class IStateAdapter implements IState, Serializable {
     
-    VOID,
+    private Game game;
     
-    EMPTY
+    public IStateAdapter(Game g)
+    {
+        game = g;
+    }
+    
+    public Game getGame()
+    {
+        return game;
+    }
+    
+    public void setGame(Game g)
+    {
+        game = g;
+    }
+    
+    
+    @Override
+    public IState start()
+    {
+        return this;
+    }
+    
+    @Override
+    public IState move(Coordinate coords)
+    {
+        return this;
+    }
+    @Override
+    public IState explore()
+    {
+        return this;
+    }
+    @Override
+    public IState trade()
+    {
+        return this;
+    }
+    
 }

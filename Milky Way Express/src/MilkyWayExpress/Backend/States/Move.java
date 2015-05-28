@@ -1,93 +1,44 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2015 woozlinux.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package MilkyWayExpress.Backend.States;
 
+import MilkyWayExpress.Backend.Coordinate;
 import MilkyWayExpress.Backend.Game;
-import MilkyWayExpress.Frontend.Console;
-import java.util.Scanner;
+import java.io.Serializable;
 
 /**
  *
  * @author woozlinux
  */
-public final class Move extends IState {
-    private final String stateName = "Move";
+public class Move extends IStateAdapter implements Serializable {
 
-    
-    public Move(Game g)
-    {
+    public Move(Game g, Coordinate coords) {
         super(g);
         
-        Console.printStateInfo(this);
+        //TODO: fix movement rules
+        getGame().Player().Spaceship().Coordinates().setCoordinates(coords);
         
-        System.out.println("@ State - " + this.getName());
-        
-        Scanner s = new Scanner(System.in);
-        int x, y;                
-        String option;
-
-        while(!s.hasNextInt()) s.next();
-        x = s.nextInt();
-
-        System.out.print("\n[ACTION]: ");
-
-        while(!s.hasNextInt()) s.next();
-        y = s.nextInt();
- 
-        
-        getGame().Player().Spaceship().Coordinates().setX(x);
-        getGame().Player().Spaceship().Coordinates().setY(y);
-        
-        movement();
     }
     
-    @Override
-    public IState mainMenu()
-    {
-        return this;
-    }
-    
-    @Override
-    public IState newGame()
-    {
-        return this;
-    }
-    
-    @Override
-    public IState loadGame()
-    {
-        return this;
-    }
-    @Override
-    public IState saveGame()
-    {
-        return this;
-    }
-    
-    @Override
-    public IState move()
-    {
-        return this;
-    }
-    
-    @Override
-    public IState movement()
-    {
-        return new Movement(getGame());
-    }
-    
-    @Override
-    public IState options()
-    {
-        return this;
-    }
-    
-    @Override
-    public String getName()
-    {
-        return stateName;
-    }
 }

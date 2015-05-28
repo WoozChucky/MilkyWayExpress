@@ -80,8 +80,6 @@ public class NewGameMenu extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("Username..");
-
         jLabel1.setText("Insert player name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,8 +128,10 @@ public class NewGameMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(!"Username..".equals(jTextField1.getText()) && !"".equals(jTextField1.getText()))
+        if(!"".equals(jTextField1.getText()))
+        {
             RenderEngine.openForm(this, new GameForm(new Game(), jTextField1.getText()), true);
+        }
         else
         {
             JOptionPane.showMessageDialog(this, "Please choose a different player name", "Invalid name", JOptionPane.WARNING_MESSAGE);

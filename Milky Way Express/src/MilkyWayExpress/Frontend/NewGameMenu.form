@@ -80,9 +80,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Username.."/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

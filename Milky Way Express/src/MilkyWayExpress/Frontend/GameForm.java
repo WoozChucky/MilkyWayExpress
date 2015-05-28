@@ -23,20 +23,38 @@
  */
 package MilkyWayExpress.Frontend;
 
+import MilkyWayExpress.Backend.Constants;
 import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.Planets.Planet;
 import MilkyWayExpress.Backend.Player.Player;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Observable;
+import java.util.Observer;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author woozlinux
  */
-public class GameForm extends javax.swing.JFrame {
+public final class GameForm extends javax.swing.JFrame implements Observer {
 
-    Game game;
-    String pName;
+    private final Game game;
+    private final String pName;
+    
+    private Component[] comps;
+    
     /**
      * Creates new form GameForm
      * @param g
@@ -45,9 +63,66 @@ public class GameForm extends javax.swing.JFrame {
     public GameForm(Game g, String s) {
         initComponents();
         game = g;
+        game.addObserver(this);
         pName = s;
+        
+        prepareComponents();
     }
 
+    public void prepareComponents()
+    {
+        jLabel10.setVisible(false);
+        jLabel11.setVisible(false);
+        jLabel12.setVisible(false);
+        jLabel13.setVisible(false);
+        jLabel14.setVisible(false);
+        jLabel15.setVisible(false);
+        
+        try {
+            Image img = ImageIO.read(getClass().getResource("Assets/spaceship.jpg"));
+            spaceshipLabel.setText("");
+            spaceshipLabel.setIcon(new ImageIcon(img));
+        } catch (IOException ex) {}
+        
+        board.setLayout(new GridLayout(7, 9));
+         for(int i=0;i<= Constants.ROWS;i++)
+                for(int j=0; j<= Constants.COLS; j++)
+                    board.add(new PlanetBtn(this, game, j, i));
+         
+        
+        
+        jButton1.setText("STATE: " + game.getState().getClass().getSimpleName());
+    }
+    
+    public void displayPlanetInfo(Planet p, int x, int y)
+    {
+        jPanel2.setBorder(BorderFactory.createLineBorder(Color.black));
+        
+        jLabel10.setVisible(true);
+        jLabel10.setText("Name: " + p.getPlanetName());
+        
+        jLabel11.setVisible(true);
+        jLabel11.setText("Type: " + p.getPlanetType().toString());
+        
+        jLabel12.setVisible(true);
+        if(p.getResource01() != null)
+            jLabel12.setText("Resource 1: " + p.getResource01().getClass().getSimpleName());
+        else
+            jLabel12.setText("Resource 1: Empty");
+        
+        jLabel13.setVisible(true);
+        if(p.getResource02() != null)
+            jLabel13.setText("Resource 2: " + p.getResource02().getClass().getSimpleName());
+        else
+            jLabel13.setText("Resource 2: Empty");
+        
+        jLabel14.setVisible(true);
+        jLabel14.setText("Coordinates(X,Y): " + x + "," + y);
+        
+        jLabel15.setVisible(true);
+        jLabel15.setText("Discovered: " + p.getDiscovered());
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +142,20 @@ public class GameForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        board = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        spaceshipLabel = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Milky Way Express");
@@ -145,60 +233,163 @@ public class GameForm extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel9))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel5))
                 .addContainerGap())
         );
 
-        jButton1.setText("Save Game");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
+        board.setLayout(boardLayout);
+        boardLayout.setHorizontalGroup(
+            boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        boardLayout.setVerticalGroup(
+            boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jButton1.setText("Estado");
+
+        spaceshipLabel.setText("jLabel10");
+
+        jPanel2.setToolTipText("Planet Information");
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.setName("Planet Information"); // NOI18N
+
+        jLabel10.setText("jLabel10");
+
+        jLabel11.setText("jLabel11");
+
+        jLabel12.setText("jLabel12");
+
+        jLabel13.setText("jLabel13");
+
+        jLabel14.setText("jLabel14");
+
+        jLabel15.setText("jLabel15");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        jMenu1.setText("File");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Save Game");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spaceshipLabel))
+                    .addComponent(board, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(board, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(spaceshipLabel)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
+
+        jPanel2.getAccessibleContext().setAccessibleName("Planet Information");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void displaySpaceship()
+    {
+        comps = board.getComponents();
+        
+        for (Component comp : comps) {
+            if (comp instanceof PlanetBtn) {
+                PlanetBtn temp = (PlanetBtn) comp;
+                
+                if(temp.x == game.Player().Spaceship().Coordinates().getX() && temp.y == game.Player().Spaceship().Coordinates().getY())
+                {
+                    //JOptionPane.showMessageDialog(this, "X = " + temp.x + " - Y = " + temp.y, "Coordinates", JOptionPane.WARNING_MESSAGE);
+                    temp.setText("*");
+                    return;
+                }
+            }
+        }
+    }
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if(game.getRound() == 0 && game.Player() == null)
+        if(game.Player() == null)
         {   //New Game
-            game.Galaxy().GenerateGalaxy();
-            game.setPlayer(new Player(pName));
+            game.startGame();
         }
         
         RenderEngine.showGameInfo(game, jLabel2, jLabel3, jLabel4,
                 jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
         
-        
-        //jLabel2.setText("lel" + game.Player().getName());
     }//GEN-LAST:event_formWindowActivated
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         String saveName = JOptionPane.showInputDialog(this, "Insert file name:", "Save Game");
-        
+        saveName = saveName.concat(".mwe");
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveName));
             oos.writeObject(game);
@@ -207,12 +398,12 @@ public class GameForm extends javax.swing.JFrame {
         } catch(Exception ex) {
             ex.printStackTrace();
         }
-        
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
+     * @param g
+     * @param s
      */
     public static void main(String args[], Game g, String s) {
         /* Set the Nimbus look and feel */
@@ -247,8 +438,15 @@ public class GameForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel board;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -257,6 +455,134 @@ public class GameForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel spaceshipLabel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        jButton1.setText("STATE: " + game.getState().getClass().getSimpleName());
+        repaint();
+    }
+}
+
+class PlanetBtn extends JButton
+{
+    Game game;
+    GameForm frm;
+    int x, y;
+    
+    public PlanetBtn(GameForm f, Game g, int x, int y)
+    {
+        frm = f;
+        game = g;
+        this.x = x;
+        this.y = y;
+        
+        addActionListener((ActionEvent e) -> {
+            f.displayPlanetInfo(game.Galaxy().getGrid()[y][x], x, y);
+        });
+  
+    }
+    
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+
+        switch(game.Galaxy().getGrid()[y][x].getPlanetType()){
+            case NONPIRATE:
+                
+                switch(game.Galaxy().getGrid()[y][x].getPlanetName())
+                {
+                    case "Gethen":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/gethen.jpg"));
+                            this.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Kiber":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/kiber.jpg"));
+                            this.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Arrakis":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/arrakis.jpg"));
+                            this.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Lamarckia":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/lamarckia.jpg"));
+                            this.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Tiamat":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/tiamat.jpg"));
+                            this.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Reverie":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/reverie.jpg"));
+                            this.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                        
+                }
+                setText("");
+                break;
+            case PIRATE:
+                switch(game.Galaxy().getGrid()[y][x].getPlanetName())
+                {
+                    case "Asperta":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/asperta.jpg"));
+                            this.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Striterax":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/striterax.jpg"));
+                            this.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Whirl":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/whirl.jpg"));
+                            this.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                }
+                setText("");
+                break;
+            case WORMHOLE:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/wormhole.jpg"));
+                    this.setIcon(new ImageIcon(img));
+                } catch (IOException ex) {}
+                setText("");
+                break;
+            case EMPTY:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/empty.jpg"));
+                    this.setIcon(new ImageIcon(img));
+                } catch (IOException ex) {}
+                setText("");
+                break;
+            case VOID:
+                setEnabled(false);
+                break;
+        }
+//            if(game.Player().Spaceship().Coordinates().getX() == x && game.Player().Spaceship().Coordinates().getY() == y)
+//                setText("caralho");
+    }
 }

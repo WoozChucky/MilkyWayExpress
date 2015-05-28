@@ -81,8 +81,8 @@ public class Galaxy implements Serializable {
         WORMHOLE03 = new Planet("Wormhole 03", PlanetType.WORMHOLE);
         WORMHOLE04 = new Planet("Wormhole 04", PlanetType.WORMHOLE);
         
-        VOID = new Planet("VOID", PlanetType.PIRATE);
-        FILL = new Planet("FILL", PlanetType.PIRATE);
+        VOID = new Planet("VOID", PlanetType.VOID);
+        FILL = new Planet("FILL", PlanetType.EMPTY);
         
         planets = new ArrayList<>();
         
@@ -121,6 +121,11 @@ public class Galaxy implements Serializable {
         {
             for(int c = 0; c <= Constants.COLS; c++)
             {
+                if(r == 8 && c == 0)
+                    continue;
+                if(r == 0 && c == 6)
+                    continue;
+                
                 if(grid[r][c].equals(FILL))
                 {
                     next = Constants.randInt(0, 12);
@@ -297,22 +302,6 @@ public class Galaxy implements Serializable {
     public ArrayList<Planet> getPlanets()
     {
         return this.planets;
-    }
-    
-    /**
-     *
-     */
-    public void print()
-    {
-        System.out.println();
-        for(int r = 0; r <= Constants.ROWS; r++)
-        {
-            for(int c = 0; c <= Constants.COLS; c++)
-            {
-                System.out.print(grid[r][c].getPlanetName() + " | ");
-            }
-            System.out.println();
-        }
     }
     
 }

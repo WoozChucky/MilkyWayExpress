@@ -23,34 +23,16 @@
  */
 package MilkyWayExpress.Backend.States;
 
-import MilkyWayExpress.Backend.Game;
-import java.io.Serializable;
+import MilkyWayExpress.Backend.Coordinate;
 /**
  *
  * @author woozlinux
  */
-public abstract class IState implements Serializable { 
+public interface IState { 
     
-    private final Game game;
-    
-    public IState(Game g)
-    {
-        this.game = g;
-    }
-    
-    public Game getGame()
-    {
-        return game;
-    }
-    
-    abstract public IState mainMenu();
-    abstract public IState newGame();
-    abstract public IState loadGame();
-    abstract public IState saveGame();
-    abstract public IState options();
-    abstract public IState movement();
-    abstract public IState move();
-    
-    abstract public String getName();
+    public IState start();
+    public IState explore();
+    public IState move(Coordinate coords);
+    public IState trade();
    
 }
