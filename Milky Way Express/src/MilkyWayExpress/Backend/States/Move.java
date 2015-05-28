@@ -39,6 +39,8 @@ public class Move extends IStateAdapter implements Serializable {
         //TODO: fix movement rules
         getGame().Player().Spaceship().Coordinates().setCoordinates(coords);
         
+        
+        
     }
     
 }

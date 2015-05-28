@@ -24,6 +24,7 @@
 package MilkyWayExpress.Frontend;
 
 import MilkyWayExpress.Backend.Constants;
+import MilkyWayExpress.Backend.Coordinate;
 import MilkyWayExpress.Backend.Game;
 import MilkyWayExpress.Backend.Planets.Planet;
 import MilkyWayExpress.Backend.Player.Player;
@@ -42,6 +43,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -229,13 +231,13 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                     .addComponent(jLabel3)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel5))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel9))
                 .addContainerGap())
         );
 
@@ -251,6 +253,11 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         );
 
         jButton1.setText("Estado");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         spaceshipLabel.setText("jLabel10");
 
@@ -327,7 +334,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 67, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,6 +366,23 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void showGameInfo(Game g, JLabel name, JLabel credits, JLabel coordinates, JLabel cargolevel, JLabel res1, JLabel res2, JLabel res3, JLabel weaponlevel)
+    {
+        name.setText("Name - " + g.Player().getName());
+        credits.setText("Credits - " + g.Player().Spaceship().Coins().getCount()); 
+        coordinates.setText("Coordinates(X, Y) - " + g.Player().Spaceship().Coordinates().getX() +", " + g.Player().Spaceship().Coordinates().getY());
+        cargolevel.setText("Cargo Level - " + g.Player().Spaceship().Cargo().getLevel());
+        res1.setText("Resource 1 - " + g.Player().Spaceship().Cargo().getResource01().getName());
+        res2.setText("Resource 2 - " + g.Player().Spaceship().Cargo().getResource02().getName());
+        if(g.Player().Spaceship().Cargo().isUnlocked())
+            res3.setText(" Resource 3 - " + g.Player().Spaceship().Cargo().getResource03().getName());
+        else
+            res3.setText(" Resource 3 - Locked");
+        weaponlevel.setText(" Weapon Level - " + g.Player().Spaceship().Weapon().getLevel());
+        
+
+    }
+    
     private void displaySpaceship()
     {
         comps = board.getComponents();
@@ -380,11 +404,9 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         if(game.Player() == null)
         {   //New Game
             game.startGame();
-        }
-        
-        RenderEngine.showGameInfo(game, jLabel2, jLabel3, jLabel4,
+        }     
+        showGameInfo(game, jLabel2, jLabel3, jLabel4,
                 jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
-        
     }//GEN-LAST:event_formWindowActivated
     
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -399,6 +421,15 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        switch(jButton1.getText())
+        {
+            case "STATE: Explore":
+                
+                break;
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,6 +497,9 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        
+        showGameInfo(game, jLabel2, jLabel3, jLabel4,
+                jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
         jButton1.setText("STATE: " + game.getState().getClass().getSimpleName());
         repaint();
     }
@@ -486,6 +520,7 @@ class PlanetBtn extends JButton
         
         addActionListener((ActionEvent e) -> {
             f.displayPlanetInfo(game.Galaxy().getGrid()[y][x], x, y);
+            game.move(new Coordinate(x, y));
         });
   
     }
