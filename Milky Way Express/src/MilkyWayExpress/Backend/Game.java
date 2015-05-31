@@ -57,14 +57,24 @@ public class Game extends Observable implements Serializable {
         setState(new AwaitsBegin(this));
     }
     
-    public void startGame()
+    public void startGame(String playerName)
     {
-        setState(state.start());
+        setState(state.start(playerName));
     }
     
     public void move(Coordinate coords)
     {
         setState(state.move(coords));
+    }
+    
+    public void fillMarkets()
+    {
+        setState(state.fillMarkets());
+    }
+    
+    public void explore()
+    {
+        setState(state.explore());
     }
     
     /**

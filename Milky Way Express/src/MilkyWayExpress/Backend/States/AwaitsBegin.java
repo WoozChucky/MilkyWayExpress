@@ -39,10 +39,10 @@ public class AwaitsBegin extends IStateAdapter implements Serializable {
     
     
     @Override
-    public IState start()
+    public IState start(String playerName)
     {
         getGame().Galaxy().GenerateGalaxy();
-        getGame().setPlayer(new Player("Player"));
+        getGame().setPlayer(new Player(playerName));
         
         return new Explore(getGame());
     }

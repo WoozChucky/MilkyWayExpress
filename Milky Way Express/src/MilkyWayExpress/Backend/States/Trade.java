@@ -24,16 +24,34 @@
 package MilkyWayExpress.Backend.States;
 
 import MilkyWayExpress.Backend.Coordinate;
+import MilkyWayExpress.Backend.Game;
+import java.io.Serializable;
+
 /**
  *
  * @author woozlinux
  */
-public interface IState { 
+public class Trade extends IStateAdapter implements Serializable {
+
+    public Trade(Game g) {
+        super(g);
+        
+        getGame().Galaxy().GenerateResources();
+    }
     
-    public IState start(String plyerName);
-    public IState explore();
-    public IState fillMarkets();
-    public IState move(Coordinate coords);
-    public IState trade();
-   
+        
+    //@Override
+    public IState buy()
+    {
+        
+        
+        return new Trade(getGame());
+    }
+    
+    @Override
+    public IState move(Coordinate coords)
+    {
+        return new Move(getGame(), coords);
+    }
+    
 }

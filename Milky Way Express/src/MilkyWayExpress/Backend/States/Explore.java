@@ -23,7 +23,6 @@
  */
 package MilkyWayExpress.Backend.States;
 
-import MilkyWayExpress.Backend.Coordinate;
 import MilkyWayExpress.Backend.Game;
 import MilkyWayExpress.Backend.Planets.Planet;
 import java.io.Serializable;
@@ -36,7 +35,11 @@ public class Explore extends IStateAdapter implements Serializable {
 
     public Explore(Game g) {
         super(g);
-        
+    }
+    
+    @Override
+    public IState explore()
+    {     
         //Get coordinates from current player position
         int x = getGame().Player().Spaceship().Coordinates().getX();
         int y = getGame().Player().Spaceship().Coordinates().getY();
@@ -109,12 +112,10 @@ public class Explore extends IStateAdapter implements Serializable {
             int tempX = x+1;
             System.out.println("Y: " + tempY + "\nX: " + tempX + "\n");
        }
+       
+       return new Trade(getGame());
     }
     
-    @Override
-    public IState move(Coordinate coords)
-    {
-        return new Move(getGame(), coords);
-    }
+    
             
 }

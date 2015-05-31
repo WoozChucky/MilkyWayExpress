@@ -52,7 +52,7 @@ public class IStateAdapter implements IState, Serializable {
     
     
     @Override
-    public IState start()
+    public IState start(String playerName)
     {
         return this;
     }
@@ -69,6 +69,12 @@ public class IStateAdapter implements IState, Serializable {
     }
     @Override
     public IState trade()
+    {
+        return this;
+    }
+    
+    @Override
+    public IState fillMarkets()
     {
         return this;
     }

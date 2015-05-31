@@ -34,6 +34,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -54,7 +55,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
 
     private final Game game;
     private final String pName;
-    
+    public Coordinate coord;
     private Component[] comps;
     
     /**
@@ -67,6 +68,8 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         game = g;
         game.addObserver(this);
         pName = s;
+        
+        
         
         prepareComponents();
     }
@@ -90,9 +93,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
          for(int i=0;i<= Constants.ROWS;i++)
                 for(int j=0; j<= Constants.COLS; j++)
                     board.add(new PlanetBtn(this, game, j, i));
-         
-        
-        
+
         jButton1.setText("STATE: " + game.getState().getClass().getSimpleName());
     }
     
@@ -391,7 +392,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
             if (comp instanceof PlanetBtn) {
                 PlanetBtn temp = (PlanetBtn) comp;
                 
-                if(temp.x == game.Player().Spaceship().Coordinates().getX() && temp.y == game.Player().Spaceship().Coordinates().getY())
+                if(temp.X == game.Player().Spaceship().Coordinates().getX() && temp.Y == game.Player().Spaceship().Coordinates().getY())
                 {
                     //JOptionPane.showMessageDialog(this, "X = " + temp.x + " - Y = " + temp.y, "Coordinates", JOptionPane.WARNING_MESSAGE);
                     temp.setText("*");
@@ -403,7 +404,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         if(game.Player() == null)
         {   //New Game
-            game.startGame();
+            game.startGame(pName);
         }     
         showGameInfo(game, jLabel2, jLabel3, jLabel4,
                 jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
@@ -426,7 +427,10 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         switch(jButton1.getText())
         {
             case "STATE: Explore":
-                
+                game.fillMarkets();
+                break;
+            case "STATE: Trade":
+                game.move(coord);
                 break;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -505,35 +509,40 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     }
 }
 
-class PlanetBtn extends JButton
+class PlanetBtn extends JButton 
 {
     Game game;
     GameForm frm;
-    int x, y;
+    int X, Y;
     
     public PlanetBtn(GameForm f, Game g, int x, int y)
     {
         frm = f;
         game = g;
-        this.x = x;
-        this.y = y;
-        
-        addActionListener((ActionEvent e) -> {
-            f.displayPlanetInfo(game.Galaxy().getGrid()[y][x], x, y);
-            game.move(new Coordinate(x, y));
+        this.X = x;
+        this.Y = y;
+
+        addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.displayPlanetInfo(game.Galaxy().getGrid()[Y][X], X, Y);
+                frm.coord.setX(X);
+                frm.coord.setX(Y);
+            }
         });
-  
+
     }
-    
+
     @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
 
-        switch(game.Galaxy().getGrid()[y][x].getPlanetType()){
+        switch(game.Galaxy().getGrid()[Y][X].getPlanetType()){
             case NONPIRATE:
-                
-                switch(game.Galaxy().getGrid()[y][x].getPlanetName())
+
+                switch(game.Galaxy().getGrid()[Y][X].getPlanetName())
                 {
                     case "Gethen":
                         try {
@@ -571,12 +580,12 @@ class PlanetBtn extends JButton
                             this.setIcon(new ImageIcon(img));
                         } catch (IOException ex) {}
                     break;
-                        
+
                 }
                 setText("");
                 break;
             case PIRATE:
-                switch(game.Galaxy().getGrid()[y][x].getPlanetName())
+                switch(game.Galaxy().getGrid()[Y][X].getPlanetName())
                 {
                     case "Asperta":
                         try {
