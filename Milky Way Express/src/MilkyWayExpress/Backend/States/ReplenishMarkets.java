@@ -23,7 +23,6 @@
  */
 package MilkyWayExpress.Backend.States;
 
-import MilkyWayExpress.Backend.Coordinate;
 import MilkyWayExpress.Backend.Game;
 import java.io.Serializable;
 
@@ -31,18 +30,20 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class Trade extends IStateAdapter implements Serializable {
+public class ReplenishMarkets extends IStateAdapter implements Serializable {
 
-    public Trade(Game g) {
+    public ReplenishMarkets(Game g) {
         super(g);
     }
     
-   
-    
     @Override
-    public IState trade()
+    public IState fillMarkets()
     {
-        return new Move(getGame());
+                
+        if(getGame().Galaxy().needsReplenishment())
+            getGame().Galaxy().generateResources();
+        
+        return new Trade(getGame());
     }
     
 }

@@ -33,14 +33,16 @@ import java.io.Serializable;
  */
 public class Move extends IStateAdapter implements Serializable {
 
-    public Move(Game g, Coordinate coords) {
+    public Move(Game g) {
         super(g);
-        
-        //TODO: fix movement rules
-        getGame().Player().Spaceship().Coordinates().setCoordinates(coords);
-        
-        
-        
+    }
+    
+    @Override
+    public IState move(Coordinate coords)
+    {
+        if(coords != null)
+            getGame().Player().Spaceship().Coordinates().setCoordinates(coords);
+        return new Explore(getGame());
     }
     
 }

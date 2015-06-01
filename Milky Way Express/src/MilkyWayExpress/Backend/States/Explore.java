@@ -113,7 +113,7 @@ public class Explore extends IStateAdapter implements Serializable {
             System.out.println("Y: " + tempY + "\nX: " + tempX + "\n");
        }
        
-       return new Trade(getGame());
+       return new ReplenishMarkets(getGame());
     }
     
     

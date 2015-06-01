@@ -53,9 +53,8 @@ import javax.swing.JOptionPane;
  */
 public final class GameForm extends javax.swing.JFrame implements Observer {
 
-    private final Game game;
+    public final Game game;
     private final String pName;
-    public Coordinate coord;
     private Component[] comps;
     
     /**
@@ -68,9 +67,6 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         game = g;
         game.addObserver(this);
         pName = s;
-        
-        
-        
         prepareComponents();
     }
 
@@ -94,7 +90,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                 for(int j=0; j<= Constants.COLS; j++)
                     board.add(new PlanetBtn(this, game, j, i));
 
-        jButton1.setText("STATE: " + game.getState().getClass().getSimpleName());
+        jLabel16.setText("STATE: " + game.getState().getClass().getSimpleName());
     }
     
     public void displayPlanetInfo(Planet p, int x, int y)
@@ -155,6 +151,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -253,7 +250,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Estado");
+        jButton1.setText("Next State");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -311,6 +308,8 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
+        jLabel16.setText("jLabel16");
+
         jMenu1.setText("File");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
@@ -342,8 +341,10 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(spaceshipLabel))
                     .addComponent(board, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(75, 75, 75))
@@ -356,8 +357,12 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                 .addComponent(board, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(spaceshipLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(spaceshipLabel)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(121, Short.MAX_VALUE))
         );
@@ -424,13 +429,16 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        switch(jButton1.getText())
+        switch(jLabel16.getText())
         {
             case "STATE: Explore":
+                game.explore();
+                break;
+            case "STATE: ReplenishMarkets":
                 game.fillMarkets();
                 break;
             case "STATE: Trade":
-                game.move(coord);
+                game.trade();
                 break;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -482,6 +490,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -504,7 +513,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         
         showGameInfo(game, jLabel2, jLabel3, jLabel4,
                 jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
-        jButton1.setText("STATE: " + game.getState().getClass().getSimpleName());
+        jLabel16.setText("STATE: " + game.getState().getClass().getSimpleName());
         repaint();
     }
 }
@@ -527,8 +536,9 @@ class PlanetBtn extends JButton
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.displayPlanetInfo(game.Galaxy().getGrid()[Y][X], X, Y);
-                frm.coord.setX(X);
-                frm.coord.setX(Y);
+
+                if(frm.game.canMove())
+                    frm.game.move(new Coordinate(X, Y));
             }
         });
 
