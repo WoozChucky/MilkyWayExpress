@@ -24,6 +24,7 @@
 package MilkyWayExpress.Frontend;
 
 import MilkyWayExpress.Backend.Game;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,6 +40,8 @@ public class NewGameMenu extends javax.swing.JFrame {
      */
     public NewGameMenu() {
         initComponents();
+        
+        this.getRootPane().setDefaultButton(jButton2);
     }
 
     /**
@@ -63,6 +66,11 @@ public class NewGameMenu extends javax.swing.JFrame {
             }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
             }
         });
 
@@ -138,6 +146,17 @@ public class NewGameMenu extends javax.swing.JFrame {
             jTextField1.requestFocus();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER)
+            if(!"".equals(jTextField1.getText()))
+                RenderEngine.openForm(this, new GameForm(new Game(), jTextField1.getText()), true);
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Please choose a different player name", "Invalid name", JOptionPane.WARNING_MESSAGE);
+                jTextField1.requestFocus();
+            }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments

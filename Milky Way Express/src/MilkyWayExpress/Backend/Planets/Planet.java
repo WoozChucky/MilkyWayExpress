@@ -41,6 +41,15 @@ public class Planet implements Serializable {
     private int CostResource04; //Illegal
     private boolean discovered;
     
+    @Override
+    public boolean equals(Object obj)
+    {       
+        Planet rhs = (Planet) obj;
+        
+        return rhs.type == this.type && rhs.name.equals(this.name);
+
+    }
+    
     public void setDiscovered(boolean d)
     {
         discovered = d;
@@ -137,17 +146,6 @@ public class Planet implements Serializable {
     public int getResourceCost04()
     {
         return CostResource04;
-    }
-    
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-            { return false; }
-        if (obj == this)
-            return true;
-        else
-            return false;
     }
 
     @Override

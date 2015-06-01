@@ -27,6 +27,7 @@ import MilkyWayExpress.Backend.Player.Player;
 import MilkyWayExpress.Backend.ResourcesF.Coin;
 import MilkyWayExpress.Backend.ResourcesF.Resources;
 import MilkyWayExpress.Backend.States.AwaitsBegin;
+import MilkyWayExpress.Backend.States.GameOver;
 import MilkyWayExpress.Backend.States.IState;
 import MilkyWayExpress.Backend.States.Move;
 import java.io.Serializable;
@@ -80,6 +81,14 @@ public class Game extends Observable implements Serializable {
     
     public void move(Coordinate coords)
     {
+        if(Player().Spaceship().Coins().getCount() <= 0)
+        {
+            setState(new GameOver(this));
+            return;
+        }
+        
+        Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() - 1);
+        round++;
         setState(state.move(coords));
     }
     

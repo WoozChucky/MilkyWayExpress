@@ -56,7 +56,6 @@ public class Galaxy implements Serializable {
     private final Planet WORMHOLE03;
     private final Planet WORMHOLE04;
     private final Planet VOID;
-    private final Planet FILL;
     
     private final ArrayList<Planet> planets;
     
@@ -82,7 +81,6 @@ public class Galaxy implements Serializable {
         WORMHOLE04 = new Planet("Wormhole 04", PlanetType.WORMHOLE);
         
         VOID = new Planet("VOID", PlanetType.VOID);
-        FILL = new Planet("FILL", PlanetType.EMPTY);
         
         planets = new ArrayList<>();
         
@@ -100,11 +98,11 @@ public class Galaxy implements Serializable {
         
         grid = new Planet[][] {
          { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, WORMHOLE02 },
-         { VOID, VOID, VOID, FILL, VOID, VOID, VOID, VOID, FILL },
-         { VOID, VOID, FILL, FILL, FILL, VOID, FILL, FILL, FILL },
-         { VOID, FILL, FILL, FILL, FILL, FILL, FILL, FILL, VOID },
-         { FILL, FILL, FILL, VOID, FILL, FILL, FILL, VOID, VOID },
-         { FILL, VOID, VOID, VOID, VOID, FILL, VOID, VOID, VOID },
+         { VOID, VOID, VOID, new Planet("FILL", PlanetType.EMPTY), VOID, VOID, VOID, VOID, new Planet("FILL", PlanetType.EMPTY) },
+         { VOID, VOID, new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), VOID, new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY) },
+         { VOID, new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), VOID },
+         { new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), VOID, new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), new Planet("FILL", PlanetType.EMPTY), VOID, VOID },
+         { new Planet("FILL", PlanetType.EMPTY), VOID, VOID, VOID, VOID, new Planet("FILL", PlanetType.EMPTY), VOID, VOID, VOID },
          { WORMHOLE01, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID }
         };
     }
@@ -126,7 +124,7 @@ public class Galaxy implements Serializable {
                 if(r == 0 && c == 6)
                     continue;
                 
-                if(grid[r][c].equals(FILL))
+                if(grid[r][c].equals(new Planet("FILL", PlanetType.EMPTY)))
                 {
                     next = Constants.randInt(0, 12);
         

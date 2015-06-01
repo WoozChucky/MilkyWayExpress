@@ -35,6 +35,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -72,6 +73,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
 
     public void prepareComponents()
     {
+        this.getRootPane().setDefaultButton(jButton1);
         jLabel10.setVisible(false);
         jLabel11.setVisible(false);
         jLabel12.setVisible(false);
@@ -162,6 +164,11 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
             }
         });
 
@@ -443,6 +450,12 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER)
+            if(jButton1.isEnabled())
+                jButton1.doClick();
+    }//GEN-LAST:event_formKeyPressed
+
     /**
      * @param args the command line arguments
      * @param g
@@ -511,132 +524,14 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         
+        if("STATE: Trade".equals(jLabel16.getText()))
+            jButton1.setEnabled(false);
+        else
+            jButton1.setEnabled(true);
+        
         showGameInfo(game, jLabel2, jLabel3, jLabel4,
                 jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
         jLabel16.setText("STATE: " + game.getState().getClass().getSimpleName());
         repaint();
-    }
-}
-
-class PlanetBtn extends JButton 
-{
-    Game game;
-    GameForm frm;
-    int X, Y;
-    
-    public PlanetBtn(GameForm f, Game g, int x, int y)
-    {
-        frm = f;
-        game = g;
-        this.X = x;
-        this.Y = y;
-
-        addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.displayPlanetInfo(game.Galaxy().getGrid()[Y][X], X, Y);
-
-                if(frm.game.canMove())
-                    frm.game.move(new Coordinate(X, Y));
-            }
-        });
-
-    }
-
-    @Override
-    public void paintComponent(Graphics g)
-    {
-        super.paintComponent(g);
-
-        switch(game.Galaxy().getGrid()[Y][X].getPlanetType()){
-            case NONPIRATE:
-
-                switch(game.Galaxy().getGrid()[Y][X].getPlanetName())
-                {
-                    case "Gethen":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/gethen.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
-                    break;
-                    case "Kiber":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/kiber.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
-                    break;
-                    case "Arrakis":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/arrakis.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
-                    break;
-                    case "Lamarckia":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/lamarckia.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
-                    break;
-                    case "Tiamat":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/tiamat.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
-                    break;
-                    case "Reverie":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/reverie.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
-                    break;
-
-                }
-                setText("");
-                break;
-            case PIRATE:
-                switch(game.Galaxy().getGrid()[Y][X].getPlanetName())
-                {
-                    case "Asperta":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/asperta.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
-                    break;
-                    case "Striterax":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/striterax.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
-                    break;
-                    case "Whirl":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/whirl.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
-                    break;
-                }
-                setText("");
-                break;
-            case WORMHOLE:
-                try {
-                    Image img = ImageIO.read(getClass().getResource("Assets/wormhole.jpg"));
-                    this.setIcon(new ImageIcon(img));
-                } catch (IOException ex) {}
-                setText("");
-                break;
-            case EMPTY:
-                try {
-                    Image img = ImageIO.read(getClass().getResource("Assets/empty.jpg"));
-                    this.setIcon(new ImageIcon(img));
-                } catch (IOException ex) {}
-                setText("");
-                break;
-            case VOID:
-                setEnabled(false);
-                break;
-        }
-//            if(game.Player().Spaceship().Coordinates().getX() == x && game.Player().Spaceship().Coordinates().getY() == y)
-//                setText("caralho");
     }
 }
