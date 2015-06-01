@@ -30,6 +30,7 @@ import MilkyWayExpress.Backend.States.AwaitsBegin;
 import MilkyWayExpress.Backend.States.GameOver;
 import MilkyWayExpress.Backend.States.IState;
 import MilkyWayExpress.Backend.States.Move;
+import MilkyWayExpress.Backend.States.Trade;
 import java.io.Serializable;
 import java.util.Observable;
 
@@ -92,10 +93,13 @@ public class Game extends Observable implements Serializable {
         setState(state.move(coords));
     }
     
-    public boolean canMove()
+    public boolean isTrading()
     {
-        System.out.println(Move.class.isInstance(state));
-        
+        return Trade.class.isInstance(state);
+    }
+    
+    public boolean canMove()
+    {        
         return Move.class.isInstance(state);
     }
     

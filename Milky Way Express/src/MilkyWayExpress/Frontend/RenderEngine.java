@@ -26,19 +26,8 @@ package MilkyWayExpress.Frontend;
 import MilkyWayExpress.Backend.Game;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /**
  *
@@ -66,6 +55,12 @@ public class RenderEngine implements Serializable {
     public static void openForm(JFrame current, JFrame next)
     {
         current.dispose();
+        next.setVisible(true);
+    }
+    
+    public static void openTrade(JFrame current, JFrame next)
+    {
+        current.setVisible(false);
         next.setVisible(true);
     }
     

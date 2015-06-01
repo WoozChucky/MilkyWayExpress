@@ -25,6 +25,7 @@ package MilkyWayExpress.Frontend;
 
 import MilkyWayExpress.Backend.Coordinate;
 import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.Planets.PlanetType;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -59,6 +60,9 @@ class PlanetBtn extends JButton
             public void actionPerformed(ActionEvent e) {
                 f.displayPlanetInfo(game.Galaxy().getGrid()[Y][X], X, Y);
 
+                if(frm.game.isTrading() && game.Player().Spaceship().Coordinates().getX() == X && game.Player().Spaceship().Coordinates().getY() == Y && (game.Galaxy().getGrid()[Y][X].getPlanetType() == PlanetType.NONPIRATE || game.Galaxy().getGrid()[Y][X].getPlanetType() == PlanetType.PIRATE))
+                    RenderEngine.openTrade(frm, new TradeForm(frm, game, game.Galaxy().getGrid()[Y][X]));
+                
                 if(frm.game.canMove())
                     frm.game.move(new Coordinate(X, Y));
             }
