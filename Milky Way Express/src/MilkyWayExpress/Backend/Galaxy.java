@@ -244,64 +244,62 @@ public class Galaxy implements Serializable {
             switch(p.getPlanetType())
             {
                 case NONPIRATE:
+                    if(p.getResource01() == null || p.getResource02() == null)
+                    {
+                        return true;
+                    }
+                    break;
+                case PIRATE:
+                    if(p.getResource01() == null)
+                    {
+                        return true;
+                    }
                     break;
             }
         }
-        
-        
-        return true;
+        return false;
     }
     
     /**
      *
      */
-    public void GenerateResources()
+    public void generateResources()
     {
         for(Planet p : planets)
         {
             switch(p.getPlanetType())
             {
                 case NONPIRATE:
-                    
-                    if(p.getResource01() == null || p.getResource02() == null)
+                    int nextRes01 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
+                    int nextRes02 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
+
+                    switch(nextRes01)
                     {
-                        int nextRes01 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
-                        int nextRes02 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
-
-                        switch(nextRes01)
-                        {
-                            case 0:
-                                p.setResource01(new Food());
-                                break;
-                            case 1:
-                                p.setResource01(new Water());
-                                break;
-                            case 2:
-                                p.setResource01(new Medical());
-                                break;
-                        }
-
-                        switch(nextRes02)
-                        {
-                            case 0:
-                                p.setResource02(new Food());
-                                break;
-                            case 1:
-                                p.setResource02(new Water());
-                                break;
-                            case 2:
-                                p.setResource02(new Medical());
-                                break;
-                        }
+                        case 0:
+                            p.setResource01(new Food());
+                            break;
+                        case 1:
+                            p.setResource01(new Water());
+                            break;
+                        case 2:
+                            p.setResource01(new Medical());
+                            break;
                     }
 
+                    switch(nextRes02)
+                    {
+                        case 0:
+                            p.setResource02(new Food());
+                            break;
+                        case 1:
+                            p.setResource02(new Water());
+                            break;
+                        case 2:
+                            p.setResource02(new Medical());
+                            break;
+                    }
                     break;
                 case PIRATE:
-                    
-                    if(p.getResource01() == null || p.getResource02() == null)
-                    {
-                        
-                    }
                     
                     p.setResource01(new Illegal());
                     

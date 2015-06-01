@@ -28,6 +28,7 @@ import MilkyWayExpress.Backend.ResourcesF.Coin;
 import MilkyWayExpress.Backend.ResourcesF.Resources;
 import MilkyWayExpress.Backend.States.AwaitsBegin;
 import MilkyWayExpress.Backend.States.IState;
+import MilkyWayExpress.Backend.States.Move;
 import java.io.Serializable;
 import java.util.Observable;
 
@@ -62,9 +63,9 @@ public class Game extends Observable implements Serializable {
         setState(state.start(playerName));
     }
     
-    public void move(Coordinate coords)
+    public void explore()
     {
-        setState(state.move(coords));
+        setState(state.explore());
     }
     
     public void fillMarkets()
@@ -72,10 +73,24 @@ public class Game extends Observable implements Serializable {
         setState(state.fillMarkets());
     }
     
-    public void explore()
+    public void trade()
     {
-        setState(state.explore());
+        setState(state.trade());
     }
+    
+    public void move(Coordinate coords)
+    {
+        setState(state.move(coords));
+    }
+    
+    public boolean canMove()
+    {
+        System.out.println(Move.class.isInstance(state));
+        
+        return Move.class.isInstance(state);
+    }
+    
+    
     
     /**
      *
