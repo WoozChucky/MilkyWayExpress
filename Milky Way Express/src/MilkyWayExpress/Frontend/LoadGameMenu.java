@@ -175,7 +175,6 @@ public class LoadGameMenu extends javax.swing.JFrame {
                 game = (Game)ois.readObject();
                 ois.close();
             } catch(IOException | ClassNotFoundException ex) {
-                ex.printStackTrace();
             }
         
         RenderEngine.openForm(this, new GameForm(game, null), true);

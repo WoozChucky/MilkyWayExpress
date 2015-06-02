@@ -54,7 +54,7 @@ import javax.swing.JOptionPane;
  */
 public final class GameForm extends javax.swing.JFrame implements Observer {
 
-    public final Game game;
+    public Game game;
     private final String pName;
     private Component[] comps;
     
@@ -156,6 +156,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         jLabel16 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -319,6 +320,15 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
 
         jMenu1.setText("File");
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("New Game");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Save Game");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -456,6 +466,11 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                 jButton1.doClick();
     }//GEN-LAST:event_formKeyPressed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        game = new Game();
+        game.startGame(pName);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      * @param g
@@ -516,6 +531,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel spaceshipLabel;

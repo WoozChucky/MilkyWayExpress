@@ -25,6 +25,11 @@ package MilkyWayExpress.Frontend;
 
 import MilkyWayExpress.Backend.Game;
 import MilkyWayExpress.Backend.Planets.Planet;
+import java.awt.Image;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -48,13 +53,78 @@ public class TradeForm extends javax.swing.JFrame {
         planet = p;
         gameForm = previous;  
         
-        switch(planet.getPlanetName())
+        initComponents(); 
+        
+        switch(planet.getPlanetType())
         {
-            case "Gethen":
+        case NONPIRATE:
+                switch(planet.getPlanetName())
+                {
+                    case "Gethen":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/gethen_big.png"));
+                            jLabel3.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Kiber":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/kiber_big.png"));
+                            jLabel3.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Arrakis":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/arrakis_big.png"));
+                            jLabel3.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Lamarckia":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/lamarckia_big.png"));
+                            jLabel3.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Tiamat":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/tiamat_big.png"));
+                            jLabel3.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Reverie":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/reverie_big.png"));
+                            jLabel3.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+
+                }
                 break;
+            case PIRATE:
+                switch(planet.getPlanetName())
+                {
+                    case "Asperta":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/asperta_big.png"));
+                            jLabel3.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Striterax":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/striterax_big.png"));
+                            jLabel3.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                    case "Whirl":
+                        try {
+                            Image img = ImageIO.read(getClass().getResource("Assets/whirl_big.png"));
+                            jLabel3.setIcon(new ImageIcon(img));
+                        } catch (IOException ex) {}
+                    break;
+                }
+                break;        
         }
         
-        initComponents();  
+         
     }
 
     /**
@@ -84,8 +154,6 @@ public class TradeForm extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MilkyWayExpress/Frontend/Assets/sell.png"))); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MilkyWayExpress/Frontend/Assets/gethen_big.png"))); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,7 +179,7 @@ public class TradeForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
         );
 
         pack();
