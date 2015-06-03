@@ -24,7 +24,7 @@
 package MilkyWayExpress.Frontend;
 
 import MilkyWayExpress.Backend.Coordinate;
-import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.GameModel;
 import MilkyWayExpress.Backend.Planets.PlanetType;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -41,11 +41,11 @@ import javax.swing.JButton;
  */
 class PlanetBtn extends JButton 
 {
-    Game game;
+    GameModel game;
     GameForm frm;
     int X, Y;
     
-    public PlanetBtn(GameForm f, Game g, int x, int y)
+    public PlanetBtn(GameForm f, GameModel g, int x, int y)
     {
         frm = f;
         game = g;
@@ -53,6 +53,15 @@ class PlanetBtn extends JButton
         this.Y = y;
 
         game.Galaxy().getGrid()[Y][X].setDiscovered(false);
+        
+        if(game.Galaxy().getGrid()[Y][X].getPlanetType() == PlanetType.VOID)
+            setEnabled(false);
+        else
+            try {
+                Image img = ImageIO.read(getClass().getResource("Assets/undiscovered.jpg"));
+                this.setIcon(new ImageIcon(img));
+                setEnabled(true);
+            } catch (IOException ex) {}
         
         addActionListener(new ActionListener() {
 
@@ -75,21 +84,18 @@ class PlanetBtn extends JButton
     {
         super.paintComponent(g);
 
-         if(game.Galaxy().getGrid()[Y][X].getDiscovered() == false)
-             setEnabled(false);
-         else
-             setEnabled(true);
-        
-        switch(game.Galaxy().getGrid()[Y][X].getPlanetType()){
-
-            case NONPIRATE:
+        if(game.Galaxy().getGrid()[Y][X].getDiscovered() == true)
+        {
+            switch(game.Galaxy().getGrid()[Y][X].getPlanetType())
+            {
+                case NONPIRATE:
                 switch(game.Galaxy().getGrid()[Y][X].getPlanetName())
                 {
                     case "Gethen":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/gethen.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
+                            try {
+                                Image img = ImageIO.read(getClass().getResource("Assets/gethen.jpg"));
+                                this.setIcon(new ImageIcon(img));
+                            } catch (IOException ex) {}
                     break;
                     case "Kiber":
                         try {
@@ -125,49 +131,48 @@ class PlanetBtn extends JButton
                 }
                 setText("");
                 break;
-            case PIRATE:
-                switch(game.Galaxy().getGrid()[Y][X].getPlanetName())
-                {
-                    case "Asperta":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/asperta.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
+                case PIRATE:
+                    switch(game.Galaxy().getGrid()[Y][X].getPlanetName())
+                    {
+                        case "Asperta":
+                            try {
+                                Image img = ImageIO.read(getClass().getResource("Assets/asperta.jpg"));
+                                this.setIcon(new ImageIcon(img));
+                            } catch (IOException ex) {}
+                        break;
+                        case "Striterax":
+                            try {
+                                Image img = ImageIO.read(getClass().getResource("Assets/striterax.jpg"));
+                                this.setIcon(new ImageIcon(img));
+                            } catch (IOException ex) {}
+                        break;
+                        case "Whirl":
+                            try {
+                                Image img = ImageIO.read(getClass().getResource("Assets/whirl.jpg"));
+                                this.setIcon(new ImageIcon(img));
+                            } catch (IOException ex) {}
+                        break;
+                    }
+                    setText("");
                     break;
-                    case "Striterax":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/striterax.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
+                case WORMHOLE:
+                    try {
+                        Image img = ImageIO.read(getClass().getResource("Assets/wormhole.jpg"));
+                        this.setIcon(new ImageIcon(img));
+                    } catch (IOException ex) {}
+                    setText("");
                     break;
-                    case "Whirl":
-                        try {
-                            Image img = ImageIO.read(getClass().getResource("Assets/whirl.jpg"));
-                            this.setIcon(new ImageIcon(img));
-                        } catch (IOException ex) {}
+                case EMPTY:
+                    try {
+                        Image img = ImageIO.read(getClass().getResource("Assets/empty.jpg"));
+                        this.setIcon(new ImageIcon(img));
+                    } catch (IOException ex) {}
+                    setText("");
                     break;
-                }
-                setText("");
-                break;
-            case WORMHOLE:
-                try {
-                    Image img = ImageIO.read(getClass().getResource("Assets/wormhole.jpg"));
-                    this.setIcon(new ImageIcon(img));
-                } catch (IOException ex) {}
-                setText("");
-                break;
-            case EMPTY:
-                try {
-                    Image img = ImageIO.read(getClass().getResource("Assets/empty.jpg"));
-                    this.setIcon(new ImageIcon(img));
-                } catch (IOException ex) {}
-                setText("");
-                break;
-            case VOID:
-                setEnabled(false);
-                break;
+                case VOID:
+                    setEnabled(false);
+                    break;
+            }
         }
-//            if(game.Player().Spaceship().Coordinates().getX() == x && game.Player().Spaceship().Coordinates().getY() == y)
-//                setText("caralho");
     }
 }

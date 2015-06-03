@@ -23,7 +23,7 @@
  */
 package MilkyWayExpress.Frontend;
 
-import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.GameModel;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.Serializable;
@@ -35,7 +35,7 @@ import javax.swing.JFrame;
  */
 public class RenderEngine implements Serializable {
     
-    private Game game;
+    private GameModel game;
     
     public static void centerScreen(JFrame f)
     {

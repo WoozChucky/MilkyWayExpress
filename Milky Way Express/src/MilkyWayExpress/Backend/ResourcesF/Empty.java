@@ -38,7 +38,7 @@ public class Empty extends Resources implements Serializable {
     public Empty()
     {
         name = "Empty";
-        resource = Resource.EMPTY;
+        resource = ResourceType.EMPTY;
         count = 0;
         img = null;
     }
@@ -88,7 +88,7 @@ public class Empty extends Resources implements Serializable {
      * @param x
      */
     @Override
-    public void setResource(Resource x)
+    public void setResource(ResourceType x)
     {
         resource = x;
     }
@@ -98,7 +98,7 @@ public class Empty extends Resources implements Serializable {
      * @return
      */
     @Override
-    public Resource getResource()
+    public ResourceType getResourceType()
     {
         return resource;
     }

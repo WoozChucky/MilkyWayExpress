@@ -236,26 +236,28 @@ public class Galaxy implements Serializable {
     }
     
     public boolean needsReplenishment()
-    {
-        for(Planet p : planets)
+    {        
+        for(int r = 0; r <= Constants.ROWS; r++)
         {
-            switch(p.getPlanetType())
+            for(int c = 0; c <= Constants.COLS; c++)
             {
-                case NONPIRATE:
-                    if(p.getResource01() == null || p.getResource02() == null)
-                    {
-                        return true;
-                    }
-                    break;
-                case PIRATE:
-                    if(p.getResource01() == null)
-                    {
-                        return true;
-                    }
-                    break;
+                switch(grid[r][c].getPlanetType())
+                {
+                    case NONPIRATE:   
+                        if(grid[r][c].getDiscovered() == true)
+                            if(grid[r][c].getResource01() == null || grid[r][c].getResource02() == null)
+                                return true;
+                        break;
+                    case PIRATE:
+                        if(grid[r][c].getDiscovered() == true)
+                            if(grid[r][c].getResource01() == null)
+                                return true;
+                        break;
+                }
+                
             }
         }
-        return false;
+        return false; 
     }
     
     /**
@@ -263,45 +265,55 @@ public class Galaxy implements Serializable {
      */
     public void generateResources()
     {
-        for(Planet p : planets)
+        System.out.println("Generating Resources");
+        for(int r = 0; r <= Constants.ROWS; r++)
         {
-            switch(p.getPlanetType())
+            for(int c = 0; c <= Constants.COLS; c++)
             {
-                case NONPIRATE:
-                    int nextRes01 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
-                    int nextRes02 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
+                switch(grid[r][c].getPlanetType())
+                {
+                    case NONPIRATE:
+                        int nextRes01 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
+                        int nextRes02 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
+                        System.out.println("Creating Resources at: " + grid[r][c].getPlanetName());
+                        switch(nextRes01)
+                        {
+                            case 0:
+                                grid[r][c].setResource01(new Food());
+                                System.out.println("Creating Food");
+                                break;
+                            case 1:
+                                grid[r][c].setResource01(new Water());
+                                System.out.println("Creating Water");
+                                break;
+                            case 2:
+                                grid[r][c].setResource01(new Medical());
+                                System.out.println("Creating Medical");
+                                break;
+                        }
 
-                    switch(nextRes01)
-                    {
-                        case 0:
-                            p.setResource01(new Food());
-                            break;
-                        case 1:
-                            p.setResource01(new Water());
-                            break;
-                        case 2:
-                            p.setResource01(new Medical());
-                            break;
-                    }
+                        switch(nextRes02)
+                        {
+                            case 0:
+                                grid[r][c].setResource02(new Food());
+                                System.out.println("Creating Food");
+                                break;
+                            case 1:
+                                grid[r][c].setResource02(new Water());
+                                System.out.println("Creating Water");
+                                break;
+                            case 2:
+                                grid[r][c].setResource02(new Medical());
+                                System.out.println("Creating Medical");
+                                break;
+                        }
+                        break;
+                    case PIRATE:
+                        System.out.println("Creating Resources at: " + grid[r][c].getPlanetName());
+                        grid[r][c].setResource01(new Illegal());
 
-                    switch(nextRes02)
-                    {
-                        case 0:
-                            p.setResource02(new Food());
-                            break;
-                        case 1:
-                            p.setResource02(new Water());
-                            break;
-                        case 2:
-                            p.setResource02(new Medical());
-                            break;
-                    }
-                    break;
-                case PIRATE:
-                    
-                    p.setResource01(new Illegal());
-                    
-                    break;
+                        break;
+                }
             }
         }
     }

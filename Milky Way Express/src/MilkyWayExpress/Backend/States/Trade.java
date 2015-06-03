@@ -24,7 +24,7 @@
 package MilkyWayExpress.Backend.States;
 
 import MilkyWayExpress.Backend.Coordinate;
-import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.GameModel;
 import java.io.Serializable;
 
 /**
@@ -33,7 +33,7 @@ import java.io.Serializable;
  */
 public class Trade extends IStateAdapter implements Serializable {
 
-    public Trade(Game g) {
+    public Trade(GameModel g) {
         super(g);
     }
     

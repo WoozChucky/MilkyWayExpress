@@ -38,7 +38,7 @@ public class Medical extends Resources implements Serializable {
     public Medical()
     {
         name = "Medical";
-        resource = Resource.MEDICAL;
+        resource = ResourceType.MEDICAL;
         count = 0;
         img = null;
     }
@@ -88,7 +88,7 @@ public class Medical extends Resources implements Serializable {
      * @param x
      */
     @Override
-    public void setResource(Resource x)
+    public void setResource(ResourceType x)
     {
         resource = x;
     }
@@ -98,7 +98,7 @@ public class Medical extends Resources implements Serializable {
      * @return
      */
     @Override
-    public Resource getResource()
+    public ResourceType getResourceType()
     {
         return resource;
     }

@@ -36,7 +36,7 @@ public abstract class Resources implements Serializable {
     /**
      *
      */
-    protected Resource resource;
+    protected ResourceType resource;
 
     /**
      *
@@ -81,13 +81,13 @@ public abstract class Resources implements Serializable {
      *
      * @return
      */
-    public abstract Resource getResource();
+    public abstract ResourceType getResourceType();
 
     /**
      *
      * @param x
      */
-    public abstract void setResource(Resource x);
+    public abstract void setResource(ResourceType x);
     
     /**
      *

@@ -23,6 +23,8 @@
  */
 package MilkyWayExpress.Backend.Player;
 
+import MilkyWayExpress.Backend.ResourcesF.ResourceType;
+import MilkyWayExpress.Backend.ResourcesF.Resources;
 import java.io.Serializable;
 
 /**
@@ -59,5 +61,16 @@ public class Player implements Serializable {
     public String getName()
     {
         return name;
+    }
+    
+    public boolean canBuy(int cost)
+    {
+        return (spaceship.Coins().getCount()- cost) >= 0;
+    }
+    
+    public void Buy(int cost, Resources res)
+    {
+        spaceship.Coins().setCount(spaceship.Coins().getCount() - cost);
+        spaceship.Cargo().addResource(res);
     }
 }

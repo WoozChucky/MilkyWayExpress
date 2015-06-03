@@ -27,7 +27,7 @@ package MilkyWayExpress.Backend.ResourcesF;
  *
  * @author woozlinux
  */
-public enum Resource {
+public enum ResourceType {
 
     /**
      *

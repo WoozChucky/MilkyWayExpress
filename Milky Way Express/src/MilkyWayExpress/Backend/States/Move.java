@@ -24,7 +24,7 @@
 package MilkyWayExpress.Backend.States;
 
 import MilkyWayExpress.Backend.Coordinate;
-import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.GameModel;
 import java.io.Serializable;
 
 /**
@@ -33,7 +33,7 @@ import java.io.Serializable;
  */
 public class Move extends IStateAdapter implements Serializable {
 
-    public Move(Game g) {
+    public Move(GameModel g) {
         super(g);
     }
     

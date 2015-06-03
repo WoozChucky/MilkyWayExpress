@@ -23,7 +23,7 @@
  */
 package MilkyWayExpress.Backend.States;
 
-import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.GameModel;
 import MilkyWayExpress.Backend.Player.Player;
 import java.io.Serializable;
 
@@ -33,7 +33,7 @@ import java.io.Serializable;
  */
 public class AwaitsBegin extends IStateAdapter implements Serializable {
 
-    public AwaitsBegin(Game g) {
+    public AwaitsBegin(GameModel g) {
         super(g);
     }
     

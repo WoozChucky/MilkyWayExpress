@@ -23,7 +23,7 @@
  */
 package MilkyWayExpress.Backend.States;
 
-import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.GameModel;
 import java.io.Serializable;
 
 /**
@@ -32,7 +32,7 @@ import java.io.Serializable;
  */
 public class GameOver extends IStateAdapter implements Serializable {
 
-    public GameOver(Game g) {
+    public GameOver(GameModel g) {
         super(g);
     }
     

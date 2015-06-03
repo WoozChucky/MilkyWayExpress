@@ -23,7 +23,7 @@
  */
 package MilkyWayExpress.Frontend;
 
-import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.GameModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -168,11 +168,11 @@ public class LoadGameMenu extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         File f = new File(System.getProperty("user.dir") + "/" + jComboBox1.getSelectedItem().toString());
         
-        Game game = null;
+        GameModel game = null;
         
         try {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-                game = (Game)ois.readObject();
+                game = (GameModel)ois.readObject();
                 ois.close();
             } catch(IOException | ClassNotFoundException ex) {
             }

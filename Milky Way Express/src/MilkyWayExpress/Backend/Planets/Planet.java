@@ -35,10 +35,10 @@ public class Planet implements Serializable {
     private String name;
     private Resources resource1, resource2;
     private PlanetType type;
-    private int CostResource01; //Water
-    private int CostResource02; //Food
-    private int CostResource03; //Medical
-    private int CostResource04; //Illegal
+    private int waterCost; //Water
+    private int foodCost; //Food
+    private int medicalCost; //Medical
+    private int illegalCost; //Illegal
     private boolean discovered;
     
     @Override
@@ -116,36 +116,36 @@ public class Planet implements Serializable {
      *
      * @return
      */
-    public int getResourceCost01()
+    public int getWaterCost()
     {
-        return CostResource01;
+        return waterCost;
     }
 
     /**
      *
      * @return
      */
-    public int getResourceCost02()
+    public int getFoodCost()
     {
-        return CostResource02;
+        return foodCost;
     }
 
     /**
      *
      * @return
      */
-    public int getResourceCost03()
+    public int getMedicalCost()
     {
-        return CostResource03;
+        return medicalCost;
     }
 
     /**
      *
      * @return
      */
-    public int getResourceCost04()
+    public int getIllegalCost()
     {
-        return CostResource04;
+        return illegalCost;
     }
 
     @Override
@@ -153,10 +153,10 @@ public class Planet implements Serializable {
         int hash = 7;
         hash = 79 * hash + Objects.hashCode(this.name);
         hash = 79 * hash + Objects.hashCode(this.type);
-        hash = 79 * hash + this.CostResource01;
-        hash = 79 * hash + this.CostResource02;
-        hash = 79 * hash + this.CostResource03;
-        hash = 79 * hash + this.CostResource04;
+        hash = 79 * hash + this.waterCost;
+        hash = 79 * hash + this.foodCost;
+        hash = 79 * hash + this.medicalCost;
+        hash = 79 * hash + this.illegalCost;
         return hash;
     }
     
@@ -178,40 +178,40 @@ public class Planet implements Serializable {
                 switch(n)
                 {
                     case "Gethen":
-                        CostResource01 = 0;
-                        CostResource02 = 3;
-                        CostResource03 = 0;
-                        CostResource04 = 0;
+                        waterCost = 1;
+                        foodCost = 3;
+                        medicalCost = 2;
+                        illegalCost = 3;
                         break;
                     case "Kiber":
-                        CostResource01 = 0;
-                        CostResource02 = 0;
-                        CostResource03 = 3;
-                        CostResource04 = 0;
+                        waterCost = 3;
+                        foodCost = 1;
+                        medicalCost = 2;
+                        illegalCost = 3;
                         break;
                     case "Reverie":
-                        CostResource01 = 3;
-                        CostResource02 = 0;
-                        CostResource03 = 0;
-                        CostResource04 = 0;
+                        waterCost = 1;
+                        foodCost = 2;
+                        medicalCost = 3;
+                        illegalCost = 3;
                         break;
                     case "Tiamat":
-                        CostResource01 = 0;
-                        CostResource02 = 3;
-                        CostResource03 = 0;
-                        CostResource04 = 0;
+                        waterCost = 3;
+                        foodCost = 2;
+                        medicalCost = 1;
+                        illegalCost = 3;
                         break;
                     case "Lamarckia":
-                        CostResource01 = 0;
-                        CostResource02 = 0;
-                        CostResource03 = 3;
-                        CostResource04 = 0;
+                        waterCost = 2;
+                        foodCost = 3;
+                        medicalCost = 1;
+                        illegalCost = 3;
                         break;
                     case "Arrakis":
-                        CostResource01 = 3;
-                        CostResource02 = 0;
-                        CostResource03 = 0;
-                        CostResource04 = 0;
+                        waterCost = 2;
+                        foodCost = 1;
+                        medicalCost = 3;
+                        illegalCost = 3;
                         break;
                 }
                 break;
@@ -222,22 +222,22 @@ public class Planet implements Serializable {
                 switch(n)
                 {
                     case "Whirl":
-                        CostResource01 = 0;
-                        CostResource02 = 3;
-                        CostResource03 = 0;
-                        CostResource04 = 0;
+                        waterCost = 0;
+                        foodCost = 3;
+                        medicalCost = 0;
+                        illegalCost = 0;
                         break;
                     case "Striterax":
-                        CostResource01 = 0;
-                        CostResource02 = 0;
-                        CostResource03 = 3;
-                        CostResource04 = 0;
+                        waterCost = 0;
+                        foodCost = 0;
+                        medicalCost = 3;
+                        illegalCost = 0;
                         break;
                     case "Asperta":
-                        CostResource01 = 3;
-                        CostResource02 = 0;
-                        CostResource03 = 0;
-                        CostResource04 = 0;
+                        waterCost = 3;
+                        foodCost = 0;
+                        medicalCost = 0;
+                        illegalCost = 0;
                         break;
                 }
                 break;
@@ -245,29 +245,29 @@ public class Planet implements Serializable {
                 name = n;
                 resource1 = null;
                 resource2 = null;
-                CostResource01 = 0;
-                CostResource02 = 0;
-                CostResource03 = 0;
-                CostResource04 = 0;
+                waterCost = 0;
+                foodCost = 0;
+                medicalCost = 0;
+                illegalCost = 0;
                 break;
                 
             case VOID:
                 name = "Void";
                 resource1 = null;
                 resource2 = null;
-                CostResource01 = 0;
-                CostResource02 = 0;
-                CostResource03 = 0;
-                CostResource04 = 0;
+                waterCost = 0;
+                foodCost = 0;
+                medicalCost = 0;
+                illegalCost = 0;
                 break;
             case EMPTY:
                 name = "Empty";
                 resource1 = null;
                 resource2 = null;
-                CostResource01 = 0;
-                CostResource02 = 0;
-                CostResource03 = 0;
-                CostResource04 = 0;
+                waterCost = 0;
+                foodCost = 0;
+                medicalCost = 0;
+                illegalCost = 0;
                 break;
         }
       discovered = false;  

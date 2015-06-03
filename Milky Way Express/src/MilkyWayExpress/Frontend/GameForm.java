@@ -24,18 +24,14 @@
 package MilkyWayExpress.Frontend;
 
 import MilkyWayExpress.Backend.Constants;
-import MilkyWayExpress.Backend.Coordinate;
-import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.GameModel;
 import MilkyWayExpress.Backend.Planets.Planet;
-import MilkyWayExpress.Backend.Player.Player;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -44,9 +40,9 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -54,7 +50,7 @@ import javax.swing.JOptionPane;
  */
 public final class GameForm extends javax.swing.JFrame implements Observer {
 
-    public Game game;
+    public GameModel game;
     private final String pName;
     private Component[] comps;
     
@@ -63,7 +59,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
      * @param g
      * @param s
      */
-    public GameForm(Game g, String s) {
+    public GameForm(GameModel g, String s) {
         initComponents();
         game = g;
         game.addObserver(this);
@@ -158,11 +154,15 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Milky Way Express");
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
@@ -338,6 +338,14 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem3.setText("Exit");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -389,7 +397,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showGameInfo(Game g, JLabel name, JLabel credits, JLabel coordinates, JLabel cargolevel, JLabel res1, JLabel res2, JLabel res3, JLabel weaponlevel)
+    private void showGameInfo(GameModel g, JLabel name, JLabel credits, JLabel coordinates, JLabel cargolevel, JLabel res1, JLabel res2, JLabel res3, JLabel weaponlevel)
     {
         name.setText("Name - " + g.Player().getName());
         credits.setText("Credits - " + g.Player().Spaceship().Coins().getCount()); 
@@ -425,7 +433,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     }
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         if(game.Player() == null)
-        {   //New Game
+        {   //New GameModel
             game.startGame(pName);
         }     
         showGameInfo(game, jLabel2, jLabel3, jLabel4,
@@ -456,6 +464,8 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                 break;
             case "STATE: Trade":
                 game.trade();
+                showGameInfo(game, jLabel2, jLabel3, jLabel4,
+                jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
                 break;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -467,16 +477,32 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_formKeyPressed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        game = new Game();
+        game = new GameModel();
         game.startGame(pName);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        String ObjButtons[] = {"Yes","No"};
+        int PromptResult = JOptionPane.showOptionDialog(null, 
+            "Are you sure you want to exit?", "Milky Way Express", 
+            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, 
+            ObjButtons,ObjButtons[1]);
+        if(PromptResult==0)
+        {
+          System.exit(0);          
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
      * @param g
      * @param s
      */
-    public static void main(String args[], Game g, String s) {
+    public static void main(String args[], GameModel g, String s) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -532,6 +558,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel spaceshipLabel;

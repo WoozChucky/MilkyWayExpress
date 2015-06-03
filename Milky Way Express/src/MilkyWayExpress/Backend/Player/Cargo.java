@@ -88,6 +88,34 @@ public class Cargo implements Serializable {
         return resource03;
     }
     
+    public void setResource01(Resources res)
+    {
+        resource01 = res;
+    }
+    
+    public void setResource02(Resources res)
+    {
+        resource02 = res;
+    }
+    
+    public void setResource03(Resources res)
+    {
+        resource03 = res;
+    }
+    
+    public boolean addResource(Resources res)
+    {
+        if(resource01 == null)
+            resource01 = res;
+        else if(resource02 == null)
+            resource02 = res;
+        else if(resource03 == null)
+            resource03 = res;
+        else
+            return false;
+        return true;
+    }
+    
     /**
      *
      * @return

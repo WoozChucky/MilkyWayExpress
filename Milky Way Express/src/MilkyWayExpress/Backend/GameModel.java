@@ -38,7 +38,7 @@ import java.util.Observable;
  *
  * @author woozlinux
  */
-public class Game extends Observable implements Serializable {
+public class GameModel extends Observable implements Serializable {
     
     private IState state;
     
@@ -51,7 +51,7 @@ public class Game extends Observable implements Serializable {
     /**
      *
      */
-    public Game()
+    public GameModel()
     {
         galaxy = new Galaxy();
         coins = new Coin();
@@ -103,7 +103,11 @@ public class Game extends Observable implements Serializable {
         return Move.class.isInstance(state);
     }
     
-    
+    public void update()
+    {
+        setChanged();
+        notifyObservers();
+    }
     
     /**
      *

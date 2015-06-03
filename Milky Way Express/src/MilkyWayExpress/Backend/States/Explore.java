@@ -23,7 +23,7 @@
  */
 package MilkyWayExpress.Backend.States;
 
-import MilkyWayExpress.Backend.Game;
+import MilkyWayExpress.Backend.GameModel;
 import MilkyWayExpress.Backend.Planets.Planet;
 import java.io.Serializable;
 
@@ -33,7 +33,7 @@ import java.io.Serializable;
  */
 public class Explore extends IStateAdapter implements Serializable {
 
-    public Explore(Game g) {
+    public Explore(GameModel g) {
         super(g);
     }
     
