@@ -30,7 +30,7 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class Illegal extends Resources implements Serializable {
+public class Illegal extends Resource implements Serializable {
     
     /**
      *

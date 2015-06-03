@@ -30,7 +30,7 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class Medical extends Resources implements Serializable {
+public class Medical extends Resource implements Serializable {
     
     /**
      *

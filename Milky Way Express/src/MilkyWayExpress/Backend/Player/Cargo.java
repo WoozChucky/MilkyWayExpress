@@ -30,9 +30,9 @@ import java.io.Serializable;
  * @author woozlinux
  */
 public class Cargo implements Serializable {
-    private Resources resource01;
-    private Resources resource02;
-    private Resources resource03;
+    private Resource resource01;
+    private Resource resource02;
+    private Resource resource03;
     
     private int level;
     
@@ -65,7 +65,7 @@ public class Cargo implements Serializable {
      *
      * @return
      */
-    public Resources getResource01()
+    public Resource getResource01()
     {
         return resource01;
     }
@@ -74,7 +74,7 @@ public class Cargo implements Serializable {
      *
      * @return
      */
-    public Resources getResource02()
+    public Resource getResource02()
     {
         return resource02;
     }
@@ -83,27 +83,27 @@ public class Cargo implements Serializable {
      *
      * @return
      */
-    public Resources getResource03()
+    public Resource getResource03()
     {
         return resource03;
     }
     
-    public void setResource01(Resources res)
+    public void setResource01(Resource res)
     {
         resource01 = res;
     }
     
-    public void setResource02(Resources res)
+    public void setResource02(Resource res)
     {
         resource02 = res;
     }
     
-    public void setResource03(Resources res)
+    public void setResource03(Resource res)
     {
         resource03 = res;
     }
     
-    public boolean addResource(Resources res)
+    public boolean addResource(Resource res)
     {
         if(resource01 == null)
             resource01 = res;

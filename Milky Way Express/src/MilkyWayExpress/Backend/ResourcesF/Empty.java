@@ -30,7 +30,7 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class Empty extends Resources implements Serializable {
+public class Empty extends Resource implements Serializable {
     
     /**
      *

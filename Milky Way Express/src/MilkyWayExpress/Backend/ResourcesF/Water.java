@@ -30,7 +30,7 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class Water extends Resources implements Serializable {
+public class Water extends Resource implements Serializable {
     
     /**
      *

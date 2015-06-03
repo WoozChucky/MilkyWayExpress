@@ -27,7 +27,7 @@ import MilkyWayExpress.Backend.Constants;
 import MilkyWayExpress.Backend.Coordinate;
 import MilkyWayExpress.Backend.ResourcesF.Coin;
 import MilkyWayExpress.Backend.ResourcesF.Empty;
-import MilkyWayExpress.Backend.ResourcesF.Resources;
+import MilkyWayExpress.Backend.ResourcesF.Resource;
 import java.io.Serializable;
 
 /**
@@ -44,10 +44,10 @@ public class Spaceship implements Serializable {
     private final Cargo cargo;
     private final Weapon weapon;
     
-    private Resources resource01;
-    private Resources resource02;
-    private Resources resource03;
-    private final Resources coins;
+    private Resource resource01;
+    private Resource resource02;
+    private Resource resource03;
+    private final Resource coins;
     
     /**
      *
@@ -87,7 +87,7 @@ public class Spaceship implements Serializable {
      *
      * @return
      */
-    public Resources Coins()
+    public Resource Coins()
     {
         return coins;
     }

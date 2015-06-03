@@ -70,8 +70,136 @@ class PlanetBtn extends JButton
                 f.displayPlanetInfo(game.Galaxy().getGrid()[Y][X], X, Y);
 
                 if(frm.game.isTrading() && game.Player().Spaceship().Coordinates().getX() == X && game.Player().Spaceship().Coordinates().getY() == Y && (game.Galaxy().getGrid()[Y][X].getPlanetType() == PlanetType.NONPIRATE || game.Galaxy().getGrid()[Y][X].getPlanetType() == PlanetType.PIRATE))
-                    RenderEngine.openTrade(frm, new TradeForm(frm, game, game.Galaxy().getGrid()[Y][X]));
-                
+                {
+                    //Buy zone
+                    frm.buyIconLb.setVisible(true);
+                    frm.buyBtn1.setVisible(true);
+                    frm.buyBtn2.setVisible(true);
+                    frm.resLabel1.setVisible(true);
+                    frm.resLabel2.setVisible(true);
+                    
+                    //Sell zone
+                    frm.sellIconLb.setVisible(true);
+                    frm.sellBtn1.setVisible(true);
+                    frm.sellBtn2.setVisible(true);
+                    frm.sellBtn2.setVisible(true);
+                    frm.resLb1.setVisible(true);
+                    frm.resLb2.setVisible(true);
+                    frm.resLb3.setVisible(true);
+                    
+                    //set planet to button property
+                    frm.buyBtn1.putClientProperty("PlanetInfo", game.Galaxy().getGrid()[Y][X]);
+                    frm.buyBtn2.putClientProperty("PlanetInfo", game.Galaxy().getGrid()[Y][X]);
+                    
+                    
+                    //Buy Area
+                    if (game.Galaxy().getGrid()[Y][X].getPlanetType() == PlanetType.NONPIRATE) 
+                    {
+                        frm.resLabel1.setText("Resource 1: " + game.Galaxy().getGrid()[Y][X].getResource01().getName());
+                        frm.resLabel2.setText("Resource 2: " + game.Galaxy().getGrid()[Y][X].getResource02().getName());
+                        
+                        switch(game.Galaxy().getGrid()[Y][X].getResource01().getResourceType())
+                        {
+                            case WATER:
+                                frm.buyBtn1.setText("Buy for " + game.Galaxy().getGrid()[Y][X].getWaterCost() + " coins");
+                                break;
+                            case FOOD:
+                                frm.buyBtn1.setText("Buy for " + game.Galaxy().getGrid()[Y][X].getFoodCost() + " coins");
+                                break;
+                            case MEDICAL:
+                                frm.buyBtn1.setText("Buy for " + game.Galaxy().getGrid()[Y][X].getMedicalCost() + " coins");
+                                break;
+                        }
+                        
+                        switch(game.Galaxy().getGrid()[Y][X].getResource02().getResourceType())
+                        {
+                            case WATER:
+                                frm.buyBtn2.setText("Buy for " + game.Galaxy().getGrid()[Y][X].getWaterCost() + " coins");
+                                break;
+                            case FOOD:
+                                frm.buyBtn2.setText("Buy for " + game.Galaxy().getGrid()[Y][X].getFoodCost() + " coins");
+                                break;
+                            case MEDICAL:
+                                frm.buyBtn2.setText("Buy for " + game.Galaxy().getGrid()[Y][X].getMedicalCost() + " coins");
+                                break;
+                        }
+                    }
+                    else if (game.Galaxy().getGrid()[Y][X].getPlanetType() == PlanetType.PIRATE)
+                    {
+                        frm.resLabel1.setText("Resource 1: " + game.Galaxy().getGrid()[Y][X].getResource01().getName());
+                        frm.resLabel2.setVisible(false);
+                        frm.buyBtn2.setVisible(false);
+                        frm.buyBtn1.setText("Buy for " + game.Galaxy().getGrid()[Y][X].getIllegalCost()+ " coins");
+                    }
+                    
+                    
+                    //Sell Area
+                    if(game.Player().Spaceship().Cargo().getResource01() != null)
+                    {
+                        frm.resLb1.setText("Resource 1: " + game.Player().Spaceship().Cargo().getResource01().getName());
+                        switch(game.Player().Spaceship().Cargo().getResource01().getResourceType())
+                        {
+                            case WATER:
+                                frm.sellBtn1.setText("Sell for " + game.Galaxy().getGrid()[Y][X].getWaterCost() + " coins");
+                                break;
+                            case FOOD:
+                                frm.sellBtn1.setText("Sell for " + game.Galaxy().getGrid()[Y][X].getFoodCost() + " coins");
+                                break;
+                            case MEDICAL:
+                                frm.sellBtn1.setText("Sell for " + game.Galaxy().getGrid()[Y][X].getMedicalCost() + " coins");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        frm.resLb1.setText("Resource 1: Empty");
+                        frm.sellBtn1.setVisible(false);
+                    }
+                    
+                    if(game.Player().Spaceship().Cargo().getResource02() != null)
+                    {
+                        frm.resLb2.setText("Resource 2: " + game.Player().Spaceship().Cargo().getResource02().getName());
+                        switch(game.Player().Spaceship().Cargo().getResource02().getResourceType())
+                        {
+                            case WATER:
+                                frm.sellBtn2.setText("Sell for " + game.Galaxy().getGrid()[Y][X].getWaterCost() + " coins");
+                                break;
+                            case FOOD:
+                                frm.sellBtn2.setText("Sell for " + game.Galaxy().getGrid()[Y][X].getFoodCost() + " coins");
+                                break;
+                            case MEDICAL:
+                                frm.sellBtn2.setText("Sell for " + game.Galaxy().getGrid()[Y][X].getMedicalCost() + " coins");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        frm.resLb2.setText("Resource 2: Empty");
+                        frm.sellBtn2.setVisible(false);
+                    }
+                    if(game.Player().Spaceship().Cargo().getResource03() != null)
+                    {
+                        frm.resLb3.setText("Resource 3: " + game.Player().Spaceship().Cargo().getResource03().getName());
+                        switch(game.Player().Spaceship().Cargo().getResource03().getResourceType())
+                        {
+                            case WATER:
+                                frm.sellBtn3.setText("Sell for " + game.Galaxy().getGrid()[Y][X].getWaterCost() + " coins");
+                                break;
+                            case FOOD:
+                                frm.sellBtn3.setText("Sell for " + game.Galaxy().getGrid()[Y][X].getFoodCost() + " coins");
+                                break;
+                            case MEDICAL:
+                                frm.sellBtn3.setText("Sell for " + game.Galaxy().getGrid()[Y][X].getMedicalCost() + " coins");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        frm.resLb3.setText("Resource 3: Empty");
+                        frm.sellBtn3.setVisible(false);
+                    }
+                }
+
                 if(frm.game.canMove())
                     frm.game.move(new Coordinate(X, Y));
             }

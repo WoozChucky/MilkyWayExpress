@@ -23,9 +23,10 @@
  */
 package MilkyWayExpress.Backend;
 
+import MilkyWayExpress.Backend.Planets.Planet;
 import MilkyWayExpress.Backend.Player.Player;
 import MilkyWayExpress.Backend.ResourcesF.Coin;
-import MilkyWayExpress.Backend.ResourcesF.Resources;
+import MilkyWayExpress.Backend.ResourcesF.Resource;
 import MilkyWayExpress.Backend.States.AwaitsBegin;
 import MilkyWayExpress.Backend.States.GameOver;
 import MilkyWayExpress.Backend.States.IState;
@@ -33,6 +34,7 @@ import MilkyWayExpress.Backend.States.Move;
 import MilkyWayExpress.Backend.States.Trade;
 import java.io.Serializable;
 import java.util.Observable;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,7 +46,7 @@ public class GameModel extends Observable implements Serializable {
     
     private Player player;
     private final Galaxy galaxy;
-    private final Resources coins;
+    private final Resource coins;
     private char action;
     private int round;
     
@@ -103,6 +105,98 @@ public class GameModel extends Observable implements Serializable {
         return Move.class.isInstance(state);
     }
     
+    public int buyResource(Planet p, int which)
+    {
+        //Return -1 : No space
+        //Return 0  : Not enough credits
+        //Return 1  : Success
+        
+        if(which == 1)
+        {
+            switch(p.getResource01().getResourceType())
+                {
+                    case WATER:
+                        if(Player().canBuy(p.getWaterCost()))
+                            if(Player().Buy(p.getWaterCost(), p.getResource01()))
+                            {
+                                p.setResource01(null);
+                                return 1;
+                            }
+                            else
+                                return -1;
+                        else
+                            return 0;
+
+                    case FOOD:
+                        if(Player().canBuy(p.getFoodCost()))
+                            if(Player().Buy(p.getFoodCost(), p.getResource01()))
+                            {
+                                p.setResource01(null);
+                                return 1;
+                            }
+                            else
+                                return -1;
+                        else
+                            return 0;
+
+                    case MEDICAL:
+                        if(Player().canBuy(p.getMedicalCost()))
+                            if(Player().Buy(p.getMedicalCost(), p.getResource01()))
+                            {
+                                p.setResource01(null);
+                                return 1;
+                            }
+                            else
+                                return -1;
+                        else
+                            return 0;
+
+                }
+        }
+        else
+        {
+            switch(p.getResource02().getResourceType())
+                {
+                    case WATER:
+                        if(Player().canBuy(p.getWaterCost()))
+                            if(Player().Buy(p.getWaterCost(), p.getResource02()))
+                            {
+                                p.setResource02(null);
+                                return 1;
+                            } 
+                            else
+                                return -1;
+                        else
+                            return 0;
+
+                    case FOOD:
+                        if(Player().canBuy(p.getFoodCost()))
+                            if(Player().Buy(p.getFoodCost(), p.getResource02()))
+                            {
+                                p.setResource02(null);
+                                return 1;
+                            }
+                            else
+                                return -1;
+                        else
+                            return 0;
+
+                    case MEDICAL:
+                        if(Player().canBuy(p.getMedicalCost()))
+                            if(Player().Buy(p.getMedicalCost(), p.getResource02()))
+                            {
+                                p.setResource02(null);
+                                return 1;
+                            }
+                            else
+                                return -1;
+                        else
+                            return 0;
+                }
+        }
+        return 1;
+    }
+    
     public void update()
     {
         setChanged();
@@ -131,7 +225,7 @@ public class GameModel extends Observable implements Serializable {
      *
      * @return
      */
-    public Resources Coins()
+    public Resource Coins()
     {
         return coins;
     }

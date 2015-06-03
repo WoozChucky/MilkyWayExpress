@@ -31,7 +31,7 @@ import java.io.Serializable;
  */
 
 
-public abstract class Resources implements Serializable {
+public abstract class Resource implements Serializable {
     
     /**
      *

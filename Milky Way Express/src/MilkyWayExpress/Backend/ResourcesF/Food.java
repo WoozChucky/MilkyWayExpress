@@ -30,7 +30,7 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class Food extends Resources implements Serializable {
+public class Food extends Resource implements Serializable {
     
     /**
      *

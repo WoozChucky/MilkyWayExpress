@@ -23,7 +23,7 @@
  */
 package MilkyWayExpress.Backend.Planets;
 
-import MilkyWayExpress.Backend.ResourcesF.Resources;
+import MilkyWayExpress.Backend.ResourcesF.Resource;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -33,7 +33,7 @@ import java.util.Objects;
  */
 public class Planet implements Serializable {
     private String name;
-    private Resources resource1, resource2;
+    private Resource resource1, resource2;
     private PlanetType type;
     private int waterCost; //Water
     private int foodCost; //Food
@@ -62,7 +62,7 @@ public class Planet implements Serializable {
      *
      * @param r
      */
-    public void setResource01(Resources r)
+    public void setResource01(Resource r)
     {
         resource1 = r;
     }
@@ -71,7 +71,7 @@ public class Planet implements Serializable {
      *
      * @param r
      */
-    public void setResource02(Resources r)
+    public void setResource02(Resource r)
     {
         resource2 = r;
     }
@@ -80,7 +80,7 @@ public class Planet implements Serializable {
      *
      * @return
      */
-    public Resources getResource01()
+    public Resource getResource01()
     {
         return resource1;
     }
@@ -89,7 +89,7 @@ public class Planet implements Serializable {
      *
      * @return
      */
-    public Resources getResource02()
+    public Resource getResource02()
     {
         return resource2;
     }

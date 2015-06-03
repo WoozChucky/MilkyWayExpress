@@ -30,7 +30,7 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class Coin extends Resources implements Serializable {
+public class Coin extends Resource implements Serializable {
     
     /**
      *
