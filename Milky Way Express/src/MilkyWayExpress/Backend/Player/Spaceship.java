@@ -25,9 +25,9 @@ package MilkyWayExpress.Backend.Player;
 
 import MilkyWayExpress.Backend.Constants;
 import MilkyWayExpress.Backend.Coordinate;
-import MilkyWayExpress.Backend.ResourcesF.Coin;
-import MilkyWayExpress.Backend.ResourcesF.Empty;
-import MilkyWayExpress.Backend.ResourcesF.Resource;
+import MilkyWayExpress.Backend.Resources.Coin;
+import MilkyWayExpress.Backend.Resources.Empty;
+import MilkyWayExpress.Backend.Resources.Resource;
 import java.io.Serializable;
 
 /**
@@ -36,10 +36,6 @@ import java.io.Serializable;
  */
 public class Spaceship implements Serializable {
     private final Coordinate coords;
-    
-    private final WeaponUpgrade wp01;
-    private final WeaponUpgrade wp02;
-    private final CargoUpgrade cp01;
     
     private final Cargo cargo;
     private final Weapon weapon;
@@ -55,9 +51,6 @@ public class Spaceship implements Serializable {
     public Spaceship()
     {
         coords = new Coordinate(Constants.STARTCOL, Constants.STARTROW);
-        wp01 = new WeaponUpgrade(4);
-        wp02 = new WeaponUpgrade(5);
-        cp01 = new CargoUpgrade(3);
         cargo = new Cargo();
         weapon = new Weapon();
         coins = new Coin();
@@ -74,6 +67,34 @@ public class Spaceship implements Serializable {
         return cargo;
     }
     
+    public int upgradeWeapon()
+    {
+        if(weapon.getLevel() >= 5)
+        {
+            return -1;
+        }
+        
+        if((coins.getCount() - weapon.getLevel()) >= 0)
+        {
+            weapon.setLevel(weapon.getLevel() + 1);
+            coins.setCount(coins.getCount() - weapon.getLevel());
+            return 1;
+        }
+        return 0;
+    }
+    
+    public int upgradeCargo()
+    {
+        if(cargo.getLevel() >= 3)
+            return -1;
+        if((coins.getCount() - cargo.getLevel()) >= 0)
+        {
+            coins.setCount(coins.getCount() - cargo.getLevel());
+            cargo.unlockResource03();
+            return 1;
+        }
+        return 0;
+    }
     /**
      *
      * @return

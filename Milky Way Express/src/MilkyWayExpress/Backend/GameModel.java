@@ -25,10 +25,10 @@ package MilkyWayExpress.Backend;
 
 import MilkyWayExpress.Backend.Planets.Planet;
 import MilkyWayExpress.Backend.Player.Player;
-import MilkyWayExpress.Backend.ResourcesF.Coin;
-import MilkyWayExpress.Backend.ResourcesF.Empty;
-import MilkyWayExpress.Backend.ResourcesF.Resource;
-import MilkyWayExpress.Backend.ResourcesF.ResourceType;
+import MilkyWayExpress.Backend.Resources.Coin;
+import MilkyWayExpress.Backend.Resources.Empty;
+import MilkyWayExpress.Backend.Resources.Resource;
+import MilkyWayExpress.Backend.Resources.ResourceType;
 import MilkyWayExpress.Backend.States.AwaitsBegin;
 import MilkyWayExpress.Backend.States.GameOver;
 import MilkyWayExpress.Backend.States.IState;
@@ -92,9 +92,12 @@ public class GameModel extends Observable implements Serializable {
             return;
         }
         
-        Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() - 1);
-        round++;
-        setState(state.move(coords));
+        if(Galaxy().getGrid()[coords.getY()][coords.getX()].getDiscovered() == true)
+        {
+            Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() - 1);
+            round++;
+            setState(state.move(coords));
+        }
     }
     
     public boolean isTrading()

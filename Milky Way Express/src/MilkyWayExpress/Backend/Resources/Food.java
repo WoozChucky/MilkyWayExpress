@@ -21,41 +21,106 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package MilkyWayExpress.Backend.ResourcesF;
+package MilkyWayExpress.Backend.Resources;
+
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  *
  * @author woozlinux
  */
-public enum ResourceType {
-
+public class Food extends Resource implements Serializable {
+    
     /**
      *
      */
-    FOOD,
+    public Food()
+    {
+        name = "Food";
+        resource = ResourceType.FOOD;
+        count = 0;
+        img = null;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String getName()
+    {
+        return name;
+    }
 
     /**
      *
+     * @param x
      */
-    WATER,
+    @Override
+    public void setName(String x)
+    {
+        name = x;
+    }
+    
+    /**
+     *
+     * @param x
+     */
+    @Override
+    public void setCount(int x)
+    {
+        count = x;
+    }
 
     /**
      *
+     * @return
      */
-    COIN,
+    @Override
+    public int getCount()
+    {
+        return count;
+    }
+    
+    /**
+     *
+     * @param x
+     */
+    @Override
+    public void setResource(ResourceType x)
+    {
+        resource = x;
+    }
 
     /**
      *
+     * @return
      */
-    MEDICAL,
+    @Override
+    public ResourceType getResourceType()
+    {
+        return resource;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    @Override
+    public BufferedImage getImage()
+    {
+        return img;
+    }
 
     /**
      *
+     * @param x
      */
-    ILLEGAL,
-
-    /**
-     *
-     */
-    EMPTY
+    @Override
+    public void setImage(BufferedImage x)
+    {
+        img = x;
+    }
+    
 }

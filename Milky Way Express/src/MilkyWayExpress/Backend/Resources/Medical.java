@@ -21,50 +21,106 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package MilkyWayExpress.Backend.Player;
+package MilkyWayExpress.Backend.Resources;
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 /**
  *
  * @author woozlinux
  */
-public class WeaponUpgrade implements Serializable {
-    
-    private int level;
-    private int cost;
-    private boolean upgraded;
+public class Medical extends Resource implements Serializable {
     
     /**
      *
-     * @param level
      */
-    public WeaponUpgrade(int level)
+    public Medical()
     {
-        this.level = level;
-        this.cost = level;
-        this.upgraded = false;
-    }
-    
-    /**
-     *
-     * @param spaceship
-     */
-    public void Upgrade(Spaceship spaceship)
-    {
-        if(spaceship.Coins().getCount() >= this.cost && (spaceship.Coins().getCount() + this.cost) >= 0 && this.upgraded == false)
-        {
-            spaceship.Weapon().setLevel(this.level);
-            spaceship.Coins().setCount(spaceship.Coins().getCount() - this.cost);
-        }
+        name = "Medical";
+        resource = ResourceType.MEDICAL;
+        count = 0;
+        img = null;
     }
     
     /**
      *
      * @return
      */
-    public int getCost()
+    @Override
+    public String getName()
     {
-        return cost;
+        return name;
     }
+
+    /**
+     *
+     * @param x
+     */
+    @Override
+    public void setName(String x)
+    {
+        name = x;
+    }
+    
+    /**
+     *
+     * @param x
+     */
+    @Override
+    public void setCount(int x)
+    {
+        count = x;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int getCount()
+    {
+        return count;
+    }
+    
+    /**
+     *
+     * @param x
+     */
+    @Override
+    public void setResource(ResourceType x)
+    {
+        resource = x;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public ResourceType getResourceType()
+    {
+        return resource;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    @Override
+    public BufferedImage getImage()
+    {
+        return img;
+    }
+
+    /**
+     *
+     * @param x
+     */
+    @Override
+    public void setImage(BufferedImage x)
+    {
+        img = x;
+    }
+    
 }

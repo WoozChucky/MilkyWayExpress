@@ -24,10 +24,10 @@
 package MilkyWayExpress.Backend;
 import MilkyWayExpress.Backend.Planets.PlanetType;
 import MilkyWayExpress.Backend.Planets.Planet;
-import MilkyWayExpress.Backend.ResourcesF.Medical;
-import MilkyWayExpress.Backend.ResourcesF.Illegal;
-import MilkyWayExpress.Backend.ResourcesF.Water;
-import MilkyWayExpress.Backend.ResourcesF.Food;
+import MilkyWayExpress.Backend.Resources.Medical;
+import MilkyWayExpress.Backend.Resources.Illegal;
+import MilkyWayExpress.Backend.Resources.Water;
+import MilkyWayExpress.Backend.Resources.Food;
 import java.io.Serializable;
 import java.util.ArrayList;
 

@@ -26,6 +26,7 @@ package MilkyWayExpress.Frontend;
 import MilkyWayExpress.Backend.Coordinate;
 import MilkyWayExpress.Backend.GameModel;
 import MilkyWayExpress.Backend.Planets.PlanetType;
+import MilkyWayExpress.Backend.Resources.ResourceType;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -52,7 +53,7 @@ class PlanetBtn extends JButton
         this.X = x;
         this.Y = y;
 
-        game.Galaxy().getGrid()[Y][X].setDiscovered(false);
+        //game.Galaxy().getGrid()[Y][X].setDiscovered(false);
         
         if(game.Galaxy().getGrid()[Y][X].getPlanetType() == PlanetType.VOID)
             setEnabled(false);
@@ -75,10 +76,12 @@ class PlanetBtn extends JButton
                     frm.buyIconLb.setVisible(true);
                     frm.buyBtn1.setVisible(true);
                     frm.buyBtn2.setVisible(true);
-                    frm.buyBtn1.setEnabled(true);
-                    frm.buyBtn2.setEnabled(true);
+                    frm.buyBtn1.setEnabled(false);
+                    frm.buyBtn2.setEnabled(false);
                     frm.resLabel1.setVisible(true);
                     frm.resLabel2.setVisible(true);
+                    frm.unlockBuyBtn.setVisible(true);
+                    frm.unlockBuyBtn.setEnabled(true);
                     
                     //Sell zone
                     frm.sellIconLb.setVisible(true);
@@ -143,7 +146,7 @@ class PlanetBtn extends JButton
                     
                     
                     //Sell Area
-                    if(game.Player().Spaceship().Cargo().getResource01() != null)
+                    if(game.Player().Spaceship().Cargo().getResource01().getResourceType() != ResourceType.EMPTY)
                     {
                         frm.resLb1.setText("Resource 1: " + game.Player().Spaceship().Cargo().getResource01().getName());
                         switch(game.Player().Spaceship().Cargo().getResource01().getResourceType())
@@ -165,7 +168,7 @@ class PlanetBtn extends JButton
                         frm.sellBtn1.setVisible(false);
                     }
                     
-                    if(game.Player().Spaceship().Cargo().getResource02() != null)
+                    if(game.Player().Spaceship().Cargo().getResource02().getResourceType() != ResourceType.EMPTY)
                     {
                         frm.resLb2.setText("Resource 2: " + game.Player().Spaceship().Cargo().getResource02().getName());
                         switch(game.Player().Spaceship().Cargo().getResource02().getResourceType())
@@ -309,6 +312,10 @@ class PlanetBtn extends JButton
                 case VOID:
                     setEnabled(false);
                     break;
+            }
+            if(frm.game.Player().Spaceship().Coordinates().getX() == X && frm.game.Player().Spaceship().Coordinates().getY() == Y)
+            {
+                setText("*"+frm.game.Player().getName()+"*");
             }
         }
     }

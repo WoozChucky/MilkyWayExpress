@@ -21,41 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package MilkyWayExpress.Backend.Player;
-
-import java.io.Serializable;
+package MilkyWayExpress.Backend.Resources;
 
 /**
  *
  * @author woozlinux
  */
-public class CargoUpgrade implements Serializable {
-    private int level;
-    private int cost;
-    private boolean upgraded;
-    
+public enum ResourceType {
+
     /**
      *
-     * @param level
      */
-    public CargoUpgrade(int level)
-    {
-        this.level = level;
-        this.cost = level;
-        this.upgraded = false;
-    }
-    
+    FOOD,
+
     /**
      *
-     * @param spaceship
      */
-    public void Upgrade(Spaceship spaceship)
-    {
-        if(spaceship.Coins().getCount() >= this.cost && (spaceship.Coins().getCount() + this.cost) >= 0 && this.upgraded == false)
-        {
-            spaceship.Cargo().unlockResource03();
-            spaceship.Coins().setCount(spaceship.Coins().getCount() - this.cost);
-        }
-        
-    }
+    WATER,
+
+    /**
+     *
+     */
+    COIN,
+
+    /**
+     *
+     */
+    MEDICAL,
+
+    /**
+     *
+     */
+    ILLEGAL,
+
+    /**
+     *
+     */
+    EMPTY
 }

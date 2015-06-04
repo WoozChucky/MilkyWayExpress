@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package MilkyWayExpress.Backend.ResourcesF;
+package MilkyWayExpress.Backend.Resources;
 
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -30,15 +30,15 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class Empty extends Resource implements Serializable {
+public class Coin extends Resource implements Serializable {
     
     /**
      *
      */
-    public Empty()
+    public Coin()
     {
-        name = "Empty";
-        resource = ResourceType.EMPTY;
+        name = "Coin";
+        resource = ResourceType.COIN;
         count = 0;
         img = null;
     }

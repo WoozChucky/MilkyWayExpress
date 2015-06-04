@@ -21,83 +21,106 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package MilkyWayExpress.Backend.ResourcesF;
+package MilkyWayExpress.Backend.Resources;
 
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+
 /**
  *
  * @author woozlinux
  */
-
-
-public abstract class Resource implements Serializable {
+public class Empty extends Resource implements Serializable {
     
     /**
      *
      */
-    protected ResourceType resource;
-
-    /**
-     *
-     */
-    protected int count;
-
-    /**
-     *
-     */
-    protected String name;
-
-    /**
-     *
-     */
-    protected BufferedImage img;
-     
-    /**
-     *
-     * @param x
-     */
-    public abstract void setCount(int x);
-
-    /**
-     *
-     * @return
-     */
-    public abstract int getCount();
+    public Empty()
+    {
+        name = "Empty";
+        resource = ResourceType.EMPTY;
+        count = 0;
+        img = null;
+    }
     
     /**
      *
      * @return
      */
-    public abstract String getName();
+    @Override
+    public String getName()
+    {
+        return name;
+    }
 
     /**
      *
      * @param x
      */
-    public abstract void setName(String x);
-    
-    /**
-     *
-     * @return
-     */
-    public abstract ResourceType getResourceType();
-
-    /**
-     *
-     * @param x
-     */
-    public abstract void setResource(ResourceType x);
+    @Override
+    public void setName(String x)
+    {
+        name = x;
+    }
     
     /**
      *
      * @param x
      */
-    public abstract void setImage(BufferedImage x);
+    @Override
+    public void setCount(int x)
+    {
+        count = x;
+    }
 
     /**
      *
      * @return
      */
-    public abstract BufferedImage getImage();
+    @Override
+    public int getCount()
+    {
+        return count;
+    }
+    
+    /**
+     *
+     * @param x
+     */
+    @Override
+    public void setResource(ResourceType x)
+    {
+        resource = x;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public ResourceType getResourceType()
+    {
+        return resource;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    @Override
+    public BufferedImage getImage()
+    {
+        return img;
+    }
+
+    /**
+     *
+     * @param x
+     */
+    @Override
+    public void setImage(BufferedImage x)
+    {
+        img = x;
+    }
+    
 }

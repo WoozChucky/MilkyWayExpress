@@ -22,7 +22,9 @@
  * THE SOFTWARE.
  */
 package MilkyWayExpress.Backend.Player;
-import MilkyWayExpress.Backend.ResourcesF.*;
+import MilkyWayExpress.Backend.Resources.ResourceType;
+import MilkyWayExpress.Backend.Resources.Empty;
+import MilkyWayExpress.Backend.Resources.Resource;
 import java.io.Serializable;
 
 /**

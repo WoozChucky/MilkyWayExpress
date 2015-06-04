@@ -40,8 +40,7 @@ public class Move extends IStateAdapter implements Serializable {
     @Override
     public IState move(Coordinate coords)
     {
-        if(coords != null)
-            getGame().Player().Spaceship().Coordinates().setCoordinates(coords);
+        getGame().Player().Spaceship().Coordinates().setCoordinates(coords);  
         return new Explore(getGame());
     }
     

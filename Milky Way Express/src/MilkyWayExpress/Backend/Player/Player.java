@@ -23,7 +23,7 @@
  */
 package MilkyWayExpress.Backend.Player;
 
-import MilkyWayExpress.Backend.ResourcesF.Resource;
+import MilkyWayExpress.Backend.Resources.Resource;
 import java.io.Serializable;
 
 /**

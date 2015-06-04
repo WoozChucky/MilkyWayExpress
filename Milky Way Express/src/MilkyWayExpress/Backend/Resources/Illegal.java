@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package MilkyWayExpress.Backend.ResourcesF;
+package MilkyWayExpress.Backend.Resources;
 
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -30,15 +30,15 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class Water extends Resource implements Serializable {
+public class Illegal extends Resource implements Serializable {
     
     /**
      *
      */
-    public Water()
+    public Illegal()
     {
-        name = "Water";
-        resource = ResourceType.WATER;
+        name = "Illegal";
+        resource = ResourceType.ILLEGAL;
         count = 0;
         img = null;
     }
