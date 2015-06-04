@@ -51,7 +51,7 @@ import javax.swing.JOptionPane;
  *
  * @author woozlinux
  */
-public final class GameForm extends javax.swing.JFrame implements Observer {
+public final class GameView extends javax.swing.JFrame implements Observer {
 
     public GameModel game;
     private final String pName;
@@ -62,7 +62,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
      * @param g
      * @param s
      */
-    public GameForm(GameModel g, String s) {
+    public GameView(GameModel g, String s) {
         initComponents();
         game = g;
         game.addObserver(this);
@@ -93,7 +93,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         sellIconLb.setVisible(false);
         sellBtn1.setVisible(false);
         sellBtn2.setVisible(false);
-        sellBtn2.setVisible(false);
+        sellBtn3.setVisible(false);
         resLb1.setVisible(false);
         resLb2.setVisible(false);
         resLb3.setVisible(false);
@@ -112,33 +112,55 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         StateLabel.setText("STATE: " + game.getState().getClass().getSimpleName());
     }
     
+    public void hideTradeOptions()
+    {
+        //Buy zone
+        buyIconLb.setVisible(false);
+        buyBtn1.setVisible(false);
+        buyBtn2.setVisible(false);
+        resLabel1.setVisible(false);
+        resLabel2.setVisible(false);
+        
+        //Sell zone
+        sellIconLb.setVisible(false);
+        sellBtn1.setVisible(false);
+        sellBtn2.setVisible(false);
+        sellBtn3.setVisible(false);
+        resLb1.setVisible(false);
+        resLb2.setVisible(false);
+        resLb3.setVisible(false);
+    }
+    
     public void displayPlanetInfo(Planet p, int x, int y)
     {
-        PlanetPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        if(p.getDiscovered() == true)
+        {
+            PlanetPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         
-        planetNameLb.setVisible(true);
-        planetNameLb.setText("Name: " + p.getPlanetName());
-        
-        plantTypeLb.setVisible(true);
-        plantTypeLb.setText("Type: " + p.getPlanetType().toString());
-        
-        res1Lb.setVisible(true);
-        if(p.getResource01() != null)
-            res1Lb.setText("Resource 1: " + p.getResource01().getClass().getSimpleName());
-        else
-            res1Lb.setText("Resource 1: Empty");
-        
-        res2Lb.setVisible(true);
-        if(p.getResource02() != null)
-            res2Lb.setText("Resource 2: " + p.getResource02().getClass().getSimpleName());
-        else
-            res2Lb.setText("Resource 2: Empty");
-        
-        coordinatesLb.setVisible(true);
-        coordinatesLb.setText("Coordinates(X,Y): " + x + "," + y);
-        
-        discoveredLb.setVisible(true);
-        discoveredLb.setText("Discovered: " + p.getDiscovered());
+            planetNameLb.setVisible(true);
+            planetNameLb.setText("Name: " + p.getPlanetName());
+
+            plantTypeLb.setVisible(true);
+            plantTypeLb.setText("Type: " + p.getPlanetType().toString());
+
+            res1Lb.setVisible(true);
+            if(p.getResource01() != null)
+                res1Lb.setText("Resource 1: " + p.getResource01().getClass().getSimpleName());
+            else
+                res1Lb.setText("Resource 1: Empty");
+
+            res2Lb.setVisible(true);
+            if(p.getResource02() != null)
+                res2Lb.setText("Resource 2: " + p.getResource02().getClass().getSimpleName());
+            else
+                res2Lb.setText("Resource 2: Empty");
+
+            coordinatesLb.setVisible(true);
+            coordinatesLb.setText("Coordinates(X,Y): " + x + "," + y);
+
+            discoveredLb.setVisible(true);
+            discoveredLb.setText("Discovered: " + p.getDiscovered());
+        }
     }
     
     /**
@@ -182,6 +204,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         sellBtn2 = new javax.swing.JButton();
         resLb3 = new javax.swing.JLabel();
         sellBtn3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         StateLabel = new javax.swing.JLabel();
         Menu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -291,6 +314,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        AdvanceStateBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         AdvanceStateBtn.setText("Next State");
         AdvanceStateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,12 +367,34 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         resLb2.setText("jLabel17");
 
         sellBtn1.setText("jButton1");
+        sellBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sellBtn1ActionPerformed(evt);
+            }
+        });
 
         sellBtn2.setText("jButton2");
+        sellBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sellBtn2ActionPerformed(evt);
+            }
+        });
 
         resLb3.setText("jLabel10");
 
         sellBtn3.setText("jButton3");
+        sellBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sellBtn3ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PlanetPanelLayout = new javax.swing.GroupLayout(PlanetPanel);
         PlanetPanel.setLayout(PlanetPanelLayout);
@@ -391,6 +437,9 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sellBtn3)))
                 .addContainerGap(44, Short.MAX_VALUE))
+            .addGroup(PlanetPanelLayout.createSequentialGroup()
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PlanetPanelLayout.setVerticalGroup(
             PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,9 +483,13 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                         .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(resLb3)
                             .addComponent(sellBtn3))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        StateLabel.setFont(new java.awt.Font("Ubuntu Medium", 1, 24)); // NOI18N
+        StateLabel.setForeground(new java.awt.Color(224, 109, 29));
         StateLabel.setText("jLabel16");
 
         jMenu1.setText("File");
@@ -480,37 +533,38 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PlayerInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 249, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(StateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AdvanceStateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(board, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(PlanetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(StateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(AdvanceStateBtn, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                         .addComponent(spaceshipLabel)))
                 .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(PlayerInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PlayerInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(StateLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AdvanceStateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(board, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spaceshipLabel)
-                            .addComponent(StateLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AdvanceStateBtn))
+                    .addComponent(spaceshipLabel)
                     .addComponent(PlanetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         PlanetPanel.getAccessibleContext().setAccessibleName("Planet Information");
@@ -578,6 +632,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
         switch(StateLabel.getText())
         {
             case "STATE: Explore":
+                
                 game.explore();
                 break;
             case "STATE: ReplenishMarkets":
@@ -587,6 +642,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                 game.trade();
                 showGameInfo(game, jLabel2, jLabel3, jLabel4,
                 jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
+                hideTradeOptions();
                 break;
         }
     }//GEN-LAST:event_AdvanceStateBtnActionPerformed
@@ -632,17 +688,16 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
             switch(game.buyResource(planet, 2))
             {
                 case -1:
-                    JOptionPane.showMessageDialog(this, "Not enough credits!");
+                    JOptionPane.showMessageDialog(this, "Not enough cargo space, please upgrade!");
                     break;
                 case 0:
-                    JOptionPane.showMessageDialog(this, "Not enough cargo space, please upgrade!");
+                    JOptionPane.showMessageDialog(this, "Not enough credits!");
                     break;
                 case 1:
                     buyBtn2.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Success!");
                     break;
             }
-            game.update();
         }
     }//GEN-LAST:event_buyBtn2ActionPerformed
 
@@ -660,19 +715,100 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
             switch(game.buyResource(planet, 1))
             {
                 case -1:
-                    JOptionPane.showMessageDialog(this, "Not enough credits!");
+                    JOptionPane.showMessageDialog(this, "Not enough cargo space, please upgrade!");
                     break;
                 case 0:
-                    JOptionPane.showMessageDialog(this, "Not enough cargo space, please upgrade!");
+                    JOptionPane.showMessageDialog(this, "Not enough credits!");
                     break;
                 case 1:
                     buyBtn1.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Success!");
                     break;
             }
-            game.update();
         }
     }//GEN-LAST:event_buyBtn1ActionPerformed
+
+    private void sellBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellBtn1ActionPerformed
+        Planet planet = (Planet)((JButton)evt.getSource()).getClientProperty("PlanetInfo");
+        
+        String ObjButtons[] = {"Yes","No"};
+        int PromptResult = JOptionPane.showOptionDialog(null,
+            "Are you sure you want to sell?", "Milky Way Express",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+            ObjButtons,ObjButtons[1]);
+        if(PromptResult==0)
+        {
+            switch(game.sellResource(planet, game.Player().Spaceship().Cargo().getResource01(), 1))
+            {
+                case -1:
+                    JOptionPane.showMessageDialog(this, "That cargo space is locked!");
+                    break;
+                case 0:
+                    JOptionPane.showMessageDialog(this, "Can't sell that resource to that planet!");
+                    break;
+                case 1:
+                    sellBtn1.setEnabled(false);
+                    JOptionPane.showMessageDialog(this, "Success!");
+                    break;
+            }
+        }
+    }//GEN-LAST:event_sellBtn1ActionPerformed
+
+    private void sellBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellBtn2ActionPerformed
+        Planet planet = (Planet)((JButton)evt.getSource()).getClientProperty("PlanetInfo");
+        
+        String ObjButtons[] = {"Yes","No"};
+        int PromptResult = JOptionPane.showOptionDialog(null,
+            "Are you sure you want to sell?", "Milky Way Express",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+            ObjButtons,ObjButtons[1]);
+        if(PromptResult==0)
+        {
+            switch(game.sellResource(planet, game.Player().Spaceship().Cargo().getResource02(), 2))
+            {
+                case -1:
+                    JOptionPane.showMessageDialog(this, "That cargo space is locked!");
+                    break;
+                case 0:
+                    JOptionPane.showMessageDialog(this, "Can't sell that resource to that planet!");
+                    break;
+                case 1:
+                    sellBtn2.setEnabled(false);
+                    JOptionPane.showMessageDialog(this, "Success!");
+                    break;
+            }
+        }
+    }//GEN-LAST:event_sellBtn2ActionPerformed
+
+    private void sellBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellBtn3ActionPerformed
+        Planet planet = (Planet)((JButton)evt.getSource()).getClientProperty("PlanetInfo");
+        
+        String ObjButtons[] = {"Yes","No"};
+        int PromptResult = JOptionPane.showOptionDialog(null,
+            "Are you sure you want to sell?", "Milky Way Express",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+            ObjButtons,ObjButtons[1]);
+        if(PromptResult==0)
+        {
+            switch(game.sellResource(planet, game.Player().Spaceship().Cargo().getResource03(), 1))
+            {
+                case -1:
+                    JOptionPane.showMessageDialog(this, "That cargo space is locked!");
+                    break;
+                case 0:
+                    JOptionPane.showMessageDialog(this, "Can't sell that resource to that planet!");
+                    break;
+                case 1:
+                    sellBtn3.setEnabled(false);
+                    JOptionPane.showMessageDialog(this, "Success!");
+                    break;
+            }
+        }
+    }//GEN-LAST:event_sellBtn3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+game.Player().Spaceship().Coins().setCount(1000);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -693,20 +829,21 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GameForm(g, s).setVisible(true);
+                new GameView(g, s).setVisible(true);
             }
         });
     }
@@ -723,6 +860,7 @@ public final class GameForm extends javax.swing.JFrame implements Observer {
     public javax.swing.JLabel buyIconLb;
     private javax.swing.JLabel coordinatesLb;
     private javax.swing.JLabel discoveredLb;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

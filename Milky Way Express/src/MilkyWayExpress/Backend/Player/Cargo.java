@@ -105,9 +105,9 @@ public class Cargo implements Serializable {
     
     public boolean addResource(Resource res)
     {
-        if(resource01 == null)
+        if(resource01.getResourceType() == ResourceType.EMPTY)
             resource01 = res;
-        else if(resource02 == null)
+        else if(resource02.getResourceType() == ResourceType.EMPTY)
             resource02 = res;
         else if(resource03 == null)
             resource03 = res;

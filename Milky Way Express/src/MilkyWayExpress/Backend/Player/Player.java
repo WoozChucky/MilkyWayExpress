@@ -64,7 +64,7 @@ public class Player implements Serializable {
     
     public boolean canBuy(int cost)
     {
-        return (spaceship.Coins().getCount()- cost) >= 0;
+        return ((spaceship.Coins().getCount()- cost) >= 0);
     }
     
     public boolean Buy(int cost, Resource res)

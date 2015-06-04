@@ -42,10 +42,10 @@ import javax.swing.JButton;
 class PlanetBtn extends JButton 
 {
     GameModel game;
-    GameForm frm;
+    GameView frm;
     int X, Y;
     
-    public PlanetBtn(GameForm f, GameModel g, int x, int y)
+    public PlanetBtn(GameView f, GameModel g, int x, int y)
     {
         frm = f;
         game = g;
@@ -75,6 +75,8 @@ class PlanetBtn extends JButton
                     frm.buyIconLb.setVisible(true);
                     frm.buyBtn1.setVisible(true);
                     frm.buyBtn2.setVisible(true);
+                    frm.buyBtn1.setEnabled(true);
+                    frm.buyBtn2.setEnabled(true);
                     frm.resLabel1.setVisible(true);
                     frm.resLabel2.setVisible(true);
                     
@@ -82,7 +84,10 @@ class PlanetBtn extends JButton
                     frm.sellIconLb.setVisible(true);
                     frm.sellBtn1.setVisible(true);
                     frm.sellBtn2.setVisible(true);
-                    frm.sellBtn2.setVisible(true);
+                    frm.sellBtn3.setVisible(true);
+                    frm.sellBtn1.setEnabled(true);
+                    frm.sellBtn2.setEnabled(true);
+                    frm.sellBtn3.setEnabled(true);
                     frm.resLb1.setVisible(true);
                     frm.resLb2.setVisible(true);
                     frm.resLb3.setVisible(true);
@@ -90,6 +95,10 @@ class PlanetBtn extends JButton
                     //set planet to button property
                     frm.buyBtn1.putClientProperty("PlanetInfo", game.Galaxy().getGrid()[Y][X]);
                     frm.buyBtn2.putClientProperty("PlanetInfo", game.Galaxy().getGrid()[Y][X]);
+                    
+                    frm.sellBtn1.putClientProperty("PlanetInfo", game.Galaxy().getGrid()[Y][X]);
+                    frm.sellBtn2.putClientProperty("PlanetInfo", game.Galaxy().getGrid()[Y][X]);
+                    frm.sellBtn3.putClientProperty("PlanetInfo", game.Galaxy().getGrid()[Y][X]);
                     
                     
                     //Buy Area

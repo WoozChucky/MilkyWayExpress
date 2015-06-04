@@ -26,7 +26,9 @@ package MilkyWayExpress.Backend;
 import MilkyWayExpress.Backend.Planets.Planet;
 import MilkyWayExpress.Backend.Player.Player;
 import MilkyWayExpress.Backend.ResourcesF.Coin;
+import MilkyWayExpress.Backend.ResourcesF.Empty;
 import MilkyWayExpress.Backend.ResourcesF.Resource;
+import MilkyWayExpress.Backend.ResourcesF.ResourceType;
 import MilkyWayExpress.Backend.States.AwaitsBegin;
 import MilkyWayExpress.Backend.States.GameOver;
 import MilkyWayExpress.Backend.States.IState;
@@ -195,6 +197,183 @@ public class GameModel extends Observable implements Serializable {
                 }
         }
         return 1;
+    }
+    
+    public int sellResource(Planet p, Resource res, int which)
+    {
+     
+        switch(which)
+        {
+            case 1:
+                switch(p.getPlanetType())
+                {
+                    case NONPIRATE:
+                        switch(res.getResourceType())
+                        {
+                            case WATER:
+                                Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getWaterCost());
+                                Player().Spaceship().Cargo().setResource01(new Empty());
+                                return 1;
+                            case FOOD:
+                                Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getFoodCost());
+                                Player().Spaceship().Cargo().setResource01(new Empty());
+                                return 1;
+                            case MEDICAL:
+                                Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getMedicalCost());
+                                Player().Spaceship().Cargo().setResource01(new Empty());
+                                return 1;
+                            case ILLEGAL:
+                                Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getIllegalCost());
+                                Player().Spaceship().Cargo().setResource01(new Empty());
+                                return 1;
+                        }
+                    break;
+                    case PIRATE:
+                        switch(p.getPlanetName())
+                        {
+                            case "Whirl":
+                                if(res.getResourceType() == ResourceType.FOOD)
+                                {
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getFoodCost());
+                                    Player().Spaceship().Cargo().setResource01(new Empty());
+                                    return 1;
+                                }
+                                return 0;
+                            case "Striterax":
+                                if(res.getResourceType() == ResourceType.MEDICAL)
+                                {
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getMedicalCost());
+                                    Player().Spaceship().Cargo().setResource01(new Empty());
+                                    return 1;
+                                }
+                                return 0;
+                            case "Asperta":
+                                if(res.getResourceType() == ResourceType.WATER)
+                                {
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getWaterCost());
+                                    Player().Spaceship().Cargo().setResource01(new Empty());
+                                    return 1;
+                                }
+                                return 0;
+                        }
+                    break;
+                }
+                break;
+            case 2:
+                switch(p.getPlanetType())
+                {
+                    case NONPIRATE:
+                        switch(res.getResourceType())
+                        {
+                            case WATER:
+                                Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getWaterCost());
+                                Player().Spaceship().Cargo().setResource02(new Empty());
+                                return 1;
+                            case FOOD:
+                                Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getFoodCost());
+                                Player().Spaceship().Cargo().setResource02(new Empty());
+                                return 1;
+                            case MEDICAL:
+                                Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getMedicalCost());
+                                Player().Spaceship().Cargo().setResource02(new Empty());
+                                return 1;
+                            case ILLEGAL:
+                                Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getIllegalCost());
+                                Player().Spaceship().Cargo().setResource02(new Empty());
+                                return 1;
+                        }
+                    break;
+                    case PIRATE:
+                        switch(p.getPlanetName())
+                        {
+                            case "Whirl":
+                                if(res.getResourceType() == ResourceType.FOOD)
+                                {
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getFoodCost());
+                                    Player().Spaceship().Cargo().setResource02(new Empty());
+                                    return 1;
+                                }
+                                return 0;
+                            case "Striterax":
+                                if(res.getResourceType() == ResourceType.MEDICAL)
+                                {
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getMedicalCost());
+                                    Player().Spaceship().Cargo().setResource02(new Empty());
+                                    return 1;
+                                }
+                                return 0;
+                            case "Asperta":
+                                if(res.getResourceType() == ResourceType.WATER)
+                                {
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getWaterCost());
+                                    Player().Spaceship().Cargo().setResource02(new Empty());
+                                    return 1;
+                                }
+                                return 0;
+                        }
+                    break;
+                }
+                break;
+            case 3:
+                if(Player().Spaceship().Cargo().isUnlocked())
+                    switch(p.getPlanetType())
+                    {
+                        case NONPIRATE:
+                            switch(res.getResourceType())
+                            {
+                                case WATER:
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getWaterCost());
+                                    Player().Spaceship().Cargo().setResource03(new Empty());
+                                    return 1;
+                                case FOOD:
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getFoodCost());
+                                    Player().Spaceship().Cargo().setResource03(new Empty());
+                                    return 1;
+                                case MEDICAL:
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getMedicalCost());
+                                    Player().Spaceship().Cargo().setResource03(new Empty());
+                                    return 1;
+                                case ILLEGAL:
+                                    Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getIllegalCost());
+                                    Player().Spaceship().Cargo().setResource03(new Empty());
+                                    return 1;
+                            }
+                        break;
+                        case PIRATE:
+                            switch(p.getPlanetName())
+                            {
+                                case "Whirl":
+                                    if(res.getResourceType() == ResourceType.FOOD)
+                                    {
+                                        Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getFoodCost());
+                                        Player().Spaceship().Cargo().setResource03(new Empty());
+                                        return 1;
+                                    }
+                                    return 0;
+                                case "Striterax":
+                                    if(res.getResourceType() == ResourceType.MEDICAL)
+                                    {
+                                        Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getMedicalCost());
+                                        Player().Spaceship().Cargo().setResource03(new Empty());
+                                        return 1;
+                                    }
+                                    return 0;
+                                case "Asperta":
+                                    if(res.getResourceType() == ResourceType.WATER)
+                                    {
+                                        Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() + p.getWaterCost());
+                                        Player().Spaceship().Cargo().setResource03(new Empty());
+                                        return 1;
+                                    }
+                                    return 0;
+                            }
+                        break;
+                    }
+                else
+                    return -1;
+                break;
+        }
+        return 0;
     }
     
     public void update()

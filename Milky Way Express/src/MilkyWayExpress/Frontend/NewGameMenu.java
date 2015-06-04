@@ -138,7 +138,7 @@ public class NewGameMenu extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(!"".equals(jTextField1.getText()))
         {
-            RenderEngine.openForm(this, new GameForm(new GameModel(), jTextField1.getText()), true);
+            RenderEngine.openForm(this, new GameView(new GameModel(), jTextField1.getText()), true);
         }
         else
         {
@@ -150,7 +150,7 @@ public class NewGameMenu extends javax.swing.JFrame {
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER)
             if(!"".equals(jTextField1.getText()))
-                RenderEngine.openForm(this, new GameForm(new GameModel(), jTextField1.getText()), true);
+                RenderEngine.openForm(this, new GameView(new GameModel(), jTextField1.getText()), true);
             else
             {
                 JOptionPane.showMessageDialog(this, "Please choose a different player name", "Invalid name", JOptionPane.WARNING_MESSAGE);
