@@ -38,9 +38,11 @@ public class Move extends IStateAdapter implements Serializable {
     }
     
     @Override
-    public IState move(Coordinate coords)
+    public IState move(Coordinate coords, boolean moveAgain)
     {
-        getGame().Player().Spaceship().Coordinates().setCoordinates(coords);  
+        getGame().Player().Spaceship().Coordinates().setCoordinates(coords);
+        if(moveAgain)
+            return this;
         return new Explore(getGame());
     }
     

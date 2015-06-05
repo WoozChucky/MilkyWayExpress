@@ -235,6 +235,31 @@ public class Galaxy implements Serializable {
         }  
     }
     
+    public Coordinate findNextWormhole(Coordinate current)
+    {
+        Coordinate[] next = {null, null, null, null};
+        int i = 0;
+        
+        for(int r = 0; r <= Constants.ROWS; r++)
+        {
+            for(int c = 0; c <= Constants.COLS; c++)
+            {
+                if(grid[r][c].getDiscovered() == true && grid[r][c].getPlanetType() == PlanetType.WORMHOLE && r != current.getY() && c != current.getX())
+                {
+                    next[i] = new Coordinate(c, r);
+                    i++;
+                }
+            }
+        }
+        
+        if(i==0)
+            return null;
+        
+        int found = Constants.randInt(0, i);
+        
+        return next[found];
+    }
+    
     public boolean needsReplenishment()
     {        
         for(int r = 0; r <= Constants.ROWS; r++)
@@ -265,7 +290,6 @@ public class Galaxy implements Serializable {
      */
     public void generateResources()
     {
-        System.out.println("Generating Resources");
         for(int r = 0; r <= Constants.ROWS; r++)
         {
             for(int c = 0; c <= Constants.COLS; c++)
@@ -275,20 +299,16 @@ public class Galaxy implements Serializable {
                     case NONPIRATE:
                         int nextRes01 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
                         int nextRes02 = MilkyWayExpress.Backend.Constants.randInt(0, 2);
-                        System.out.println("Creating Resources at: " + grid[r][c].getPlanetName());
                         switch(nextRes01)
                         {
                             case 0:
                                 grid[r][c].setResource01(new Food());
-                                System.out.println("Creating Food");
                                 break;
                             case 1:
                                 grid[r][c].setResource01(new Water());
-                                System.out.println("Creating Water");
                                 break;
                             case 2:
                                 grid[r][c].setResource01(new Medical());
-                                System.out.println("Creating Medical");
                                 break;
                         }
 
@@ -296,20 +316,16 @@ public class Galaxy implements Serializable {
                         {
                             case 0:
                                 grid[r][c].setResource02(new Food());
-                                System.out.println("Creating Food");
                                 break;
                             case 1:
                                 grid[r][c].setResource02(new Water());
-                                System.out.println("Creating Water");
                                 break;
                             case 2:
                                 grid[r][c].setResource02(new Medical());
-                                System.out.println("Creating Medical");
                                 break;
                         }
                         break;
                     case PIRATE:
-                        System.out.println("Creating Resources at: " + grid[r][c].getPlanetName());
                         grid[r][c].setResource01(new Illegal());
 
                         break;

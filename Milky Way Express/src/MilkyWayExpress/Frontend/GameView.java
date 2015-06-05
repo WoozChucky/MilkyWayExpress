@@ -72,6 +72,8 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     {
         this.getRootPane().setDefaultButton(AdvanceStateBtn);
         
+        //PlayerInfoPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        
         //Planet zone
         planetNameLb.setVisible(false);
         plantTypeLb.setVisible(false);
@@ -232,6 +234,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         });
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(24, 25, 224));
         jLabel1.setText("Player Information");
 
         jLabel2.setText("Name:");
@@ -505,7 +508,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         );
 
         StateLabel.setFont(new java.awt.Font("Ubuntu Medium", 1, 24)); // NOI18N
-        StateLabel.setForeground(new java.awt.Color(224, 109, 29));
+        StateLabel.setForeground(new java.awt.Color(41, 63, 226));
         StateLabel.setText("jLabel16");
 
         upgradeWeaponBtn.setText("Upgrade Weapon");
@@ -573,12 +576,12 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                         .addGap(75, 75, 75))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(PlanetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spaceshipLabel)
+                            .addComponent(upgradeCargoBtn)
                             .addComponent(upgradeWeaponBtn)
-                            .addComponent(upgradeCargoBtn))
-                        .addGap(60, 60, 60))))
+                            .addComponent(spaceshipLabel))
+                        .addContainerGap(81, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,6 +666,23 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                 showGameInfo(game, jLabel2, jLabel3, jLabel4,
                 jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
                 hideTradeOptions();
+                break;
+            case "STATE: GameOver":
+                String ObjButtons[] = {"Yes","No"};
+                int PromptResult = JOptionPane.showOptionDialog(null,
+                "You lost all your credits and didn't explore the galaxy! Try again?", "Game Over",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                ObjButtons,ObjButtons[0]);
+            
+                if(PromptResult ==0)
+                {
+                    game = null;
+                    RenderEngine.openForm(this, new NewGameMenu());
+                }
+                else
+                {
+                    System.exit(0);
+                }
                 break;
         }
     }//GEN-LAST:event_AdvanceStateBtnActionPerformed
@@ -987,6 +1007,25 @@ public final class GameView extends javax.swing.JFrame implements Observer {
             AdvanceStateBtn.setEnabled(false);
         else
             AdvanceStateBtn.setEnabled(true);
+        
+        if("STATE: GameOver".equals(StateLabel.getText()))
+        {
+            String ObjButtons[] = {"Yes","No"};
+                int PromptResult = JOptionPane.showOptionDialog(null,
+                "You lost all your credits and didn't explore the galaxy! Try again?", "Game Over",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                ObjButtons,ObjButtons[0]);
+            
+                if(PromptResult ==0)
+                {
+                    game = null;
+                    RenderEngine.openForm(this, new NewGameMenu());
+                }
+                else
+                {
+                    System.exit(0);
+                }
+        }
         
         showGameInfo(game, jLabel2, jLabel3, jLabel4,
                 jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);

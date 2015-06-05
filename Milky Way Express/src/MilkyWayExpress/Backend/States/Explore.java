@@ -46,72 +46,72 @@ public class Explore extends IStateAdapter implements Serializable {
         
         Planet[][] grid = getGame().Galaxy().getGrid();
 
-        //Center
+        //Center Screen
+        //Y    X 
         if(grid[y][x].getDiscovered() == false)
            getGame().Galaxy().getGrid()[y][x].setDiscovered(true);
 
         
+       //Bottom 
        //Y+1   X
-       if(y + 1 >= 0 && y + 1 <= grid.length - 1 && x >= 0 && x <grid.length)
+       if(y + 1 >= 0 && y + 1 <= grid.length - 1 && x >= 0 && x <= grid[y].length)
        {
             if(grid[y - 1][x].getDiscovered() == false)
                getGame().Galaxy().getGrid()[y - 1][x].setDiscovered(true);
-            
-            int tempY = y+1;
-            int tempX = x;
-            System.out.println("Y: " + tempY + "\nX: " + tempX + "\n");
        }
 
+       //Bottom Right
        //Y+1   X+1
-       if(y + 1 >= 0 && y + 1 <= grid.length - 1 && x + 1 >= 0 && x + 1 <= grid.length - 1)
+       if(y + 1 >= 0 && y + 1 <= grid.length - 1 && x + 1 >= 0 && x + 1 <= grid[y].length - 1)
        {
            if(grid[y +1][x + 1].getDiscovered() == false)
                getGame().Galaxy().getGrid()[y + 1][x + 1].setDiscovered(true);
-           
-           int tempY = y+1;
-           int tempX = x+1;
-           System.out.println("Y: " + tempY + "\nX: " + tempX + "\n");
-       }
-
-       //Y-1    X
-       if(y - 1 >= 0 && y - 1 <= grid.length - 1 && x >= 0 && x <grid.length - 1){
-           if(grid[y - 1][x].getDiscovered() == false)
-               getGame().Galaxy().getGrid()[y - 1][x].setDiscovered(true);
-           
-           int tempY = y-1;
-            int tempX = x;
-            System.out.println("Y: " + tempY + "\nX: " + tempX + "\n");
-       }
-
-       //Y-1   X-1
-       if(y - 1 >= 0 && y - 1 <= grid.length - 1 && x -1 >= 0 && x-1 <grid.length - 1){
-           if(grid[y - 1][x - 1].getDiscovered() == false)
-               getGame().Galaxy().getGrid()[y - 1][x - 1].setDiscovered(true);
-           
-           int tempY = y-1;
-            int tempX = x-1;
-            System.out.println("Y: " + tempY + "\nX: " + tempX + "\n");
-       }
-    
-       //Y   X-1
-       if(y >= 0 && y <= grid.length -1 && x -1 >= 0 && x-1 <grid.length - 1){
-           if(grid[y][x - 1].getDiscovered() == false)
-               getGame().Galaxy().getGrid()[y][x - 1].setDiscovered(true);
-           
-           int tempY = y;
-            int tempX = x-1;
-            System.out.println("Y: " + tempY + "\nX: " + tempX + "\n");
        }
        
+       //Bottom Left
+       //Y+1   X-1
+       if(y + 1 >= 0 && y + 1 <= grid.length - 1 && x - 1 >= 0 && x - 1 <= grid[y].length - 1)
+       {
+           if(grid[y +1][x - 1].getDiscovered() == false)
+               getGame().Galaxy().getGrid()[y + 1][x - 1].setDiscovered(true);
+       }
+
+       //Top
+       //Y-1    X
+       if(y - 1 >= 0 && y - 1 <= grid.length - 1 && x >= 0 && x <= grid[y].length - 1){
+           if(grid[y - 1][x].getDiscovered() == false)
+               getGame().Galaxy().getGrid()[y - 1][x].setDiscovered(true);
+       }
+
+       //Top Right
+       //Y-1   X+1
+       if(y - 1 >= 0 && y - 1 <= grid.length - 1 && x + 1 >= 0 && x + 1 <= grid[y].length - 1){
+           if(grid[y - 1][x + 1].getDiscovered() == false)
+               getGame().Galaxy().getGrid()[y - 1][x + 1].setDiscovered(true);
+       }
+       
+       //Top Left
+       //Y-1   X-1
+       if(y - 1 >= 0 && y - 1 <= grid.length - 1 && x -1 >= 0 && x-1 <= grid[y].length - 1){
+           if(grid[y - 1][x - 1].getDiscovered() == false)
+               getGame().Galaxy().getGrid()[y - 1][x - 1].setDiscovered(true);
+       }
+    
+       //Left
+       //Y   X-1
+       if(y >= 0 && y <= grid.length -1 && x -1 >= 0 && x-1 <= grid[y].length - 1){
+           if(grid[y][x - 1].getDiscovered() == false)
+               getGame().Galaxy().getGrid()[y][x - 1].setDiscovered(true);
+       }
+       
+       //Right
        //Y   X+1
-       if(y >= 0 && y <= grid.length -1 && x +1 >= 0 && x+1 <grid.length - 1){
+       if(y >= 0 && y <= grid.length -1 && x +1 >= 0 && x+1 <= grid[y].length - 1){
            if(grid[y][x + 1].getDiscovered() == false)
                getGame().Galaxy().getGrid()[y][x + 1].setDiscovered(true);
-           
-            int tempY = y;
-            int tempX = x+1;
-            System.out.println("Y: " + tempY + "\nX: " + tempX + "\n");
        }
+       
+       System.out.println(grid.length);
        
        return new ReplenishMarkets(getGame());
     }

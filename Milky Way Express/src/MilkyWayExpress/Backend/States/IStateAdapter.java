@@ -58,7 +58,7 @@ public class IStateAdapter implements IState, Serializable {
     }
     
     @Override
-    public IState move(Coordinate coords)
+    public IState move(Coordinate coords, boolean moveAgain)
     {
         return this;
     }

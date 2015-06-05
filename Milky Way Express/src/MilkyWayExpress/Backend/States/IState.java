@@ -33,7 +33,7 @@ public interface IState {
     public IState start(String plyerName);
     public IState explore();
     public IState fillMarkets();
-    public IState move(Coordinate coords);
+    public IState move(Coordinate coords, boolean moveAgain);
     public IState trade();
    
 }

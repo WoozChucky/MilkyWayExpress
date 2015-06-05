@@ -24,6 +24,7 @@
 package MilkyWayExpress.Backend;
 
 import MilkyWayExpress.Backend.Planets.Planet;
+import MilkyWayExpress.Backend.Planets.PlanetType;
 import MilkyWayExpress.Backend.Player.Player;
 import MilkyWayExpress.Backend.Resources.Coin;
 import MilkyWayExpress.Backend.Resources.Empty;
@@ -86,6 +87,7 @@ public class GameModel extends Observable implements Serializable {
     
     public void move(Coordinate coords)
     {
+        Coordinate next;
         if(Player().Spaceship().Coins().getCount() <= 0)
         {
             setState(new GameOver(this));
@@ -94,9 +96,24 @@ public class GameModel extends Observable implements Serializable {
         
         if(Galaxy().getGrid()[coords.getY()][coords.getX()].getDiscovered() == true)
         {
-            Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() - 1);
-            round++;
-            setState(state.move(coords));
+            if(Galaxy().getGrid()[coords.getY()][coords.getX()].getPlanetType() == PlanetType.WORMHOLE)
+            {
+                next = Galaxy().findNextWormhole(coords);
+                if(next == null)
+                    return;
+                else
+                {
+                    setState(state.move(next, true));
+                }
+                
+            }
+            else
+            {
+                Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() - 1);
+                round++;
+                setState(state.move(coords, false));
+            }
+            
         }
     }
     
