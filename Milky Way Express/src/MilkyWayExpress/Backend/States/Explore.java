@@ -33,10 +33,18 @@ import java.io.Serializable;
  */
 public class Explore extends IStateAdapter implements Serializable {
 
+    /**
+     *
+     * @param g
+     */
     public Explore(GameModel g) {
         super(g);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public IState explore()
     {     

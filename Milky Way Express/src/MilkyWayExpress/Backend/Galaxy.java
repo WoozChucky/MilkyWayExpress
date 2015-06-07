@@ -235,6 +235,11 @@ public class Galaxy implements Serializable {
         }  
     }
     
+    /**
+     *
+     * @param current
+     * @return
+     */
     public Coordinate findNextWormhole(Coordinate current)
     {
         Coordinate[] next = {null, null, null, null};
@@ -260,6 +265,10 @@ public class Galaxy implements Serializable {
         return next[found];
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean needsReplenishment()
     {        
         for(int r = 0; r <= Constants.ROWS; r++)

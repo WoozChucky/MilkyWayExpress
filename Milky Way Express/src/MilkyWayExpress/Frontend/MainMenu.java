@@ -23,6 +23,8 @@
  */
 package MilkyWayExpress.Frontend;
 
+import MilkyWayExpress.Backend.GameModel;
+
 /**
  *
  * @author woozlinux
@@ -104,7 +106,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //New Game Button
-        RenderEngine.openForm(this, new NewGameMenu());
+        RenderEngine.openForm(this, new GameView(new GameModel()), true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void windowsActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowsActivated

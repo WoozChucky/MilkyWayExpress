@@ -27,7 +27,6 @@ import MilkyWayExpress.Backend.Constants;
 import MilkyWayExpress.Backend.GameModel;
 import MilkyWayExpress.Backend.Planets.Planet;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -51,23 +50,26 @@ import javax.swing.JOptionPane;
  */
 public final class GameView extends javax.swing.JFrame implements Observer {
 
+    /**
+     *
+     */
     public GameModel game;
-    private final String pName;
-    private Component[] comps;
     
     /**
      * Creates new form GameForm
      * @param g
      * @param s
      */
-    public GameView(GameModel g, String s) {
+    public GameView(GameModel g) {
         initComponents();
         game = g;
         game.addObserver(this);
-        pName = s;
         prepareComponents();
     }
 
+    /**
+     *
+     */
     public void prepareComponents()
     {
         this.getRootPane().setDefaultButton(AdvanceStateBtn);
@@ -89,6 +91,9 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         resLabel1.setVisible(false);
         resLabel2.setVisible(false);
         unlockBuyBtn.setVisible(false);
+        
+        //jLabel10.setVisible(false);
+        //jLabel2.setVisible(false);
         
         //Sell zone
         sellIconLb.setVisible(false);
@@ -113,6 +118,9 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         StateLabel.setText("STATE: " + game.getState().getClass().getSimpleName());
     }
     
+    /**
+     *
+     */
     public void hideTradeOptions()
     {
         //Buy zone
@@ -133,6 +141,12 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         resLb3.setVisible(false);
     }
     
+    /**
+     *
+     * @param p
+     * @param x
+     * @param y
+     */
     public void displayPlanetInfo(Planet p, int x, int y)
     {
         if(p.getDiscovered() == true)
@@ -175,15 +189,17 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     private void initComponents() {
 
         PlayerInfoPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        titleLb = new javax.swing.JLabel();
+        creditsLb = new javax.swing.JLabel();
+        coordinatesLB = new javax.swing.JLabel();
+        cargoLevelLb = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        weaponLb = new javax.swing.JLabel();
+        iconLb1 = new javax.swing.JLabel();
+        iconLb2 = new javax.swing.JLabel();
+        iconLb3 = new javax.swing.JLabel();
         board = new javax.swing.JPanel();
         AdvanceStateBtn = new javax.swing.JButton();
         spaceshipLabel = new javax.swing.JLabel();
@@ -208,6 +224,11 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         sellBtn3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         unlockBuyBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         StateLabel = new javax.swing.JLabel();
         upgradeWeaponBtn = new javax.swing.JButton();
         upgradeCargoBtn = new javax.swing.JButton();
@@ -216,6 +237,9 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Milky Way Express");
@@ -233,17 +257,15 @@ public final class GameView extends javax.swing.JFrame implements Observer {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(24, 25, 224));
-        jLabel1.setText("Player Information");
+        titleLb.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        titleLb.setForeground(new java.awt.Color(24, 25, 224));
+        titleLb.setText("Player Information");
 
-        jLabel2.setText("Name:");
+        creditsLb.setText("Credits");
 
-        jLabel3.setText("Credits");
+        coordinatesLB.setText("Coordinates (X, Y)");
 
-        jLabel4.setText("Coordinates (X, Y)");
-
-        jLabel5.setText("Cargo Level");
+        cargoLevelLb.setText("Cargo Level");
 
         jLabel6.setText("Resource 1");
         jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -255,8 +277,8 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         jLabel8.setToolTipText("");
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel9.setText("Weapon Level");
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        weaponLb.setText("Weapon Level");
+        weaponLb.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout PlayerInfoPanelLayout = new javax.swing.GroupLayout(PlayerInfoPanel);
         PlayerInfoPanel.setLayout(PlayerInfoPanelLayout);
@@ -264,47 +286,56 @@ public final class GameView extends javax.swing.JFrame implements Observer {
             PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PlayerInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PlayerInfoPanelLayout.createSequentialGroup()
+                .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PlayerInfoPanelLayout.createSequentialGroup()
                         .addGap(192, 192, 192)
-                        .addComponent(jLabel1)
+                        .addComponent(titleLb)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PlayerInfoPanelLayout.createSequentialGroup()
-                        .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
+                        .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(weaponLb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(coordinatesLB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cargoLevelLb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(creditsLb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
                         .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jLabel9))
-                        .addGap(149, 149, 149))))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(iconLb1)
+                            .addComponent(iconLb2)
+                            .addComponent(iconLb3))
+                        .addGap(107, 107, 107))))
         );
         PlayerInfoPanelLayout.setVerticalGroup(
             PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PlayerInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6))
+                .addComponent(titleLb)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel8))
+                    .addGroup(PlayerInfoPanelLayout.createSequentialGroup()
+                        .addComponent(creditsLb)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(coordinatesLB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cargoLevelLb))
+                    .addGroup(PlayerInfoPanelLayout.createSequentialGroup()
+                        .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(iconLb1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(iconLb2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(iconLb3))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PlayerInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel9))
+                .addComponent(weaponLb)
                 .addContainerGap())
         );
 
@@ -431,32 +462,39 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(PlanetPanelLayout.createSequentialGroup()
                         .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PlanetPanelLayout.createSequentialGroup()
-                                .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(resLabel1)
-                                    .addComponent(buyIconLb))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buyBtn1))
-                            .addGroup(PlanetPanelLayout.createSequentialGroup()
-                                .addComponent(resLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buyBtn2)))
-                        .addGap(85, 85, 85)
+                            .addComponent(resLabel1)
+                            .addComponent(buyIconLb)
+                            .addComponent(resLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buyBtn1)
+                            .addComponent(buyBtn2))
+                        .addGap(52, 52, 52)
                         .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PlanetPanelLayout.createSequentialGroup()
+                                .addComponent(resLb3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sellBtn3))
+                            .addGroup(PlanetPanelLayout.createSequentialGroup()
                                 .addComponent(resLb2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(sellBtn2))
                             .addComponent(sellIconLb)
                             .addGroup(PlanetPanelLayout.createSequentialGroup()
                                 .addComponent(resLb1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sellBtn1))
-                            .addGroup(PlanetPanelLayout.createSequentialGroup()
-                                .addComponent(resLb3)
+                                .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sellBtn3)))
-                        .addContainerGap(44, Short.MAX_VALUE))))
+                                .addComponent(sellBtn1)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         PlanetPanelLayout.setVerticalGroup(
             PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -478,9 +516,10 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                     .addGroup(PlanetPanelLayout.createSequentialGroup()
                         .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PlanetPanelLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGap(26, 26, 26)
+                                .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(resLabel1)
+                                    .addComponent(jLabel2)
                                     .addComponent(buyBtn1)))
                             .addComponent(buyIconLb)
                             .addGroup(PlanetPanelLayout.createSequentialGroup()
@@ -488,17 +527,22 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(resLb1)
-                                    .addComponent(sellBtn1))))
+                                    .addComponent(sellBtn1)
+                                    .addComponent(jLabel1))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buyBtn2)
-                            .addComponent(resLabel2)
+                            .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(resLabel2)
+                                .addComponent(buyBtn2)
+                                .addComponent(jLabel10))
                             .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(resLb2)
+                                .addComponent(jLabel3)
                                 .addComponent(sellBtn2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(resLb3)
+                            .addComponent(jLabel4)
                             .addComponent(sellBtn3))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PlanetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -555,6 +599,26 @@ public final class GameView extends javax.swing.JFrame implements Observer {
 
         Menu.add(jMenu1);
 
+        jMenu2.setText("Help");
+
+        jMenuItem4.setText("About");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
+        jMenuItem5.setText("Rules");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        Menu.add(jMenu2);
+
         setJMenuBar(Menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -581,7 +645,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                             .addComponent(upgradeCargoBtn)
                             .addComponent(upgradeWeaponBtn)
                             .addComponent(spaceshipLabel))
-                        .addContainerGap(81, Short.MAX_VALUE))))
+                        .addContainerGap(134, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -612,30 +676,145 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showGameInfo(GameModel g, JLabel name, JLabel credits, JLabel coordinates, JLabel cargolevel, JLabel res1, JLabel res2, JLabel res3, JLabel weaponlevel)
+    private void showGameInfo(GameModel g, JLabel credits, JLabel coordinates, JLabel cargolevel, JLabel res1, JLabel res2, JLabel res3, JLabel weaponlevel)
     {
-        name.setText("Name - " + g.Player().getName());
         credits.setText("Credits - " + g.Player().Spaceship().Coins().getCount()); 
         coordinates.setText("Coordinates(X, Y) - " + g.Player().Spaceship().Coordinates().getX() +", " + g.Player().Spaceship().Coordinates().getY());
         cargolevel.setText("Cargo Level - " + g.Player().Spaceship().Cargo().getLevel());
-        res1.setText("Resource 1 - " + g.Player().Spaceship().Cargo().getResource01().getName());
-        res2.setText("Resource 2 - " + g.Player().Spaceship().Cargo().getResource02().getName());
+        res1.setText("Resource 1 -");
+        res2.setText("Resource 2 -");
         if(g.Player().Spaceship().Cargo().isUnlocked())
-            res3.setText(" Resource 3 - " + g.Player().Spaceship().Cargo().getResource03().getName());
+            res3.setText(" Resource 3 -");
         else
             res3.setText(" Resource 3 - Locked");
         weaponlevel.setText(" Weapon Level - " + g.Player().Spaceship().Weapon().getLevel());
         
-
+        switch(g.Player().Spaceship().Cargo().getResource01().getResourceType())
+        {
+            case EMPTY:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/white_cube.gif"));
+                    iconLb1.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+            case FOOD:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/yellow_cube.png"));
+                    iconLb1.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+            case MEDICAL:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/red_cube.png"));
+                    iconLb1.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+            case WATER:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/blue_cube.png"));
+                    iconLb1.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+            case ILLEGAL:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/black_cube.png"));
+                    iconLb1.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+        }
+        
+        switch(g.Player().Spaceship().Cargo().getResource02().getResourceType())
+        {
+            case EMPTY:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/white_cube.gif"));
+                    iconLb2.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+            case FOOD:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/yellow_cube.png"));
+                    iconLb2.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+            case MEDICAL:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/red_cube.png"));
+                    iconLb2.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+            case WATER:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/blue_cube.png"));
+                    iconLb2.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+            case ILLEGAL:
+                try {
+                    Image img = ImageIO.read(getClass().getResource("Assets/black_cube.png"));
+                    iconLb2.setIcon(new ImageIcon(img));
+                    setEnabled(true);
+                } catch (IOException ex) {}
+                break;
+        }
+        
+        if(g.Player().Spaceship().Cargo().isUnlocked())
+            switch(g.Player().Spaceship().Cargo().getResource03().getResourceType())
+            {
+                case EMPTY:
+                    try {
+                        Image img = ImageIO.read(getClass().getResource("Assets/white_cube.gif"));
+                        iconLb3.setIcon(new ImageIcon(img));
+                        setEnabled(true);
+                    } catch (IOException ex) {}
+                    break;
+                case FOOD:
+                    try {
+                        Image img = ImageIO.read(getClass().getResource("Assets/yellow_cube.png"));
+                        iconLb3.setIcon(new ImageIcon(img));
+                        setEnabled(true);
+                    } catch (IOException ex) {}
+                    break;
+                case MEDICAL:
+                    try {
+                        Image img = ImageIO.read(getClass().getResource("Assets/red_cube.png"));
+                        iconLb3.setIcon(new ImageIcon(img));
+                        setEnabled(true);
+                    } catch (IOException ex) {}
+                    break;
+                case WATER:
+                    try {
+                        Image img = ImageIO.read(getClass().getResource("Assets/blue_cube.png"));
+                        iconLb3.setIcon(new ImageIcon(img));
+                        setEnabled(true);
+                    } catch (IOException ex) {}
+                    break;
+                case ILLEGAL:
+                    try {
+                        Image img = ImageIO.read(getClass().getResource("Assets/black_cube.png"));
+                        iconLb3.setIcon(new ImageIcon(img));
+                        setEnabled(true);
+                    } catch (IOException ex) {}
+                    break;
+            }
     }
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         if(game.Player() == null)
         {   //New GameModel
-            game.startGame(pName);
+            game.startGame();
         }     
-        showGameInfo(game, jLabel2, jLabel3, jLabel4,
-                jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
+        showGameInfo(game, creditsLb, coordinatesLB,
+                cargoLevelLb, jLabel6, jLabel7, jLabel8, weaponLb);
     }//GEN-LAST:event_formWindowActivated
     
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -652,23 +831,47 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void AdvanceStateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdvanceStateBtnActionPerformed
+        String ObjButtons[] = {"Yes","No"};
+        
         switch(StateLabel.getText())
         {
             case "STATE: Explore":
-                
                 game.explore();
                 break;
             case "STATE: ReplenishMarkets":
                 game.fillMarkets();
+                if(game.attackActive)
+                {
+                    JOptionPane.showMessageDialog(this,
+                    "A pirate attack is incoming! They have " + game.PirateAttack().getAttackPower() + " attack and you have " + game.Player().Spaceship().Weapon().getLevel() + " attack.",
+                    "Pirate Attack",
+                    JOptionPane.WARNING_MESSAGE);
+                    
+                    switch(game.resolvePirateAttack())
+                    {
+                        case 0:
+                            JOptionPane.showMessageDialog(this,
+                            "The pirates were defeated!",
+                            "Victory",
+                            JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                            
+                        case 1:
+                            JOptionPane.showMessageDialog(this,
+                            "The pirates won. You lost " + (game.PirateAttack().getAttackPower() - game.Player().Spaceship().Weapon().getLevel()) + " credits to pay the ransom!",
+                            "Defeat",
+                            JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                    }
+                }
                 break;
             case "STATE: Trade":
                 game.trade();
-                showGameInfo(game, jLabel2, jLabel3, jLabel4,
-                jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
+                showGameInfo(game, creditsLb, coordinatesLB,
+                cargoLevelLb, jLabel6, jLabel7, jLabel8, weaponLb);
                 hideTradeOptions();
                 break;
             case "STATE: GameOver":
-                String ObjButtons[] = {"Yes","No"};
                 int PromptResult = JOptionPane.showOptionDialog(null,
                 "You lost all your credits and didn't explore the galaxy! Try again?", "Game Over",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
@@ -677,7 +880,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                 if(PromptResult ==0)
                 {
                     game = null;
-                    RenderEngine.openForm(this, new NewGameMenu());
+                    RenderEngine.openForm(this, new MainMenu());
                 }
                 else
                 {
@@ -694,7 +897,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_formKeyPressed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        RenderEngine.openForm(this, new NewGameMenu());
+        RenderEngine.openForm(this, new MainMenu());
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -829,7 +1032,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
             ObjButtons,ObjButtons[1]);
         if(PromptResult==0)
         {
-            switch(game.sellResource(planet, game.Player().Spaceship().Cargo().getResource03(), 1))
+            switch(game.sellResource(planet, game.Player().Spaceship().Cargo().getResource03(), 3))
             {
                 case -1:
                     JOptionPane.showMessageDialog(this, "That cargo space is locked!");
@@ -917,12 +1120,26 @@ public final class GameView extends javax.swing.JFrame implements Observer {
             JOptionPane.showMessageDialog(this, "You have to be in trade state to upgrade spaceship!");
     }//GEN-LAST:event_upgradeCargoBtnActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        JOptionPane.showMessageDialog(this, 
+                "You start the game with a credit of $10 and your aim is to earn enough money throughout the game to pay back this loan when the game ends.\n" +
+                "You will take turns moving your Spaceship on cards laid out as a chart of the Milky Way Galaxy, discovering new Planets as you go.\nAvailable goods will vary from turn to turn, so buy low and sell high while the market is friendly to you.\nBut if luck abandons you, you may be driven to Bankruptcy by greedy Pirates and zealous Customs controls (if you dare to smuggle any illegal goods).\n" +
+                "The game ends when you turn over the last unexplored card on the Galactic Chart, or when you run out of money.\n\n" +
+                "Developed by: Nuno Silva & Daniel Ferreira @ ISEC'15", 
+                "About", 
+                JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      * @param g
      * @param s
      */
-    public static void main(String args[], GameModel g, String s) {
+    public static void main(String args[], GameModel g) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -950,7 +1167,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GameView(g, s).setVisible(true);
+                new GameView(g).setVisible(true);
             }
         });
     }
@@ -965,22 +1182,30 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     public javax.swing.JButton buyBtn1;
     public javax.swing.JButton buyBtn2;
     public javax.swing.JLabel buyIconLb;
+    private javax.swing.JLabel cargoLevelLb;
+    private javax.swing.JLabel coordinatesLB;
     private javax.swing.JLabel coordinatesLb;
+    private javax.swing.JLabel creditsLb;
     private javax.swing.JLabel discoveredLb;
+    private javax.swing.JLabel iconLb1;
+    private javax.swing.JLabel iconLb2;
+    private javax.swing.JLabel iconLb3;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel10;
+    public javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JLabel planetNameLb;
     private javax.swing.JLabel plantTypeLb;
     private javax.swing.JLabel res1Lb;
@@ -995,9 +1220,11 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     public javax.swing.JButton sellBtn3;
     public javax.swing.JLabel sellIconLb;
     private javax.swing.JLabel spaceshipLabel;
+    private javax.swing.JLabel titleLb;
     public javax.swing.JButton unlockBuyBtn;
     private javax.swing.JButton upgradeCargoBtn;
     private javax.swing.JButton upgradeWeaponBtn;
+    private javax.swing.JLabel weaponLb;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -1019,7 +1246,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                 if(PromptResult ==0)
                 {
                     game = null;
-                    RenderEngine.openForm(this, new NewGameMenu());
+                    RenderEngine.openForm(this, new MainMenu());
                 }
                 else
                 {
@@ -1027,8 +1254,8 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                 }
         }
         
-        showGameInfo(game, jLabel2, jLabel3, jLabel4,
-                jLabel5, jLabel6, jLabel7, jLabel8, jLabel9);
+        showGameInfo(game, creditsLb, coordinatesLB,
+                cargoLevelLb, jLabel6, jLabel7, jLabel8, weaponLb);
         StateLabel.setText("STATE: " + game.getState().getClass().getSimpleName());
         repaint();
     }

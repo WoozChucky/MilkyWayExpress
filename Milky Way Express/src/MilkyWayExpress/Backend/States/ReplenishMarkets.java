@@ -32,16 +32,26 @@ import java.io.Serializable;
  */
 public class ReplenishMarkets extends IStateAdapter implements Serializable {
 
+    /**
+     *
+     * @param g
+     */
     public ReplenishMarkets(GameModel g) {
         super(g);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public IState fillMarkets()
     {
                 
         if(getGame().Galaxy().needsReplenishment())
             getGame().Galaxy().generateResources();
+        
+        getGame().generatePirateAttacks();
         
         return new Trade(getGame());
     }

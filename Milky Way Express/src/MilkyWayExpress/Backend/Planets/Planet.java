@@ -50,10 +50,19 @@ public class Planet implements Serializable {
 
     }
     
+    /**
+     *
+     * @param d
+     */
     public void setDiscovered(boolean d)
     {
         discovered = d;
     }
+
+    /**
+     *
+     * @return
+     */
     public boolean getDiscovered()
     {
         return discovered;
@@ -225,19 +234,19 @@ public class Planet implements Serializable {
                         waterCost = 0;
                         foodCost = 3;
                         medicalCost = 0;
-                        illegalCost = 0;
+                        illegalCost = 1;
                         break;
                     case "Striterax":
                         waterCost = 0;
                         foodCost = 0;
                         medicalCost = 3;
-                        illegalCost = 0;
+                        illegalCost = 1;
                         break;
                     case "Asperta":
                         waterCost = 3;
                         foodCost = 0;
                         medicalCost = 0;
-                        illegalCost = 0;
+                        illegalCost = 1;
                         break;
                 }
                 break;

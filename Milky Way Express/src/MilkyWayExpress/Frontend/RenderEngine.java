@@ -37,6 +37,10 @@ public class RenderEngine implements Serializable {
     
     private GameModel game;
     
+    /**
+     *
+     * @param f
+     */
     public static void centerScreen(JFrame f)
     {
         // Get the size of the screen
@@ -52,18 +56,34 @@ public class RenderEngine implements Serializable {
         f.setLocation(x, y);
     }
     
+    /**
+     *
+     * @param current
+     * @param next
+     */
     public static void openForm(JFrame current, JFrame next)
     {
         current.dispose();
         next.setVisible(true);
     }
     
+    /**
+     *
+     * @param current
+     * @param next
+     */
     public static void openTrade(JFrame current, JFrame next)
     {
         current.setVisible(false);
         next.setVisible(true);
     }
     
+    /**
+     *
+     * @param current
+     * @param next
+     * @param fullscreen
+     */
     public static void openForm(JFrame current, JFrame next, boolean fullscreen)
     {
         current.dispose();

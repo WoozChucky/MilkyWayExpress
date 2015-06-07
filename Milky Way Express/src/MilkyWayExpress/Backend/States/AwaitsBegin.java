@@ -33,16 +33,24 @@ import java.io.Serializable;
  */
 public class AwaitsBegin extends IStateAdapter implements Serializable {
 
+    /**
+     *
+     * @param g
+     */
     public AwaitsBegin(GameModel g) {
         super(g);
     }
     
-    
+    /**
+     *
+     * @param playerName
+     * @return
+     */
     @Override
-    public IState start(String playerName)
+    public IState start()
     {
         getGame().Galaxy().GenerateGalaxy();
-        getGame().setPlayer(new Player(playerName));
+        getGame().setPlayer(new Player());
         
         return new Explore(getGame());
     }

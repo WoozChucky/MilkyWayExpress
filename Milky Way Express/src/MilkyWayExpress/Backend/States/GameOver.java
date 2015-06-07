@@ -32,6 +32,10 @@ import java.io.Serializable;
  */
 public class GameOver extends IStateAdapter implements Serializable {
 
+    /**
+     *
+     * @param g
+     */
     public GameOver(GameModel g) {
         super(g);
     }

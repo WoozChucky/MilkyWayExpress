@@ -177,7 +177,7 @@ public class LoadGameMenu extends javax.swing.JFrame {
             } catch(IOException | ClassNotFoundException ex) {
             }
         
-        RenderEngine.openForm(this, new GameView(game, null), true);
+        RenderEngine.openForm(this, new GameView(game), true);
         
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -33,12 +33,18 @@ import java.io.Serializable;
  */
 public class Trade extends IStateAdapter implements Serializable {
 
+    /**
+     *
+     * @param g
+     */
     public Trade(GameModel g) {
         super(g);
     }
     
-   
-    
+    /**
+     *
+     * @return
+     */
     @Override
     public IState trade()
     {

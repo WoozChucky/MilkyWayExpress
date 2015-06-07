@@ -35,44 +35,80 @@ public class IStateAdapter implements IState, Serializable {
     
     private GameModel game;
     
+    /**
+     *
+     * @param g
+     */
     public IStateAdapter(GameModel g)
     {
         game = g;
     }
     
+    /**
+     *
+     * @return
+     */
     public GameModel getGame()
     {
         return game;
     }
     
+    /**
+     *
+     * @param g
+     */
     public void setGame(GameModel g)
     {
         game = g;
     }
     
-    
+    /**
+     *
+     * @param playerName
+     * @return
+     */
     @Override
-    public IState start(String playerName)
+    public IState start()
     {
         return this;
     }
     
+    /**
+     *
+     * @param coords
+     * @param moveAgain
+     * @return
+     */
     @Override
     public IState move(Coordinate coords, boolean moveAgain)
     {
         return this;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public IState explore()
     {
         return this;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public IState trade()
     {
         return this;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public IState fillMarkets()
     {

@@ -30,10 +30,37 @@ import MilkyWayExpress.Backend.Coordinate;
  */
 public interface IState { 
     
-    public IState start(String plyerName);
+    /**
+     *
+     * @param plyerName
+     * @return
+     */
+    public IState start();
+
+    /**
+     *
+     * @return
+     */
     public IState explore();
+
+    /**
+     *
+     * @return
+     */
     public IState fillMarkets();
+
+    /**
+     *
+     * @param coords
+     * @param moveAgain
+     * @return
+     */
     public IState move(Coordinate coords, boolean moveAgain);
+
+    /**
+     *
+     * @return
+     */
     public IState trade();
    
 }

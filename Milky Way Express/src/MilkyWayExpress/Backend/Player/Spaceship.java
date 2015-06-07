@@ -67,6 +67,10 @@ public class Spaceship implements Serializable {
         return cargo;
     }
     
+    /**
+     *
+     * @return
+     */
     public int upgradeWeapon()
     {
         if(weapon.getLevel() >= 5)
@@ -83,6 +87,10 @@ public class Spaceship implements Serializable {
         return 0;
     }
     
+    /**
+     *
+     * @return
+     */
     public int upgradeCargo()
     {
         if(cargo.getLevel() >= 3)

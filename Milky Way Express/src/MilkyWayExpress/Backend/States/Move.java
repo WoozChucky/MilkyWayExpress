@@ -33,10 +33,20 @@ import java.io.Serializable;
  */
 public class Move extends IStateAdapter implements Serializable {
 
+    /**
+     *
+     * @param g
+     */
     public Move(GameModel g) {
         super(g);
     }
     
+    /**
+     *
+     * @param coords
+     * @param moveAgain
+     * @return
+     */
     @Override
     public IState move(Coordinate coords, boolean moveAgain)
     {

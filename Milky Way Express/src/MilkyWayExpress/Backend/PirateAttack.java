@@ -21,51 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package MilkyWayExpress.Backend.Player;
+package MilkyWayExpress.Backend;
 
-import MilkyWayExpress.Backend.Resources.Resource;
 import java.io.Serializable;
 
 /**
  *
  * @author woozlinux
  */
-public class Player implements Serializable {
-    private Spaceship spaceship;
+public class PirateAttack implements Serializable {
+    
+    int attackpower;
+    boolean active;
 
-    public Player()
-    {
-        this.spaceship = new Spaceship();
+    public PirateAttack() {
+        active = true;
+        
+        attackpower = Constants.randInt(0, 6);
     }
     
-    /**
-     *
-     * @return
-     */
-    public Spaceship Spaceship()
+    public int getAttackPower()
     {
-        return spaceship;
+        return attackpower;
     }
     
-    /**
-     *
-     * @param cost
-     * @return
-     */
-    public boolean canBuy(int cost)
+    public boolean active()
     {
-        return ((spaceship.Coins().getCount()- cost) >= 0);
-    }
-    
-    /**
-     *
-     * @param cost
-     * @param res
-     * @return
-     */
-    public boolean Buy(int cost, Resource res)
-    {
-        spaceship.Coins().setCount(spaceship.Coins().getCount() - cost);
-        return spaceship.Cargo().addResource(res);
+        return active;
     }
 }

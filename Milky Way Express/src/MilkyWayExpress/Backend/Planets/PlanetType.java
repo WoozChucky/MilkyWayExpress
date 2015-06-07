@@ -44,7 +44,13 @@ public enum PlanetType {
      */
     WORMHOLE,
     
+    /**
+     *
+     */
     VOID,
     
+    /**
+     *
+     */
     EMPTY
 }

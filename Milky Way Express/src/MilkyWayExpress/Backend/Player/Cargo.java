@@ -90,28 +90,45 @@ public class Cargo implements Serializable {
         return resource03;
     }
     
+    /**
+     *
+     * @param res
+     */
     public void setResource01(Resource res)
     {
         resource01 = res;
     }
     
+    /**
+     *
+     * @param res
+     */
     public void setResource02(Resource res)
     {
         resource02 = res;
     }
     
+    /**
+     *
+     * @param res
+     */
     public void setResource03(Resource res)
     {
         resource03 = res;
     }
     
+    /**
+     *
+     * @param res
+     * @return
+     */
     public boolean addResource(Resource res)
     {
         if(resource01.getResourceType() == ResourceType.EMPTY)
             resource01 = res;
         else if(resource02.getResourceType() == ResourceType.EMPTY)
             resource02 = res;
-        else if(resource03 == null)
+        else if(resource03 != null && resource03.getResourceType() == ResourceType.EMPTY)
             resource03 = res;
         else
             return false;
