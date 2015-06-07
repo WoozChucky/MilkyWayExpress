@@ -34,17 +34,28 @@ public class PirateAttack implements Serializable {
     int attackpower;
     boolean active;
 
+    /**
+     *
+     */
     public PirateAttack() {
         active = true;
         
         attackpower = Constants.randInt(0, 6);
     }
     
+    /**
+     *
+     * @return
+     */
     public int getAttackPower()
     {
         return attackpower;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean active()
     {
         return active;

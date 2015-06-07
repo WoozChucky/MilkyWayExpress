@@ -31,6 +31,7 @@ import MilkyWayExpress.Backend.Resources.Empty;
 import MilkyWayExpress.Backend.Resources.Resource;
 import MilkyWayExpress.Backend.Resources.ResourceType;
 import MilkyWayExpress.Backend.States.AwaitsBegin;
+import MilkyWayExpress.Backend.States.Finished;
 import MilkyWayExpress.Backend.States.GameOver;
 import MilkyWayExpress.Backend.States.IState;
 import MilkyWayExpress.Backend.States.Move;
@@ -52,6 +53,11 @@ public class GameModel extends Observable implements Serializable {
     private char action;
     private int round;
     private PirateAttack pirateAttack;
+    private boolean finished;
+
+    /**
+     *
+     */
     public boolean attackActive;
     
     /**
@@ -64,10 +70,14 @@ public class GameModel extends Observable implements Serializable {
         coins.setCount(20); 
         round = 0;
         pirateAttack = null;
+        finished = false;
         attackActive = false;
         setState(new AwaitsBegin(this));
     }
     
+    /**
+     *
+     */
     public void startGame()
     {
         setState(state.start());
@@ -97,7 +107,22 @@ public class GameModel extends Observable implements Serializable {
         setState(state.trade());
     }
     
-    public boolean finished()
+    /**
+     *
+     * @return
+     */
+    public boolean won()
+    {
+        if (Player().Spaceship().Coins().getCount() >= 10)
+        {
+            setState(new Finished(this));
+            return true;
+        }
+        setState(new Finished(this));
+        return false;
+    }
+    
+    private void checkFinished()
     {
         for(int r = 0; r <= Constants.ROWS; r++)
         {
@@ -105,12 +130,19 @@ public class GameModel extends Observable implements Serializable {
             {
                 if (Galaxy().getGrid()[r][c].getPlanetType() != PlanetType.VOID)
                     if(!Galaxy().getGrid()[r][c].getDiscovered())
-                        return false;
+                    {
+                        System.out.println("Needs to discover: " + Galaxy().getGrid()[r][c].getPlanetName());
+                        return;
+                    }
             }
         }
-        return true;
+        System.out.println("\nAll found!");
+        finished = true;
     }
     
+    /**
+     *
+     */
     public void generatePirateAttacks()
     {
         int rand = Constants.randInt(0, 6);
@@ -122,6 +154,10 @@ public class GameModel extends Observable implements Serializable {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public int resolvePirateAttack()
     {
          if(PirateAttack().getAttackPower() <= Player().Spaceship().Weapon().getLevel())
@@ -161,6 +197,11 @@ public class GameModel extends Observable implements Serializable {
         return (validX && validY);
     }
     
+    /**
+     *
+     * @param coords
+     * @return
+     */
     public boolean samePosition(Coordinate coords)
     {
         return (coords.getX() == Player().Spaceship().Coordinates().getX() && coords.getY() == Player().Spaceship().Coordinates().getY());
@@ -202,6 +243,7 @@ public class GameModel extends Observable implements Serializable {
                 {
                     Player().Spaceship().Coins().setCount(Player().Spaceship().Coins().getCount() - 1);
                     round++;
+                    checkFinished();
                     setState(state.move(coords, false));
                 }
 
@@ -536,6 +578,15 @@ public class GameModel extends Observable implements Serializable {
      *
      * @return
      */
+    public boolean Finished()
+    {
+        return finished;
+    }
+    
+    /**
+     *
+     * @return
+     */
     public Player Player()
     {
         return player;
@@ -550,6 +601,10 @@ public class GameModel extends Observable implements Serializable {
         return galaxy;
     }
     
+    /**
+     *
+     * @return
+     */
     public PirateAttack PirateAttack()
     {
         return pirateAttack;

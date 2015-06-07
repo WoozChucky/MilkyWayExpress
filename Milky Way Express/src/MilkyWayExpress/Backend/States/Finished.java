@@ -23,7 +23,6 @@
  */
 package MilkyWayExpress.Backend.States;
 
-import MilkyWayExpress.Backend.Coordinate;
 import MilkyWayExpress.Backend.GameModel;
 import java.io.Serializable;
 
@@ -31,87 +30,14 @@ import java.io.Serializable;
  *
  * @author woozlinux
  */
-public class IStateAdapter implements IState, Serializable {
-    
-    private GameModel game;
-    
+public class Finished extends IStateAdapter implements Serializable {
+
     /**
      *
      * @param g
      */
-    public IStateAdapter(GameModel g)
-    {
-        game = g;
-    }
-    
-    /**
-     *
-     * @return
-     */
-    public GameModel getGame()
-    {
-        return game;
-    }
-    
-    /**
-     *
-     * @param g
-     */
-    public void setGame(GameModel g)
-    {
-        game = g;
-    }
-    
-    /**
-     *
-     * @return
-     */
-    @Override
-    public IState start()
-    {
-        return this;
-    }
-    
-    /**
-     *
-     * @param coords
-     * @param moveAgain
-     * @return
-     */
-    @Override
-    public IState move(Coordinate coords, boolean moveAgain)
-    {
-        return this;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public IState explore()
-    {
-        return this;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public IState trade()
-    {
-        return this;
-    }
-    
-    /**
-     *
-     * @return
-     */
-    @Override
-    public IState fillMarkets()
-    {
-        return this;
+    public Finished(GameModel g) {
+        super(g);
     }
     
 }

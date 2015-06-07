@@ -43,7 +43,6 @@ public class AwaitsBegin extends IStateAdapter implements Serializable {
     
     /**
      *
-     * @param playerName
      * @return
      */
     @Override

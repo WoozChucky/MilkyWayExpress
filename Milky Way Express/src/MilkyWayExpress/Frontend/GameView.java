@@ -31,11 +31,22 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -58,7 +69,6 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     /**
      * Creates new form GameForm
      * @param g
-     * @param s
      */
     public GameView(GameModel g) {
         initComponents();
@@ -83,6 +93,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         res2Lb.setVisible(false);
         coordinatesLb.setVisible(false);
         discoveredLb.setVisible(false);
+        jButton1.setVisible(false);
         
         //Buy zone
         buyIconLb.setVisible(false);
@@ -234,6 +245,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         upgradeCargoBtn = new javax.swing.JButton();
         Menu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -571,6 +583,14 @@ public final class GameView extends javax.swing.JFrame implements Observer {
 
         jMenu1.setText("File");
 
+        jMenuItem6.setText("Main Menu");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("New Game");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -609,7 +629,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         });
         jMenu2.add(jMenuItem4);
 
-        jMenuItem5.setText("Rules");
+        jMenuItem5.setText("Scores");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -836,6 +856,43 @@ public final class GameView extends javax.swing.JFrame implements Observer {
         switch(StateLabel.getText())
         {
             case "STATE: Explore":
+                if(game.Finished())
+                    if(game.won())
+                    {
+                        int PromptResult = JOptionPane.showOptionDialog(this,
+                        "Congratulations! You successfully explored and the milky way galaxy and payed the loan of 10 credits.\n\nRounds:" + game.getRound() + "\nFinal Score: " + (game.Player().Spaceship().Coins().getCount() - 10) + "\n\nDo you want to save the score?",
+                        "Victory",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                        ObjButtons,ObjButtons[0]);
+                        
+                        if(PromptResult == 0)
+                        {
+                            try {
+                                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Score.txt", true)));
+                                
+                                String date = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date());
+                                
+                                out.println(date + " - " + (game.Player().Spaceship().Coins().getCount() - 10) + " - " + game.getRound());
+                                out.flush();
+                                out.close();
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(GameView.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IOException ex) {
+                                Logger.getLogger(GameView.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            System.exit(0);
+                        }
+                        else
+                            System.exit(0);
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this,
+                        "Game Over! You successfully explored and the milky way galaxy but couldn't pay the loan of 10 credits.\n\nRounds:" + game.getRound() + "\nFinal Score: " + (game.Player().Spaceship().Coins().getCount() - 10),
+                        "Defeat",
+                        JOptionPane.INFORMATION_MESSAGE);
+                        System.exit(0);
+                    }
                 game.explore();
                 break;
             case "STATE: ReplenishMarkets":
@@ -1049,7 +1106,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_sellBtn3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        game.Player().Spaceship().Coins().setCount(1000); 
+        game.Player().Spaceship().Coins().setCount(game.Player().Spaceship().Coins().getCount() + 5); 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void unlockBuyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unlockBuyBtnActionPerformed
@@ -1121,6 +1178,26 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_upgradeCargoBtnActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        ArrayList<String> info = new ArrayList();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("Score.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                info.add(line);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GameView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String finaltext = "Date - Score - Rounds\n\n";
+        for(int i=0;i<info.size();i++)
+        {
+            finaltext += info.get(i) + "\n";
+        }
+
+        JOptionPane.showMessageDialog(this, finaltext, "Scores", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
@@ -1134,10 +1211,13 @@ public final class GameView extends javax.swing.JFrame implements Observer {
                 JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        RenderEngine.openForm(this, new MainMenu());
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      * @param g
-     * @param s
      */
     public static void main(String args[], GameModel g) {
         /* Set the Nimbus look and feel */
@@ -1206,6 +1286,7 @@ public final class GameView extends javax.swing.JFrame implements Observer {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JLabel planetNameLb;
     private javax.swing.JLabel plantTypeLb;
     private javax.swing.JLabel res1Lb;

@@ -32,7 +32,6 @@ public interface IState {
     
     /**
      *
-     * @param plyerName
      * @return
      */
     public IState start();

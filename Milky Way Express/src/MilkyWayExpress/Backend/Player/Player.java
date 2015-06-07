@@ -33,6 +33,9 @@ import java.io.Serializable;
 public class Player implements Serializable {
     private Spaceship spaceship;
 
+    /**
+     *
+     */
     public Player()
     {
         this.spaceship = new Spaceship();
